@@ -1,0 +1,8 @@
+{
+    "name": "taxCompliance",
+    "version": "0.0.1",
+    "description": "This is a nodeGame game",
+    "author": "J.Orellana,M.Lopez <jose.orellanan@usach.cl>",
+    "license": "MIT/X11",
+    "homepage": "http://nodegame.org"
+}
