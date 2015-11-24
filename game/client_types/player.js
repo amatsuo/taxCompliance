@@ -60,6 +60,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.setDefaultProperty('done', cbs.clearFrame);
 
     MIN_PLAYERS = [ settings.MIN_PLAYERS, cbs.notEnoughPlayers ];
+    stager.extendStep('precache', {
+        cb: cbs.precache,
+        // `minPlayers` triggers the execution of a callback in the case
+        // the number of players (including this client) falls the below
+        // the chosen threshold. Related: `maxPlayers`, and `exactPlayers`.
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+    });
     stager.extendStep('selectLanguage', {
         cb: cbs.selectLanguage,
         timer: settings.TIMER_SELEC_LANG,

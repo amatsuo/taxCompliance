@@ -12,6 +12,7 @@ module.exports = {
     selectLanguage: selectLanguage,
     instructions: instructions,
     instructionsModule1:instructionsModule1,
+    module1:module1,
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
@@ -188,7 +189,8 @@ function precache() {
     console.log('pre-caching...');
     W.preCache([
         'languageSelection.html', // no text here.
-        'en/' + 'instructions.html'
+        langPath + node.game.instructionsPage,
+        langPath +'instructionsModule1.html'
     ], function() {
         console.log('Precache done.');
         // Pre-Caching done; proceed to the next stage.
@@ -308,6 +310,11 @@ function instructionsModule1(){
         });
     });
     console.log('instructionsModule1');
+}
+function module1(){
+    W.loadFrame('module1.html', function() {
+
+    });
 }
 
 function quiz() {
