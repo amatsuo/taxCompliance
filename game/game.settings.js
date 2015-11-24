@@ -22,7 +22,7 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 4,
+    REPEAT: 2,
 
     MIN_PLAYERS: 1,
 

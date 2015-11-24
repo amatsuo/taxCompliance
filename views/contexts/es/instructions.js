@@ -1,19 +1,14 @@
 module.exports = function(settings, headers) {
 
-    var C = settings.pp.COINS;
-    var R = settings.pp.REPEAT;
-    var E = settings.pp.EXCHANGE_RATE_INSTRUCTIONS;
 
-    var B = (C*R) * (E/C);
 
     return {
-        title: "Instruktionen",
-        instructions: "Anleitung zum Ultimatum Spiel. Bitte sorgfältig lesen.",
-        thisGame: "This game is played in rounds by two human players randomly paired.",
-        inEachRound: 'In each round, one of the them, called <em>BIDDER</em>, makes an offer to the other player, called <em>RESPONDENT</em>, about how to share ' + C + ' ECU (Experimental Currency). ' + C + ' ECU are equal to ' + E + ' USD.',
-        theRespondent: "The RESPONDENT can either accept or reject the offer of the BIDDER. If he / she accepts, both players split " + C + " ECU accordingly, else both get 0.",
-        theGame: "The game is repeated " + R + " rounds, therefore the maximum bonus available is " + B + " dollar/s.",
-        ifYouUnderstood: "If you understood the instructions correctly press the button to proceed to the game.",
-        proceed: "Proceed to the game"
+        title: "Instruciones",
+        instructions: "Versión en español",
+        thisGame: "El propósito de este experimento es estudiar cómo toman los individuos decisiones en determinados contextos. Podrán preguntarnos en cualquier momento las dudas que tengan, levantando primero la mano. Fuera de esas preguntas, cualquier tipo de comunicación entre ustedes está prohibida y sujeta a la exclusión inmediata del experimento. ",
+        InstroModules: 'Este experimento consta de 5 módulos. Esperamos que participes hasta el final de esta sesión, que durará aproximadamente 90 minutos.',
+        finalLine: "Recibirás las instrucciones de cada módulo al principio de cada uno de ellos.",
+        ifYouUnderstood: "Si haz entendido las instruciones haz click en Siguiente ",
+        proceed: "Siguiente"
     };
 };

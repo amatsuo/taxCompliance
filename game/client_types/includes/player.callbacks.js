@@ -210,7 +210,7 @@ function selectLanguage() {
             // The chosen language prefix will be
             // added automatically to every call to W.loadFrame().
             W.setUriPrefix(node.player.lang.path);
-            //node.done();
+            node.done();
         };
 
         node.env('auto', function() {
