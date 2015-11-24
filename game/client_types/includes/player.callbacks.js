@@ -11,6 +11,7 @@ module.exports = {
     precache: precache,
     selectLanguage: selectLanguage,
     instructions: instructions,
+    instructionsModule1:instructionsModule1,
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
@@ -242,7 +243,7 @@ function instructions() {
 
         var b = W.getElementById('read');
         b.onclick = function() {
-            //node.done();
+            node.done();
         };
 
         ////////////////////////////////////////////////
@@ -271,6 +272,42 @@ function instructions() {
         });
     });
     console.log('Instructions');
+}
+
+function instructionsModule1(){
+    W.loadFrame('instructionsModule1.html', function() {
+
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            //node.done();
+        };
+
+        ////////////////////////////////////////////////
+        // nodeGame hint:
+        //
+        // node.env executes a function conditionally to
+        // the environments defined in the configuration
+        // options.
+        //
+        // If the 'auto' environment was set to TRUE,
+        // then the function will be executed
+        //
+        ////////////////////////////////////////////////
+        node.env('auto', function() {
+
+            //////////////////////////////////////////////
+            // nodeGame hint:
+            //
+            // Execute a function randomly in a time interval
+            // from 0 to 2000 milliseconds
+            //
+            //////////////////////////////////////////////
+            node.timer.randomExec(function() {
+                node.done();
+            }, 2000);
+        });
+    });
+    console.log('instructionsModule1');
 }
 
 function quiz() {

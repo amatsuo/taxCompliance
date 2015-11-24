@@ -15,7 +15,8 @@ module.exports = function(stager, settings) {
          //.next('precache')
          .next('selectLanguage')
          .next('instructions')
-        .repeat('module 1', settings.REPEAT)
+         .next('instructionsModule1')
+        //.repeat('module 1', settings.REPEAT)
         //.next('end')
         //.gameover();
 

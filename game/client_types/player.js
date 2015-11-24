@@ -62,7 +62,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     MIN_PLAYERS = [ settings.MIN_PLAYERS, cbs.notEnoughPlayers ];
     stager.extendStep('selectLanguage', {
         cb: cbs.selectLanguage,
-        timer: 100000,
+        timer: settings.TIMER_SELEC_LANG,
         minPlayers: MIN_PLAYERS
     });
 
@@ -70,9 +70,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: cbs.instructions,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
-        timer: 90000
+        timer: settings.TIMER_INSTRUCTIONS
     });
-
+    stager.extendStep('instructionsModule1', {
+        cb: cbs.instructionsModule1,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_INSTRUCTIONS
+    });
    /* stager.extendStep('instructions', {
         cb: function() {
 

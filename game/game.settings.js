@@ -23,6 +23,10 @@ module.exports = {
 
     // Numnber of game rounds repetitions.
     REPEAT: 2,
+    //Timer selec_Lang
+    TIMER_SELEC_LANG: 100000,
+    //Timer instructions
+    TIMER_INSTRUCTIONS: 900000,
 
     MIN_PLAYERS: 1,
 

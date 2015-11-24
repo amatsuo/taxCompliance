@@ -1,0 +1,22 @@
+extends iframe-layout
+block mainContent
+   div(id='container')
+      h1=instructions
+      div(id='instructions')
+         ol(type = 'a')
+            li!= a
+            li!= b
+            li!= c
+            li!= d
+            ol(type='i')
+               li!= I
+               li!= II
+            li!= e
+         br
+         = ifYouUnderstood
+         br
+         br
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+//
+   Created by joseorellana on 24-11-15.
+

@@ -1,5 +1,7 @@
 div#container {
-    max-width: 650px;
+    max-width: 67%;
+    font-size: 160%;
+    text-align: justify;
     margin: 0 auto;
 }
 
