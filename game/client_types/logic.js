@@ -29,7 +29,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Initialize the client.
 
     });
-
+    /*stager.extendStep('precache', {
+        cb: function() {
+            console.log('precache.');
+        }
+    });*/
     stager.extendStep('instructions', {
         cb: function() {
             console.log('Instructions.');
@@ -38,6 +42,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('instructionsModule1', {
         cb: function() {
             console.log('Instructions Module 1.');
+        }
+    });
+    stager.extendStep('module1', {
+        cb: function() {
+            console.log('Start Module 1');
         }
     });
    /* stager.extendStep('game', {

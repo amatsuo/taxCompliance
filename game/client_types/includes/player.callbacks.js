@@ -281,7 +281,7 @@ function instructionsModule1(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
-            //node.done();
+            node.done();
         };
 
         ////////////////////////////////////////////////
@@ -312,8 +312,19 @@ function instructionsModule1(){
     console.log('instructionsModule1');
 }
 function module1(){
-    W.loadFrame('module1.html', function() {
+    W.loadFrame('module1.html', function () {
 
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            var value= W.getElementById('Send').value;
+            if ((value > node.game.settings.CANTIDAD) || (value < 0)) {
+               // var modal = W.getElementById("ERROR");
+                //modal.modal();
+                console.log("ERROR FALTA MODAL");
+            } else {
+                node.done();
+            }
+        };
     });
 }
 

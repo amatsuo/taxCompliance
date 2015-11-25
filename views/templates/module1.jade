@@ -1,21 +1,39 @@
-extends iframe-layout
+doctype html
+title=title
+link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
+link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
+//script(src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+//script(src='/bootstrap/js/bootstrap.min.js')
 block mainContent
    div(id='container')
       h1=Module
       div(id='Module1')
-
          br
          br
-         !=InstroModules
-         br
-         br
-         =finalLine
-         br
-         br
-         =ifYouUnderstood
-         br
+         table(id='table 1')
+            tr
+               =text1
+               strong
+                  =value
+               =text2
+               strong Grupo B.
+               =text3
+            tr
+               td &nbsp;&nbsp;&nbsp;&nbsp;
+                  input(
+                  type= "number"
+                  min= "0"
+                  max= value
+                  id= "Send"
+                  )
+               td &nbsp;
+               td
+                   =text4
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+
+        
+
 //
    Created by joseorellana on 24-11-15.
 
