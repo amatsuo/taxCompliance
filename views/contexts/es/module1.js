@@ -1,6 +1,6 @@
 module.exports = function(settings, headers) {
 
-    var value=settings.CANTIDAD,unidad="ECUs";
+    var value=settings.standard.CANTIDAD,unidad=settings.standard.UNIDAD_ESTANDAR;
     return {
         title: "Modulo1",
         Module: "Modulo 1",

@@ -1,10 +1,10 @@
 module.exports = function(settings, headers) {
 
-    debugger;
+var avalible=settings.standard.CANTIDAD,unit=settings.standard.UNIDAD_ESTANDAR, cantidadESUxPCH=settings.standard.CANTIDAD_ESU_x_PCH,cantidadPCH=settings.standard.CANTIDAD_DE_PCH;
     return {
         title: "InstructionsModule1",
         instructions: "Module 1",
-        a: 'En este módulo la mitad de los participantes recibirá un asignación de dinero de 1000 ECUs (grupo A), y la otra mitad no los recibirá (grupo B). La tasa de cambio es: 300ECUs = $500.-',
+        a: 'En este módulo la mitad de los participantes recibirá un asignación de dinero de '+avalible+' '+unit+' (grupo A), y la otra mitad no los recibirá (grupo B). La tasa de cambio es: '+cantidadESUxPCH+unit+' = $ '+cantidadPCH+'.-',
         b: "Cada participante que reciba la asignación de dinero (grupo A) será emparejado de manera aleatoria con otro participante que no lo haya recibido (grupo B). En ningún momento conocerás la identidad del participante con el que serás emparejado ni el/ella conocerá la tuya. El experimento es totalmente confidencial, dado que las identidades de los participante no serán reveladas en ningún momento.",
         c:"Sin embargo, antes de que se distribuyan las asignaciones de dinero y de que seas emparejado con otro participante, se te solicitará que distribuyas tu asignación entre la persona con la que serás emparejado y tú mismo como si ya hubieras recibido el dinero. ",
         d:"Tus ganancias en este módulo se calcularán de la siguiente forma",
