@@ -317,11 +317,16 @@ function module1(){
         var b = W.getElementById('read');
         b.onclick = function() {
             var value= W.getElementById('Send').value;
-            if ((value > node.game.settings.CANTIDAD) || (value < 0)) {
-               // var modal = W.getElementById("ERROR");
+            value = JSUS.isInt(value, 0, node.game.settings.CANTIDAD);
+            if ( value===false ) {
+               //var modal = W.getElementById("ERROR");
+                //console.log(modal);
                 //modal.modal();
+                //('#ERROR').modal()
+                alert("ERROR");
                 console.log("ERROR FALTA MODAL");
             } else {
+
                 node.done();
             }
         };

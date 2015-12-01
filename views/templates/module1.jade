@@ -2,9 +2,26 @@ doctype html
 title=title
 link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
 link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
-//script(src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
-//script(src='/bootstrap/js/bootstrap.min.js')
+//script( src="../js/jquery.js")
+//script( src="../js/jqueryui.min.js")
+//script( src="../js/merit.bars.js")
+//script( src="/js/boostrap.js")
+//script( src="/js/boostrap.min.js")
+//script( src="/js/npm.js")
+script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+script(type="text/javascript") $(document).ready(function(){ alert('hola'); })
+
+
 block mainContent
+   .alert.alert-dismissable.alert-danger
+      button.close( type="button", data-dismiss="alert" ) ×
+      | Danger Will Robinson!
+
+   .modal.fade(id='#ERROR')
+      .modal-dialog.modal-sm
+         .modal-content "..."
+
    div(id='container')
       h1=Module
       div(id='Module1')
@@ -30,10 +47,7 @@ block mainContent
                td
                    =text4
          br
-         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary',data-dismiss= "alert" )
 
-        
-
-//
-   Created by joseorellana on 24-11-15.
+   //Created by joseorellana on 24-11-15.
 
