@@ -2,23 +2,24 @@ doctype html
 title=title
 link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
 link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
-//script( src="../js/jquery.js")
-//script( src="../js/jqueryui.min.js")
-//script( src="../js/merit.bars.js")
-//script( src="/js/boostrap.js")
-//script( src="/js/boostrap.min.js")
-//script( src="/js/npm.js")
+script( src="../js/jquery.js")
+script( src="../js/jqueryui.min.js")
+script( src="../js/merit.bars.js")
+script( src="../js/bootstrap.js")
+script( type="text/javascript" ,src="../js/bootstrap.min.js")
+script( type="text/javascript", src="../js/npm.js")
 script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
 script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
-script(type="text/javascript") $(document).ready(function(){ alert('hola'); })
+
+
 
 
 block mainContent
-   .alert.alert-dismissable.alert-danger
+   //.alert.alert-dismissable.alert-danger
       button.close( type="button", data-dismiss="alert" ) ×
       | Danger Will Robinson!
 
-   .modal.fade(id='#ERROR')
+   .modal.fade#ERROR
       .modal-dialog.modal-sm
          .modal-content "..."
 
@@ -35,19 +36,18 @@ block mainContent
                =text2
                strong Grupo B.
                =text3
+               p(style="visibility:'hidden'")#Error
+                  font(color="red")
             tr
-               td &nbsp;&nbsp;&nbsp;&nbsp;
-                  input(
-                  type= "number"
-                  min= "0"
-                  max= value
-                  id= "Send"
-                  )
+               td &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  input(   type= "number", min= "0",max= value,id= "Send")
                td &nbsp;
                td
                    =text4
+
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary',data-dismiss= "alert" )
+
 
    //Created by joseorellana on 24-11-15.
 

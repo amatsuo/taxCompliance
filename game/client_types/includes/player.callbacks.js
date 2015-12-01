@@ -13,6 +13,7 @@ module.exports = {
     instructions: instructions,
     instructionsModule1:instructionsModule1,
     module1:module1,
+    instructionsModule2:instructionsModule2,
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
@@ -318,19 +319,59 @@ function module1(){
         b.onclick = function() {
             var value= W.getElementById('Send').value;
             value = JSUS.isInt(value, 0, node.game.settings.CANTIDAD);
+
             if ( value===false ) {
-               //var modal = W.getElementById("ERROR");
-                //console.log(modal);
-                //modal.modal();
+               var mod = W.getElementById("ERROR");
+                mod.modal('show');
+
+
                 //('#ERROR').modal()
-                alert("ERROR");
+
+                W.writeln("ERROR")
+
                 console.log("ERROR FALTA MODAL");
+                return;
             } else {
 
                 node.done();
             }
         };
     });
+}
+function instructionsModule2(){
+    W.loadFrame('instructionsModule2.html', function() {
+
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            //node.done();
+        };
+
+        ////////////////////////////////////////////////
+        // nodeGame hint:
+        //
+        // node.env executes a function conditionally to
+        // the environments defined in the configuration
+        // options.
+        //
+        // If the 'auto' environment was set to TRUE,
+        // then the function will be executed
+        //
+        ////////////////////////////////////////////////
+        node.env('auto', function() {
+
+            //////////////////////////////////////////////
+            // nodeGame hint:
+            //
+            // Execute a function randomly in a time interval
+            // from 0 to 2000 milliseconds
+            //
+            //////////////////////////////////////////////
+            node.timer.randomExec(function() {
+                node.done();
+            }, 2000);
+        });
+    });
+    console.log('instructionsModule2');
 }
 
 function quiz() {
