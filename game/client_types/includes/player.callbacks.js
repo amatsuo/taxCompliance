@@ -27,6 +27,8 @@ function init() {
     that = this;
     this.node.log('Init.');
 
+    W.setUriPrefix(node.player.lang.path);
+
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
         header = W.generateHeader();
@@ -319,14 +321,10 @@ function module1(){
             var value= W.getElementById('Send').value;
             value = JSUS.isInt(value, 0, node.game.settings.CANTIDAD);
             if ( value===false ) {
-               //var modal = W.getElementById("ERROR");
-                //console.log(modal);
-                //modal.modal();
-                //('#ERROR').modal()
-                alert("ERROR");
-                console.log("ERROR FALTA MODAL");
-            } else {
-
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+            } 
+            else {
                 node.done();
             }
         };
