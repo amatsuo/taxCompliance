@@ -28,6 +28,8 @@ function init() {
     that = this;
     this.node.log('Init.');
 
+    W.setUriPrefix(node.player.lang.path);
+
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
         header = W.generateHeader();
@@ -321,18 +323,11 @@ function module1(){
             value = JSUS.isInt(value, 0, node.game.settings.CANTIDAD);
 
             if ( value===false ) {
-               var mod = W.getElementById("ERROR");
-                mod.modal('show');
 
-
-                //('#ERROR').modal()
-
-                W.writeln("ERROR")
-
-                console.log("ERROR FALTA MODAL");
-                return;
-            } else {
-
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+            } 
+            else {
                 node.done();
             }
         };
