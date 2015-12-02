@@ -339,7 +339,7 @@ function instructionsModule2(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
-            //node.done();
+            node.done();
         };
 
         ////////////////////////////////////////////////
