@@ -5,18 +5,27 @@ link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
 
 div(id='container')
    h1=Module
-   div(id='Module1')
+   div(id='Module2')
       br
       br
+      div(align="center")
+         table(id='table 1')
+            tr
+              td &nbsp;&nbsp;
+              td
+               span#num1
+                font(size="5000%")=num1
+            tr
+               td +&nbsp;
+               td
+                  span#num2
+                     font(size="5000%")=num2
 
-      div
-         p#number1 0
-         p  | " + "
-
-         p#number2 0
-         p | "----"
+         stong=linea
+         br
+         input(  type= "number", min= "0",max= "200",id= "send")
       br
-      input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary',data-dismiss= "alert" )
+      input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
 
 // Created by joseorellana on 01-12-15.

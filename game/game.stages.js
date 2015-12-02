@@ -18,7 +18,7 @@ module.exports = function(stager, settings) {
          .next('instructionsModule1')
          .next('module1')
          .next('instructionsModule2')
-        //.repeat('module 1', settings.REPEAT)
+         .repeat('module2', settings.REPEAT)
         //.next('end')
         //.gameover();
 

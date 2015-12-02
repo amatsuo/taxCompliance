@@ -14,6 +14,7 @@ module.exports = {
     instructionsModule1:instructionsModule1,
     module1:module1,
     instructionsModule2:instructionsModule2,
+    module2:module2,
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
@@ -368,6 +369,15 @@ function instructionsModule2(){
         });
     });
     console.log('instructionsModule2');
+}
+function module2(){
+    W.loadFrame('module2.html', function () {
+
+        var b = W.getElementById('read');
+           console.log("module2")
+
+
+    });
 }
 
 function quiz() {

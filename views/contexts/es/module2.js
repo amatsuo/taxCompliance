@@ -4,11 +4,8 @@ module.exports = function(settings, headers) {
     return {
         title: "Modulo2",
         Module: "Modulo 2",
-        text1:"Usted dispone ",
-        text2:" "+unidad+" para compartir con otra persona del ",
-        text3:"¿Cuantos "+unidad+ " deseas compartir?",
-        value: value,
-        text4:" "+ unidad+".",
+        num1: Math.floor(Math.random()*(99-10)+10),
+        num2: Math.floor(Math.random()*(99-10)+10),
         proceed: "Compartir",
         error:"Ingrese un valor entre 0 y "+ value
     };
