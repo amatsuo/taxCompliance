@@ -2,18 +2,6 @@ doctype html
 title=title
 link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
 link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
-<<<<<<< HEAD
-script( src="../js/jquery.js")
-script( src="../js/jqueryui.min.js")
-script( src="../js/merit.bars.js")
-script( src="../js/bootstrap.js")
-script( type="text/javascript" ,src="../js/bootstrap.min.js")
-script( type="text/javascript", src="../js/npm.js")
-script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
-script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
-
-
-
 link(rel='stylesheet', type='text/css', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css')
 
 
@@ -22,7 +10,7 @@ block mainContent
       button.close( type="button", data-dismiss="alert" ) ×
       | Danger Will Robinson!
 
-      
+
    div(id='container')
       h1=Module
       div(id='Module1')
@@ -36,8 +24,7 @@ block mainContent
                =text2
                strong Grupo B.
                =text3
-               p(style="visibility:'hidden'")#Error
-                  font(color="red")
+
             tr
                td &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   input(   type= "number", min= "0",max= value,id= "Send")
@@ -46,16 +33,24 @@ block mainContent
                    =text4
 
          br
-         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary',data-dismiss= "alert" )
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
 
 
-         .modal.fade(id='ERROR')
-            .modal-dialog.modal-sm
-               .modal-content
-                  .modal-header "Header"
-                  .modal-body "Body"
-                  .modal-footer "Foo"
+         .modal(id='ERROR')
+            .modal-dialog.modal-lg
+               .modal-content(style=".modal-content")
+                  .modal-header
+
+                     button(type="button", class="close", data-dismiss="modal",aria-label="Close",)
+                        span(aria-hidden="true") &times;
+
+                  .modal-body(style=".modal-body")
+                        =error
+
+                  .modal-footer
+                     button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar
+
 
    //Created by joseorellana on 24-11-15.
 

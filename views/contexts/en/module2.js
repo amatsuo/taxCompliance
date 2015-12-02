@@ -9,7 +9,8 @@ module.exports = function(settings, headers) {
         text3:"¿Cuantos "+unidad+ " deseas compartir?",
         value: value,
         text4:" "+ unidad+".",
-        proceed: "Compartir"
+        proceed: "Compartir",
+        error:"Ingrese un valor entre 0 y "+ value
     };
 };/**
  * Created by joseorellana on 01-12-15.

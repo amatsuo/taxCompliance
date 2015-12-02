@@ -326,6 +326,7 @@ function module1(){
 
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
+                $('.modal-backdrop').remove();
             } 
             else {
                 node.done();
