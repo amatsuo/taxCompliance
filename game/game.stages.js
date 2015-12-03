@@ -11,7 +11,8 @@
 
 module.exports = function(stager, settings) {
 
-     stager
+
+    stager
          //.next('precache')
          .next('selectLanguage')
          .next('instructions')

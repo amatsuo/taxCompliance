@@ -30,7 +30,9 @@ function init() {
     this.node.log('Init.');
 
     W.setUriPrefix(node.player.lang.path);
-
+    node.game.lastResult=null;
+    node.game.num1=0;
+    node.game.num2=0;
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
         header = W.generateHeader();
@@ -330,6 +332,7 @@ function module1(){
                 $('.modal-backdrop').remove();
             } 
             else {
+
                 node.done();
             }
         };
@@ -372,10 +375,40 @@ function instructionsModule2(){
 }
 function module2(){
     W.loadFrame('module2.html', function () {
+        //node.game.lastResult="succes";
+         if( node.game.lastResult!=null){
+            if(node.game.lastResult==="succes"){
+                W.getElementById('alertSucces').style.display='block';
+            }else
+            {
+                W.getElementById('alertDanger').style.display='block';
+            }
+        }
 
         var b = W.getElementById('read');
-           console.log("module2")
 
+        b.onclick = function() {
+            var num1 =parseInt($(W.getElementById('num1')).text());
+            var num2 =parseInt($(W.getElementById('num2')).text());
+            var resultint=W.getElementById('result').value;
+            var result=JSUS.isInt(resultint,0,200);
+            if(result===false){
+                console.log("validación Modal error");
+            }
+            else{
+                 if(resultint=num1+num2){
+                     node.game.lastResult="succes";
+
+                 }
+                 else{
+                     node.game.lastResult="danger";
+                }
+                node.done();
+            }
+            console.log("los numeros son " + num1 + " y " + num2);
+
+            console.log("module2");
+        };
 
     });
 }

@@ -2,6 +2,13 @@ doctype html
 title=title
 link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
 link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
+.alert(style="display:none", float="top").alert-dismissable.alert-success#alertSucces
+   button.close( type="button", data-dismiss="alert" ) ×
+   | Warning! Warning!
+
+.alert(style="display:none",float="top").alert-dismissable.alert-danger#alertDanger
+   button.close( type="button", data-dismiss="alert" ) ×
+   | Warning! Warning!
 
 div(id='container')
    h1=Module
@@ -11,19 +18,17 @@ div(id='container')
       div(align="center")
          table(id='table 1')
             tr
-              td &nbsp;&nbsp;
+              td &nbsp;
               td
-               span#num1
-                font(size="5000%")=num1
+               font(size="10000%")#num1!=num1
             tr
-               td +&nbsp;
+               td +
                td
-                  span#num2
-                     font(size="5000%")=num2
+                  font(size="10000%")#num2!=num2
 
          stong=linea
          br
-         input(  type= "number", min= "0",max= "200",id= "send")
+         input(  type= "number", min= "10",max= "200",id= "result")
       br
       input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
