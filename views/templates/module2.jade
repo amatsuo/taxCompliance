@@ -2,21 +2,35 @@ doctype html
 title=title
 link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
 link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
+.alert(style="display:none", float="top").alert-dismissable.alert-success#alertSucces
+   button.close( type="button", data-dismiss="alert" ) ×
+   | Warning! Warning!
+
+.alert(style="display:none",float="top").alert-dismissable.alert-danger#alertDanger
+   button.close( type="button", data-dismiss="alert" ) ×
+   | Warning! Warning!
 
 div(id='container')
    h1=Module
-   div(id='Module1')
+   div(id='Module2')
       br
       br
+      div(align="center")
+         table(id='table 1')
+            tr
+              td &nbsp;
+              td
+               font(size="10000%")#num1!=num1
+            tr
+               td +
+               td
+                  font(size="10000%")#num2!=num2
 
-      div
-         p#number1 0
-         p  | " + "
-
-         p#number2 0
-         p | "----"
+         stong=linea
+         br
+         input(  type= "number", min= "10",max= "200",id= "result")
       br
-      input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary',data-dismiss= "alert" )
+      input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
 
 // Created by joseorellana on 01-12-15.

@@ -11,19 +11,24 @@
 
 module.exports = function(stager, settings) {
 
-     stager
+
+    stager
          //.next('precache')
          .next('selectLanguage')
          .next('instructions')
          .next('instructionsModule1')
          .next('module1')
-        //.repeat('module 1', settings.REPEAT)
+         .next('instructionsModule2')
+         .repeat('module2', settings.REPEAT)
         //.next('end')
         //.gameover();
 
     // Modify the stager to skip one stage.
     // stager.skip('instructions');
+    stager.skip('instructionsModule1');
+    stager.skip('module1')
     stager.skip('instructions');
+
     // stager.skip('selectLanguage');
 
     return stager.getState();

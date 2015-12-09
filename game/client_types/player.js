@@ -92,6 +92,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_GAME
     });
+    stager.extendStep('instructionsModule2', {
+        cb: cbs.instructionsModule2,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_GAME
+    });
+    stager.extendStep('module2', {
+        cb: cbs.module2,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_GAME
+    })
    /* stager.extendStep('instructions', {
         cb: function() {
 

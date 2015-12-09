@@ -49,6 +49,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('Start Module 1');
         }
     });
+    stager.extendStep('instructionsModule2', {
+        cb: function() {
+            console.log('instructionsModule2');
+        }
+    });
+    stager.extendStep('module2', {
+        cb: function() {
+            console.log('Start Module 2');
+        }
+    });
    /* stager.extendStep('game', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);
