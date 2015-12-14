@@ -68,6 +68,39 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
     });*/
+
+    stager.extendStage('looped', {
+        init: function() {
+            this.loopFinished = false;
+            node.game.loopTimer = node.timer.createTimer({
+                milliseconds: 10000,
+                timeup: function() {
+                    console.log('TIMEUPPPPPPPP');
+                    node.game.loopFinished = true;
+                    node.done({ loopFinished: true });
+                }
+            });
+            node.game.loopTimer.start();
+            // node.game.timer.gameTimer = node.game.loopTimer;
+        }
+    });               
+
+    stager.extendStep('looped', {
+        cb: function() {
+            W.loadFrame('looped.htm', function() {
+                var round, button;
+                round = node.player.stage.round;
+                console.log('Loop ', round);
+                button = document.createElement('button');
+                button.innerHTML = 'DONE';
+                button.onclick = function() { node.done(); };
+                W.getFrameDocument().body.appendChild(button);
+                W.writeln('Loop n. ' + round);
+            });
+        },
+        stepRule: stepRules.SOLO
+    });
+
     stager.extendStep('selectLanguage', {
         cb: cbs.selectLanguage,
         timer: settings.TIMER_SELEC_LANG,

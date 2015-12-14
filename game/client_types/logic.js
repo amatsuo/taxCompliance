@@ -34,6 +34,47 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('precache.');
         }
     });*/
+
+    
+    stager.extendStage('looped', {
+        init: function() {
+            node.game.loopFinished = false;
+
+            node.on('in.set.DATA', function(msg) {
+                var done;
+                console.log(msg.data);
+                if (msg.data.loopFinished) {
+                    debugger
+                    done = true;
+                    node.game.pl.each(function(p) {
+                        if (p.id === msg.from) {
+                            p.loopFinished = true;
+                        }
+                        if (!p.loopFinished) done = false;
+                    });
+                    if (done) {
+                        node.game.loopFinished = true;
+                        node.done();
+                    }
+                }
+            });
+        },
+        stepRule: stepRules.SOLO
+    });
+
+    stager.extendStep('looped', {
+        cb: function() {
+            console.log('Looped ', node.player.stage.round);
+            node.events.printAll('stage');
+        }
+    });
+
+    stager.extendStep('selectLanguage', {
+        cb: function() {
+            console.log('selectLanguage.');
+        }
+    });
+
     stager.extendStep('instructions', {
         cb: function() {
             console.log('Instructions.');
