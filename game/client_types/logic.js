@@ -44,7 +44,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var done;
                 console.log(msg.data);
                 if (msg.data.loopFinished) {
-                    debugger
                     done = true;
                     node.game.pl.each(function(p) {
                         if (p.id === msg.from) {
@@ -58,8 +57,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }
                 }
             });
-        },
-        stepRule: stepRules.SOLO
+        }
     });
 
     stager.extendStep('looped', {
