@@ -72,16 +72,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStage('looped', {
         init: function() {
             this.loopFinished = false;
-            node.game.loopTimer = node.timer.createTimer({
-                milliseconds: 10000,
-                timeup: function() {
-                    console.log('TIMEUPPPPPPPP');
-                    node.game.loopFinished = true;
-                    node.done({ loopFinished: true });
-                }
+        },
+        exit: function() {
+            this.timer.init({
+                startOnPlaying: true,
+                stepOnDone: true
             });
-            node.game.loopTimer.start();
-            // node.game.timer.gameTimer = node.game.loopTimer;
         }
     });               
 
@@ -90,6 +86,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             W.loadFrame('looped.htm', function() {
                 var round, button;
                 round = node.player.stage.round;
+                if (round === 1) {
+                    node.game.timer.init({
+                        milliseconds: 10000,
+                        timeup: function() {
+                            console.log('TIMEUPPPPPPPP');
+                            node.game.loopFinished = true;
+                            node.done({ loopFinished: true });
+                        },
+                        // Need to set these to TRUE in the next step.
+                        startOnPlaying: false,
+                        stopOnDone: false
+                    });
+                    node.game.timer.startTiming();
+                }
+
                 console.log('Loop ', round);
                 button = document.createElement('button');
                 button.innerHTML = 'DONE';
@@ -107,7 +118,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         minPlayers: MIN_PLAYERS
     });
 
-  stager.extendStep('instructions', {
+    stager.extendStep('instructions', {
         cb: cbs.instructions,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
