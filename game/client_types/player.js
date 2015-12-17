@@ -23,9 +23,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     var game,MIN_PLAYERS;
     var cbs;
 
-    // stager.reset();
-    stager.finalized = false;
-
     cbs = require(__dirname + '/includes/player.callbacks.js');
     stager.setOnInit(cbs.init);
     /*  stager.setOnInit(function() {
