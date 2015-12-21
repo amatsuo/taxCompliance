@@ -22,17 +22,25 @@ module.exports = function(stager, settings) {
         .next('instructionsModule1')
         .next('module1')
         .next('instructionsModule2')
-        .repeat('module2', settings.REPEAT)
+        //stager.stepBlock(0)
+        .loop('game', function() {
+                return !this.loopFinished;
+        })
+        .next('instructionsModule3')
+        .next('instructionsModule4')
+
+    stager.skip('looped');
+        //.repeat('module2', settings.REPEAT)
     //.next('end')
     //.gameover();
 
     // Modify the stager to skip one stage.
     // stager.skip('instructions');
-    // stager.skip('instructionsModule1');
-    // stager.skip('module1')
-    // stager.skip('instructions');
+    /* stager.skip('instructionsModule1');
+     stager.skip('module1')
+     stager.skip('instructions');
 
-    // stager.skip('selectLanguage');
+     stager.skip('selectLanguage');*/
 
     return stager.getState();
 };

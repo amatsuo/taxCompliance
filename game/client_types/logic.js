@@ -93,9 +93,48 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('instructionsModule2');
         }
     });
-    stager.extendStep('module2', {
+    stager.extendStep('instructionsModule3', {
+        cb: function() {
+            console.log('instructionsModule3');
+        }
+    });
+    stager.extendStep('instructionsModule4', {
+        cb: function() {
+            console.log('instructionsModule4');
+        }
+    });
+    /*stager.extendStep('module2', {
         cb: function() {
             console.log('Start Module 2');
+        }
+    });*/
+    stager.extendStage('game', {
+        init: function() {
+            node.game.loopFinished = false;
+
+            node.on('in.set.DATA', function(msg) {
+                var done;
+                console.log(msg.data);
+                if (msg.data.loopFinished) {
+                    done = true;
+                    node.game.pl.each(function(p) {
+                        if (p.id === msg.from) {
+                            p.loopFinished = true;
+                        }
+                        if (!p.loopFinished) done = false;
+                    });
+                    if (done) {
+                        node.game.loopFinished = true;
+                        node.done();
+                    }
+                }
+            });
+        }
+    });
+    stager.extendStep('game', {
+        cb: function() {
+            console.log('game ', node.player.stage.round);
+            node.events.printAll('stage');
         }
     });
    /* stager.extendStep('game', {

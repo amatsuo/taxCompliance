@@ -14,7 +14,10 @@ module.exports = {
     instructionsModule1:instructionsModule1,
     module1:module1,
     instructionsModule2:instructionsModule2,
-    module2:module2,
+    instructionsModule3:instructionsModule3,
+    instructionsModule4:instructionsModule4,
+    //module2:module2,
+    game:game,
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
@@ -373,30 +376,118 @@ function instructionsModule2(){
     });
     console.log('instructionsModule2');
 }
-function module2(){
-    W.loadFrame('module2.html', function () {
+function instructionsModule3(){
+    W.loadFrame('instructionsModule3.html', function() {
+
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done();
+        };
+
+        ////////////////////////////////////////////////
+        // nodeGame hint:
+        //
+        // node.env executes a function conditionally to
+        // the environments defined in the configuration
+        // options.
+        //
+        // If the 'auto' environment was set to TRUE,
+        // then the function will be executed
+        //
+        ////////////////////////////////////////////////
+        node.env('auto', function() {
+
+            //////////////////////////////////////////////
+            // nodeGame hint:
+            //
+            // Execute a function randomly in a time interval
+            // from 0 to 2000 milliseconds
+            //
+            //////////////////////////////////////////////
+            node.timer.randomExec(function() {
+                node.done();
+            }, 2000);
+        });
+    });
+    console.log('instructionsModule3');
+}
+function instructionsModule4(){
+    W.loadFrame('instructionsModule4.html', function() {
+
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done();
+        };
+
+        ////////////////////////////////////////////////
+        // nodeGame hint:
+        //
+        // node.env executes a function conditionally to
+        // the environments defined in the configuration
+        // options.
+        //
+        // If the 'auto' environment was set to TRUE,
+        // then the function will be executed
+        //
+        ////////////////////////////////////////////////
+        node.env('auto', function() {
+
+            //////////////////////////////////////////////
+            // nodeGame hint:
+            //
+            // Execute a function randomly in a time interval
+            // from 0 to 2000 milliseconds
+            //
+            //////////////////////////////////////////////
+            node.timer.randomExec(function() {
+                node.done();
+            }, 2000);
+        });
+    });
+    console.log('instructionsModule4');
+}
+function game(){
+    W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
-         if( node.game.lastResult!=null){
-            if(node.game.lastResult==="succes"){
-                W.getElementById('alertSucces').style.display='block';
+        var round;
+
+        round = node.player.stage.round;
+        if (round === 1) {
+            node.game.timer.init({
+                milliseconds: 6000,
+                timeup: function() {
+                    console.log('TIMEUPPPPPPPP');
+                    node.game.loopFinished = true;
+                    node.done({ loopFinished: true });
+                },
+                // Need to set these to TRUE in the next step.
+                startOnPlaying: false,
+                stopOnDone: false
+            });
+            node.game.timer.startTiming();
+        }
+        if( node.game.lastResult!=null){
+            if(node.game.lastResult === "succes"){
+
+                W.getElementById('alertSucces').style.display = 'block';
             }else
             {
-                W.getElementById('alertDanger').style.display='block';
+                W.getElementById('alertDanger').style.display = 'block';
             }
         }
 
         var b = W.getElementById('read');
 
         b.onclick = function() {
-            var num1 =parseInt($(W.getElementById('num1')).text());
-            var num2 =parseInt($(W.getElementById('num2')).text());
-            var resultint=W.getElementById('result').value;
-            var result=JSUS.isInt(resultint,0,200);
-            if(result===false){
+            var num1 = parseInt($(W.getElementById('num1')).text());
+            var num2 = parseInt($(W.getElementById('num2')).text());
+            var resultint = W.getElementById('result').value;
+            var result = JSUS.isInt(resultint,0,200);
+            if(result === false){
                 console.log("validación Modal error");
             }
             else{
-                 if(resultint=num1+num2){
+                 if(resultint == num1+num2){
                      node.game.lastResult="succes";
 
                  }
@@ -404,6 +495,8 @@ function module2(){
                      node.game.lastResult="danger";
                 }
                 node.done();
+                W.getFrameDocument().body.appendChild(b);
+                W.writeln('Loop n. ' + round);
             }
             console.log("los numeros son " + num1 + " y " + num2);
 

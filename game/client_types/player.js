@@ -142,11 +142,35 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_GAME
     });
-    stager.extendStep('module2', {
-        cb: cbs.module2,
+    stager.extendStep('instructionsModule3', {
+        cb: cbs.instructionsModule3,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_GAME
+    });
+    stager.extendStep('instructionsModule4', {
+        cb: cbs.instructionsModule4,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_GAME
+    });
+    stager.extendStage('game', {
+        init: function() {
+            this.loopFinished = false;
+        },
+        exit: function() {
+            this.timer.init({
+                startOnPlaying: true,
+                stepOnDone: true
+            });
+        }
+    });
+    stager.extendStep('game', {
+        cb: cbs.game,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_GAME,
+        stepRule: stepRules.SOLO
     })
    /* stager.extendStep('instructions', {
         cb: function() {
