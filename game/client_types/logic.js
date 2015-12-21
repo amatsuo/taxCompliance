@@ -38,7 +38,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     
     stager.extendStage('looped', {
         init: function() {
-            node.game.loopFinished = false;
+            // node.game.loopFinished = false;
 
             node.on('in.set.DATA', function(msg) {
                 var done;
@@ -60,17 +60,45 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });
 
-    stager.extendStep('looped', {
-        cb: function() {
-            console.log('Looped ', node.player.stage.round);
-            node.events.printAll('stage');
-        }
-    });
+//     stager.extendStep('looped', {
+//         cb: function() {
+//             console.log('Looped ', node.player.stage.round);
+//             node.events.printAll('stage');
+//         }
+//     });
+
+     stager.extendStep('loo1', {
+         cb: function() {
+             var stage;
+             stage = node.player.stage;
+             console.log('Loo1 ', node.player.stage.round);
+             node.events.printAll('stage');
+             
+             // Trick engine.
+             node.game.setCurrentGameStage({
+                  stage: stage.stage,
+                  step: stage.step + 1,
+                  round: stage.round
+              }, 'S');
+             debugger
+         },
+         stepRule: stepRules.SOLO,
+         // syncStepping: false
+     });
+ 
+     stager.extendStep('loo2', {
+         cb: function() {
+             console.log('Loo2 ', node.player.stage.round);
+             node.events.printAll('stage');
+         },
+         stepRule: stepRules.SOLO
+     });
 
     stager.extendStep('selectLanguage', {
         cb: function() {
             console.log('selectLanguage.');
-        }
+        },
+        syncStepping: false
     });
 
     stager.extendStep('instructions', {

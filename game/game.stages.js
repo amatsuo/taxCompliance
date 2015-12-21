@@ -17,6 +17,8 @@ module.exports = function(stager, settings) {
         .loop('looped', function() {
             return !this.loopFinished;
         })
+        .step('loo1')
+        .step('loo2')
         .next('selectLanguage')
         .next('instructions')
         .next('instructionsModule1')

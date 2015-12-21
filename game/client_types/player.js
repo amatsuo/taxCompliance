@@ -69,19 +69,23 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
     });*/
 
+debugger
+
     stager.extendStage('looped', {
         init: function() {
-            this.loopFinished = false;
+            console.log('Uhm.........................');
+            //this.loopFinished = false;
         },
         exit: function() {
             this.timer.init({
                 startOnPlaying: true,
                 stepOnDone: true
             });
-        }
+        },
+        // steps: [ 'loo1', 'loo2' ]
     });               
 
-    stager.extendStep('looped', {
+    stager.extendStep('loo1', {
         cb: function() {
             W.loadFrame('looped.htm', function() {
                 var round, button;
@@ -90,8 +94,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     node.game.timer.init({
                         milliseconds: 10000,
                         timeup: function() {
+                            var stage;
+                            stage = node.player.stage;
                             console.log('TIMEUPPPPPPPP');
                             node.game.loopFinished = true;
+                            // To exit the loop we need to be in step 2.
+                            // Trick the engine.
+                            // Notice: the step increment must be adjusted 
+                            // to reach the last step of the stage.
+                            if (stage.step === 1) {
+                                node.game.setCurrentGameStage({
+                                    stage: stage.stage,
+                                    step: stage.step + 1,
+                                    round: stage.round
+                                }, 'S');
+                            }
                             node.done({ loopFinished: true });
                         },
                         // Need to set these to TRUE in the next step.
@@ -108,6 +125,26 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 W.getFrameDocument().body.appendChild(button);
                 W.writeln('Loop n. ' + round);
             });
+        },
+        stepRule: stepRules.SOLO
+    });
+
+    stager.extendStep('loo2', {
+        cb: function() {
+            var round, button;
+
+            if (node.game.loopFinished) {
+                node.done();
+                return;
+            }
+
+            round = node.player.stage.round;
+            button = document.createElement('button');
+            button.innerHTML = 'DONE - 2';
+            button.onclick = function() { node.done(); };
+            W.getFrameDocument().body.appendChild(button);
+            W.writeln('Loop n. ' + round);
+            console.log('loo2');
         },
         stepRule: stepRules.SOLO
     });
@@ -272,8 +309,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });
     */
-
     game = setup;
+
+debugger
+
     game.plot = stager.getState();
     return game;
 };
