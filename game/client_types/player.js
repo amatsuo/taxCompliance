@@ -71,7 +71,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 debugger
 
-    stager.extendStage('looped', {
+    /*stager.extendStage('looped', {
         init: function() {
             console.log('Uhm.........................');
             //this.loopFinished = false;
@@ -82,7 +82,7 @@ debugger
                 stepOnDone: true
             });
         },
-        // steps: [ 'loo1', 'loo2' ]
+        steps: [ 'loo1', 'loo2' ]
     });               
 
     stager.extendStep('loo1', {
@@ -147,7 +147,7 @@ debugger
             console.log('loo2');
         },
         stepRule: stepRules.SOLO
-    });
+    });*/
 
     stager.extendStep('selectLanguage', {
         cb: cbs.selectLanguage,

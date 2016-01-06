@@ -36,7 +36,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });*/
 
     
-    stager.extendStage('looped', {
+   /* stager.extendStage('looped', {
         init: function() {
             // node.game.loopFinished = false;
 
@@ -66,8 +66,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 //             node.events.printAll('stage');
 //         }
 //     });
-
-     stager.extendStep('loo1', {
+    stager.extendStep('loo1', {
          cb: function() {
              var stage;
              stage = node.player.stage;
@@ -92,13 +91,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
              node.events.printAll('stage');
          },
          stepRule: stepRules.SOLO
-     });
+     });*/
 
     stager.extendStep('selectLanguage', {
         cb: function() {
             console.log('selectLanguage.');
         },
-        syncStepping: false
+        //syncStepping: false
     });
 
     stager.extendStep('instructions', {

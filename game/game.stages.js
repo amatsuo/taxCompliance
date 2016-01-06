@@ -14,11 +14,11 @@ module.exports = function(stager, settings) {
 
     stager
     //.next('precache')
-        .loop('looped', function() {
+        /*.loop('looped', function() {
             return !this.loopFinished;
         })
         .step('loo1')
-        .step('loo2')
+        .step('loo2')*/
         .next('selectLanguage')
         .next('instructions')
         .next('instructionsModule1')
@@ -31,7 +31,9 @@ module.exports = function(stager, settings) {
         .next('instructionsModule3')
         .next('instructionsModule4')
 
-    stager.skip('looped');
+    /*stager.skip('looped');
+    stager.skip('loo1');
+    stager.skip('loo2');*/
         //.repeat('module2', settings.REPEAT)
     //.next('end')
     //.gameover();
