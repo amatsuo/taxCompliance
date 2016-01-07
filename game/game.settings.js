@@ -28,7 +28,7 @@ module.exports = {
     //Timer instructions
     TIMER_INSTRUCTIONS: 90000,
     //Timer instructions
-    TIMER_GAME:100000,
+    TIMER_GAME:30000,
     //
     CANTIDAD:1000,
     CANTIDAD_ESU_x_PCH:300,
@@ -36,6 +36,8 @@ module.exports = {
     CANTIDAD_DE_ESUx_POUNDS:300,
     CANTIDAD_DE_POUNS:500,
     //
+    SALARY_G:200,
+    SALARY_K:100,
     TIMER_TOTAL:90,
 
     UNIDAD_ESTANDAR:"ECUs",

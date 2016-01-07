@@ -1,11 +1,11 @@
 module.exports = function(settings, headers) {
 
-    var avalible=settings.standard.CANTIDAD,unit=settings.standard.UNIDAD_ESTANDAR, cantidadESUxPCH=settings.standard.CANTIDAD_ESU_x_PCH,cantidadPCH=settings.standard.CANTIDAD_DE_PCH;
+    var salaryG=settings.standard.SALARY_G,salaryK=settings.standard.SALARY_K;
     return {
         title: "InstructionsModule2",
         instructions: "Module 2",
         a:  "Este módulo consta de 10 rondas. Al principio del módulo los participantes serán asignados aleatoriamente a grupos de 4 participantes. En ningún momento conocerás la identidad de los otros miembros de tu grupo. La composición de los grupos se mantendrá fija a lo largo del módulo. En cada grupo, dos miembros serán Tipo G y los otros dos serán Tipo K. Todo participante tiene la misma posibilidad de ser designado tipo G o K.",
-        b:  "Cada ronda durará un minuto, y en cada una se te pedirá que resuelvas sumas. Tus Ganancias Preliminares dependerán de cuántas de esas sumas seas capaz de resolver correctamente.  Si eres grupo Tipo G recibirás 200 ECUs por cada respuesta correcta, mientras que si eres tipo K recibirás 100 ECUs.",
+        b:  "Cada ronda durará un minuto, y en cada una se te pedirá que resuelvas sumas. Tus Ganancias Preliminares dependerán de cuántas de esas sumas seas capaz de resolver correctamente.  Si eres grupo Tipo G recibirás "+salaryG+" ECUs por cada respuesta correcta, mientras que si eres tipo K recibirás "+salaryK+" ECUs.",
         c:  "Al final de cada ronda, una vez que seas informado de tus Ganancias Preliminares, se te pedirá que declares estas ganancias. En este módulo el 10% de las Ganancias Declaradas se deducirá de tus Ganancias Preliminares. ",
         d:  "En cada ronda tus Ganancias Preliminares pueden ser comparadas con tus Ganancias Declaradas con una cierta probabilidad para comprobar que las dos cantidades corresponden. En este módulo esta probabilidad es 0%.",
         e:  "Si existen discrepancias entre tus Ganancias Preliminares  y Ganancias Declaradas se deducirá una cantidad extra de tus Ganancias Preliminares. En este módulo esta cantidad es del 50% de la diferencia entre las Ganancias Preliminares  y las Declaradas. Además, la deducción normal del 10% se aplicará a las Ganancias Preliminares  y no a la cantidad declarada.",

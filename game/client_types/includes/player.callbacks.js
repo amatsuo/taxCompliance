@@ -14,10 +14,13 @@ module.exports = {
     instructionsModule1:instructionsModule1,
     module1:module1,
     instructionsModule2:instructionsModule2,
+    game:game,
+    taxReturn:taxReturn,
     instructionsModule3:instructionsModule3,
     instructionsModule4:instructionsModule4,
+
     //module2:module2,
-    game:game,
+
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
@@ -34,8 +37,9 @@ function init() {
 
     W.setUriPrefix(node.player.lang.path);
     node.game.lastResult=null;
-    node.game.num1=0;
-    node.game.num2=0;
+    node.game.correct=0;
+    node.game.group=null;
+
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
         header = W.generateHeader();
@@ -450,11 +454,11 @@ function game(){
     W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
         var round;
-
+        var group;
         round = node.player.stage.round;
         if (round === 1) {
             node.game.timer.init({
-                milliseconds: 6000,
+                milliseconds: node.game.settings.TIMER_GAME,
                 timeup: function() {
                     console.log('TIMEUPPPPPPPP');
                     node.game.loopFinished = true;
@@ -475,6 +479,14 @@ function game(){
                 W.getElementById('alertDanger').style.display = 'block';
             }
         }
+        node.on.data('Group K!', function(msg) {
+            node.game.group="K";
+            console.log('I\'m Group K!');
+        });
+        node.on.data('Group G!', function(msg) {
+            node.game.group="G";
+            console.log('I\'m Group G! ');
+        });
 
         var b = W.getElementById('read');
 
@@ -489,6 +501,7 @@ function game(){
             else{
                  if(resultint == num1+num2){
                      node.game.lastResult="succes";
+                     node.game.correct++;
 
                  }
                  else{
@@ -505,6 +518,42 @@ function game(){
 
     });
 }
+function taxReturn(){
+    W.loadFrame('taxReturn.html',function(){
+        W.getElementById("numberCorrect").innerHTML=node.game.correct;
+
+        var earnings;
+        if(node.game.group=="K"){
+
+            earnings= node.game.settings.SALARY_K*node.game.correct;
+
+
+        }else{
+            earnings= node.game.settings.SALARY_G*node.game.correct;
+        }
+        W.getElementById("totalEarnings").innerHTML=earnings+" ECUs.";
+        //W.getElementById("taxreturn").setAttribute('max',earnings)
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            var value= W.getElementById('taxreturn').value;
+            value = JSUS.isInt(value, 0, earnings);
+
+            if ( value===false ) {
+                W.getElementById("maxEarnings").innerHTML=earnings+" ECUs.";
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
+
+
+            }
+            else {
+
+                    node.done();
+                }
+            };
+        });
+}
+
 
 function quiz() {
     var that = this;

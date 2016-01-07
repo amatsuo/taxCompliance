@@ -4,11 +4,11 @@ link(rel='stylesheet', href='/taxCompliance/css/bootstrap.min.css')
 link(rel='stylesheet', type='text/css', href='/taxCompliance/css/module.css')
 .alert(style="display:none", float="top").alert-dismissable.alert-success#alertSucces
    button.close( type="button", data-dismiss="alert" ) ×
-   | Warning! Warning!
+   p=good
 
 .alert(style="display:none",float="top").alert-dismissable.alert-danger#alertDanger
    button.close( type="button", data-dismiss="alert" ) ×
-   | Warning! Warning!
+   p=bad
 
 div(id='container')
    h1=Module

@@ -28,6 +28,7 @@ module.exports = function(stager, settings) {
         .loop('game', function() {
                 return !this.loopFinished;
         })
+        .next('taxReturn')
         .next('instructionsModule3')
         .next('instructionsModule4')
 
@@ -39,12 +40,13 @@ module.exports = function(stager, settings) {
     //.gameover();
 
     // Modify the stager to skip one stage.
-    // stager.skip('instructions');
-    /* stager.skip('instructionsModule1');
-     stager.skip('module1')
-     stager.skip('instructions');
-
-     stager.skip('selectLanguage');*/
+    stager.skip('instructions');
+    stager.skip('instructionsModule1');
+    stager.skip('instructionsModule3');
+    stager.skip('instructionsModule4');
+    stager.skip('module1')
+    stager.skip('instructions');
+    stager.skip('selectLanguage');
 
     return stager.getState();
 };

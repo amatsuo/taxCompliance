@@ -138,6 +138,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStage('game', {
         init: function() {
             node.game.loopFinished = false;
+            node.game.nConectP=0;
+            var orden=true;
+            node.game.pl.each(function(p) {
+
+                if(orden){
+                    node.say('Group K!', p.id);
+                    orden=false;
+                }else{
+                    node.say('Group G!', p.id);
+                    orden=true;
+                }
+
+
+
+            });
 
             node.on('in.set.DATA', function(msg) {
                 var done;

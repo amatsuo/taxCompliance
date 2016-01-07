@@ -171,25 +171,25 @@ debugger
         cb: cbs.module1,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
-        timer: settings.TIMER_GAME
+        timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule2', {
         cb: cbs.instructionsModule2,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
-        timer: settings.TIMER_GAME
+        timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule3', {
         cb: cbs.instructionsModule3,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
-        timer: settings.TIMER_GAME
+        timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule4', {
         cb: cbs.instructionsModule4,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
-        timer: settings.TIMER_GAME
+        timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStage('game', {
         init: function() {
@@ -208,6 +208,12 @@ debugger
         // syncOnLoaded: true,
         timer: settings.TIMER_GAME,
         stepRule: stepRules.SOLO
+    });
+    stager.extendStep('taxReturn', {
+        cb: cbs.taxReturn,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_INSTRUCTIONS
     })
    /* stager.extendStep('instructions', {
         cb: function() {

@@ -8,7 +8,8 @@ module.exports = function(settings, headers) {
         num2: Math.floor(Math.random()*(99-10)+10),
         linea:"__________",
         proceed: "Compartir",
-        error:"Ingrese un valor entre 0 y "+ value
+        good: "Correcto",
+        bad:"Incorrecto"
     };
 };
 /**
