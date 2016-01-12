@@ -35,6 +35,8 @@ function init() {
     that = this;
     this.node.log('Init.');
 
+    node.game.verbosity = -100;
+
     W.setUriPrefix(node.player.lang.path);
     node.game.lastResult=null;
     node.game.correct=0;
@@ -450,7 +452,9 @@ function instructionsModule4(){
     });
     console.log('instructionsModule4');
 }
-function game(){
+
+function game() {
+    
     W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
         var round;
@@ -462,7 +466,7 @@ function game(){
                 timeup: function() {
                     console.log('TIMEUPPPPPPPP');
                     node.game.loopFinished = true;
-                    node.done({ loopFinished: true });
+                    node.done();
                 },
                 // Need to set these to TRUE in the next step.
                 startOnPlaying: false,
@@ -470,6 +474,7 @@ function game(){
             });
             node.game.timer.startTiming();
         }
+
         if( node.game.lastResult!=null){
             if(node.game.lastResult === "succes"){
 
@@ -518,8 +523,10 @@ function game(){
 
     });
 }
+
 function taxReturn(){
-    W.loadFrame('taxReturn.html',function(){
+    W.loadFrame('taxReturn.html',function() {
+        
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
 
         var earnings;
@@ -547,11 +554,10 @@ function taxReturn(){
 
             }
             else {
-
-                    node.done();
-                }
-            };
-        });
+                node.done();
+            }
+        };
+    });
 }
 
 

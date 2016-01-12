@@ -25,10 +25,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     counter = counter ? ++counter : settings.SESSION_ID || 1;
 
     stager.setOnInit(function() {
-
+        
         // Initialize the client.
-
+        node.game.verbosity = -100;
     });
+
+    stager.setDefaultCallback(function() {
+        console.log(node.game.getCurrentStepObj().id, node.player.stage);
+    });
+
     /*stager.extendStep('precache', {
         cb: function() {
             console.log('precache.');
@@ -93,54 +98,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
          stepRule: stepRules.SOLO
      });*/
 
-    stager.extendStep('selectLanguage', {
-        cb: function() {
-            console.log('selectLanguage.');
-        },
-        //syncStepping: false
-    });
-
-    stager.extendStep('instructions', {
-        cb: function() {
-            console.log('Instructions.');
-        }
-    });
-    stager.extendStep('instructionsModule1', {
-        cb: function() {
-            console.log('Instructions Module 1.');
-        }
-    });
-    stager.extendStep('module1', {
-        cb: function() {
-            console.log('Start Module 1');
-        }
-    });
-    stager.extendStep('instructionsModule2', {
-        cb: function() {
-            console.log('instructionsModule2');
-        }
-    });
-    stager.extendStep('instructionsModule3', {
-        cb: function() {
-            console.log('instructionsModule3');
-        }
-    });
-    stager.extendStep('instructionsModule4', {
-        cb: function() {
-            console.log('instructionsModule4');
-        }
-    });
-    /*stager.extendStep('module2', {
-        cb: function() {
-            console.log('Start Module 2');
-        }
-    });*/
     stager.extendStage('game', {
         init: function() {
             node.game.loopFinished = false;
             node.game.nConectP=0;
             var orden=true;
             node.game.pl.each(function(p) {
+
+                // Check this.
+                p.loopFinished = false;
 
                 if(orden){
                     node.say('Group K!', p.id);
@@ -156,7 +122,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             node.on('in.set.DATA', function(msg) {
                 var done;
-                console.log(msg.data);
+                console.log('received in.set.DATA');
+                console.log(msg.data.done, msg.stage.step);
                 if (msg.data.loopFinished) {
                     done = true;
                     node.game.pl.each(function(p) {
@@ -167,18 +134,30 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     });
                     if (done) {
                         node.game.loopFinished = true;
-                        node.done();
+                        console.log('DONE LOGIC');
+                        node.done();                       
                     }
                 }
             });
+
+            var stage;
+            stage = node.player.stage;
+            
+             // Trick engine.
+             node.game.setCurrentGameStage({
+                  stage: stage.stage + 1,
+                  step: stage.step,
+                  round: stage.round
+             }, 'S');
         }
     });
-    stager.extendStep('game', {
-        cb: function() {
-            console.log('game ', node.player.stage.round);
-            node.events.printAll('stage');
-        }
-    });
+
+     stager.extendStep('game', {
+         cb: function() {
+             console.log('game ', node.player.stage.round);
+             node.events.printAll('stage');
+         }
+     });
    /* stager.extendStep('game', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);
