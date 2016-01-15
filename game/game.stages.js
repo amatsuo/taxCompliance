@@ -11,6 +11,10 @@
 
 module.exports = function(stager, settings) {
 
+    function checkLoop() {
+        return !this.loopFinished;
+    }
+
 
     stager
     //.next('precache')
@@ -23,16 +27,33 @@ module.exports = function(stager, settings) {
         .next('instructions')
         .next('instructionsModule1')
         .next('module1')
-        .next('instructionsModule2')
+        .next('instructionsModule2');
         //stager.stepBlock(0)
-        .loop('game', function() {
-                return !this.loopFinished;
-        })
-        .next('taxReturn')
-        .next('result')
 
+    // First practice stage.
+
+    stager.doLoop('game', checkLoop);
+    stager.next('taxReturn')
+    stager.next('result')
         .next('instructionsModule3')
-        .next('instructionsModule4')
+        .next('instructionsModule4');
+
+    // Add as many repetitions as needed.
+
+    var i, len;
+    i = -1, len = settings.REPEAT; // Change as needed.
+    for ( ; ++i < len ; ) {
+        stager.loop('game AS game' + i, checkLoop);
+
+        stager.next('taxReturn AS taxReturn' + i )
+
+//      Need to skip all of them manually if not commented.
+//      stager.next('instructionsModule3 AS instructionsModule3_' + i);
+//      stager.next('instructionsModule4 AS instructionsModule4_' + i);
+    }
+
+    // Continue experiment.
+
 
 
     /*stager.skip('looped');
@@ -46,6 +67,7 @@ module.exports = function(stager, settings) {
     stager.skip('instructions');
     //stager.skip('results');
     stager.skip('instructionsModule1');
+    stager.skip('instructionsModule2');
     stager.skip('instructionsModule3');
     stager.skip('instructionsModule4');
     stager.skip('module1')

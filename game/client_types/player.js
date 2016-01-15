@@ -69,8 +69,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
     });*/
 
-debugger
-
     /*stager.extendStage('looped', {
         init: function() {
             console.log('Uhm.........................');
@@ -209,18 +207,24 @@ debugger
         timer: settings.TIMER_GAME,
         stepRule: stepRules.SOLO
     });
+
     stager.extendStep('taxReturn', {
         cb: cbs.taxReturn,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+
+        timer: settings.TIMER_INSTRUCTIONS,
+        done: function() {            
+            node.set({loopFinished: true});
+            return true;
+        }
     });
     stager.extendStep('result', {
         cb: cbs.result,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
-    })
+    });
    /*
     stager.extendStep('end', {
         // frame: 'end.htm',
@@ -231,8 +235,6 @@ debugger
         }
     });*/
     game = setup;
-
-debugger
 
     game.plot = stager.getState();
     return game;
