@@ -2,7 +2,7 @@ module.exports = function(settings, headers) {
 
     return {
         title: "Resultado",
-        Module: "Resultado Modulo",
+        Module: "Result Module",
         text1:"Número respuestas correctas:",
         text2:"Sus ganancias declaradas:",
         text3:"Deduciones totales:",

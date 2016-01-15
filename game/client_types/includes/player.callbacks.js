@@ -518,8 +518,7 @@ function game() {
                      node.game.lastResult="danger";
                 }
                 node.done();
-                W.getFrameDocument().body.appendChild(b);
-                W.writeln('Loop n. ' + round);
+
             }
             console.log("los numeros son " + num1 + " y " + num2);
 
@@ -533,7 +532,7 @@ function taxReturn(){
     W.loadFrame('taxReturn.html',function() {
         
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
-
+        node.game.lastResult=null;
         node.game.earnings=0;
         if(node.game.group=="K"){
 
@@ -570,7 +569,17 @@ function result(){
 
         W.getElementById("totalEarnings").innerHTML=node.game.earnings+" ECUs.";
 
-        //W.getElementById("taxreturn").setAttribute('max',earnings)
+        var taxPaid=node.game.settings.TAX_MODULE_2*node.game.earnings+" ECUs.";
+        W.getElementById("taxPaid").innerHTML=taxPaid;
+        var diceValue= Math.random();
+        if(diceValue<node.game.settings.PROBABILITY_MODULE_2){
+            W.getElementById("revision").innerHTML="Tú declaración fue revisada"
+        }else{
+            W.getElementById("revision").innerHTML="Tú declaración no fue revisada"
+        }
+
+
+
         var b = W.getElementById('read');
         b.onclick = function() {
 
@@ -578,7 +587,9 @@ function result(){
                 node.done();
 
         };
+
     });
+    node.game.correct=0;
 }
 
 

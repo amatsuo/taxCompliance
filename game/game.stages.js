@@ -33,7 +33,7 @@ module.exports = function(stager, settings) {
     // First practice stage.
 
     stager.doLoop('game', checkLoop);
-    stager.next('taxReturn')
+    stager.next('taxReturn');
     stager.next('result')
         .next('instructionsModule3')
         .next('instructionsModule4');
@@ -45,12 +45,14 @@ module.exports = function(stager, settings) {
     for ( ; ++i < len ; ) {
         stager.loop('game AS game' + i, checkLoop);
 
-        stager.next('taxReturn AS taxReturn' + i )
+        stager.next('taxReturn AS taxReturn' + i );
+        stager.next('result AS result'+i)
 
 //      Need to skip all of them manually if not commented.
 //      stager.next('instructionsModule3 AS instructionsModule3_' + i);
 //      stager.next('instructionsModule4 AS instructionsModule4_' + i);
     }
+
 
     // Continue experiment.
 

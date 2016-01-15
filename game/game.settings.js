@@ -39,7 +39,8 @@ module.exports = {
     SALARY_G:200,
     SALARY_K:100,
     TIMER_TOTAL:90,
-
+    TAX_MODULE_2:0.1,
+    PROBABILITY_MODULE_2:0.0,
     UNIDAD_ESTANDAR:"ECUs",
 
     MIN_PLAYERS: 1,

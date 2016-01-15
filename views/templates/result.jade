@@ -1,3 +1,4 @@
+extends iframe-layout
 block mainContent
    div(id='container')
       h1=Module
@@ -10,8 +11,10 @@ block mainContent
          span#totalEarnings
          br
          p=text3
+         span#taxPaid
          br
          P=text4
+         span#revision(style="font-weight:bold")
          br
          P=text5
 

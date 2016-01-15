@@ -168,6 +168,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('taxReturn');
         }
     });
+
    /* stager.extendStep('game', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);
@@ -192,7 +193,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     return {
         nodename: 'lgc' + counter,
         // Extracts, and compacts the game plot that we defined above.
-        plot: stager.getState(),
+        plot: stager.getState()
 
     };
 
