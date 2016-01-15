@@ -29,8 +29,11 @@ module.exports = function(stager, settings) {
                 return !this.loopFinished;
         })
         .next('taxReturn')
+        .next('result')
+
         .next('instructionsModule3')
         .next('instructionsModule4')
+
 
     /*stager.skip('looped');
     stager.skip('loo1');
@@ -41,11 +44,11 @@ module.exports = function(stager, settings) {
 
     // Modify the stager to skip one stage.
     stager.skip('instructions');
+    //stager.skip('results');
     stager.skip('instructionsModule1');
     stager.skip('instructionsModule3');
     stager.skip('instructionsModule4');
     stager.skip('module1')
-    stager.skip('instructions');
     stager.skip('selectLanguage');
 
     return stager.getState();

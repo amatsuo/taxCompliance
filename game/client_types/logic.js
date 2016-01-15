@@ -179,6 +179,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.events.printAll('stage');
         }
     });
+    stager.extendStep('result', {
+        cb: function() {
+            console.log('result');
+        }
+    });
+    stager.extendStep('taxReturn', {
+        cb: function() {
+            console.log('taxReturn');
+        }
+    });
    /* stager.extendStep('game', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);

@@ -16,6 +16,7 @@ module.exports = {
     instructionsModule2:instructionsModule2,
     game:game,
     taxReturn:taxReturn,
+    result:result,
     instructionsModule3:instructionsModule3,
     instructionsModule4:instructionsModule4,
 
@@ -39,6 +40,7 @@ function init() {
     node.game.lastResult=null;
     node.game.correct=0;
     node.game.group=null;
+    node.game.module=0;
 
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
@@ -294,6 +296,7 @@ function instructionsModule1(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.module++;
             node.done();
         };
 
@@ -350,6 +353,7 @@ function instructionsModule2(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.module++;
             node.done();
         };
 
@@ -420,6 +424,7 @@ function instructionsModule4(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.module++;
             node.done();
         };
 
@@ -454,7 +459,7 @@ function game(){
     W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
         var round;
-        var group;
+
         round = node.player.stage.round;
         if (round === 1) {
             node.game.timer.init({
@@ -522,24 +527,24 @@ function taxReturn(){
     W.loadFrame('taxReturn.html',function(){
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
 
-        var earnings;
+        node.game.earnings=0;
         if(node.game.group=="K"){
 
-            earnings= node.game.settings.SALARY_K*node.game.correct;
+            node.game.earnings= node.game.settings.SALARY_K*node.game.correct;
 
 
         }else{
-            earnings= node.game.settings.SALARY_G*node.game.correct;
+            node.game.earnings= node.game.settings.SALARY_G*node.game.correct;
         }
-        W.getElementById("totalEarnings").innerHTML=earnings+" ECUs.";
+        W.getElementById("totalEarnings").innerHTML=node.game.earnings+" ECUs.";
         //W.getElementById("taxreturn").setAttribute('max',earnings)
         var b = W.getElementById('read');
         b.onclick = function() {
-            var value= W.getElementById('taxreturn').value;
-            value = JSUS.isInt(value, 0, earnings);
-
+            var value= W.getElementById('declareTaxReturn').value;
+            value = JSUS.isInt(value, 0, node.game.earnings);
+            node.game.declareTax=value;
             if ( value===false ) {
-                W.getElementById("maxEarnings").innerHTML=earnings+" ECUs.";
+                W.getElementById("maxEarnings").innerHTML=node.game.earnings+" ECUs.";
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
                 $('.modal-backdrop').remove();
@@ -552,6 +557,22 @@ function taxReturn(){
                 }
             };
         });
+}
+function result(){
+    W.loadFrame('result.html',function(){
+        W.getElementById("numberCorrect").innerHTML=node.game.correct;
+
+        W.getElementById("totalEarnings").innerHTML=node.game.earnings+" ECUs.";
+
+        //W.getElementById("taxreturn").setAttribute('max',earnings)
+        var b = W.getElementById('read');
+        b.onclick = function() {
+
+
+                node.done();
+
+        };
+    });
 }
 
 

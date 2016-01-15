@@ -214,98 +214,14 @@ debugger
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
+    });
+    stager.extendStep('result', {
+        cb: cbs.result,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_INSTRUCTIONS
     })
-   /* stager.extendStep('instructions', {
-        cb: function() {
-
-            W.loadFrame('instructions.htm', function() {
-
-                var button = W.getElementById('read');
-                button.onclick = function() {
-                    node.done();
-                };
-
-            });
-        },
-        timer: 60000
-    });
-*/
-  /*  stager.extendStep('game', {
-        cb: function() {
-            W.loadFrame('game.htm', function() {
-
-                node.on.data('ROLE_DICTATOR', function(msg) {
-                    var button, offer, div;
-
-                    // Make the dictator display visible.
-                    div = W.getElementById('dictator').style.display = '';
-                    button = W.getElementById('submitOffer');
-                    offer =  W.getElementById('offer');
-
-
-                    // Setup the timer.
-                    node.game.timer.init({
-                        milliseconds: node.game.settings.timer,
-                        timeup: function() {
-                            node.game.randomOffer(offer, button);
-                        }
-                    });
-                    node.game.timer.updateDisplay();
-                    node.game.timer.startTiming();
-
-                    // Listen on click event.
-                    button.onclick = function() {
-                        var to, decision;
-                        // Validate offer.
-                        decision = node.game.isValidBid(offer.value);
-                        if ('number' !== typeof decision) {
-                            W.writeln('Please enter a number between ' +
-                                      '0 and 100.');
-                            return;
-                        }
-                        button.disabled = true;
-
-                        // The recipient of the offer.
-                        to = msg.data;
-
-                        // Send the decision to the other player.
-                        node.say('decision', to, decision);
-
-                        // Mark the end of the round, and
-                        // store the decision in the server.
-                        node.done({ offer: decision });
-                    };
-                });
-
-                node.on.data('ROLE_OBSERVER', function(msg) {
-                    var button, span, offer, div;
-
-                    node.game.timer.clear();
-                    node.game.timer.startWaiting({
-                        milliseconds: node.game.settings.timer,
-                        timeup: false
-                    });
-
-                    // Make the observer display visible.
-                    div = W.getElementById('observer').style.display = '';
-                    span = W.getElementById('dots');
-                    W.addLoadingDots(span);
-                    node.on.data('decision', function(msg) {
-                        var span;
-                        span = W.getElementById('decision');
-                        span.innerHTML = 'The dictator offered: ' + msg.data +
-                            ' ECU.';
-                        // Setting the step done with delay.
-                        setTimeout(function() {
-                            node.done();
-                        }, 5000);
-                    });
-                });
-
-            });
-        }
-    });
-
+   /*
     stager.extendStep('end', {
         // frame: 'end.htm',
         cb: function() {
@@ -313,8 +229,7 @@ debugger
             node.game.timer.startTiming();
             node.game.timer.setToZero();
         }
-    });
-    */
+    });*/
     game = setup;
 
 debugger
