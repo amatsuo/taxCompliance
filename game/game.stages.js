@@ -36,6 +36,9 @@ module.exports = function(stager, settings) {
     stager.next('taxReturn');
     stager.next('result')
         .next('instructionsModule3')
+    stager.doLoop('game', checkLoop);
+    stager.next('taxReturn');
+    stager.next('result')
         .next('instructionsModule4');
 
     // Add as many repetitions as needed.
@@ -70,7 +73,7 @@ module.exports = function(stager, settings) {
     //stager.skip('results');
     stager.skip('instructionsModule1');
     stager.skip('instructionsModule2');
-    stager.skip('instructionsModule3');
+    //stager.skip('instructionsModule3');
     stager.skip('instructionsModule4');
     stager.skip('module1')
     stager.skip('selectLanguage');

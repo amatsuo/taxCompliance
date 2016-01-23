@@ -391,6 +391,7 @@ function instructionsModule3(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.module++;
             node.done();
         };
 
@@ -491,10 +492,12 @@ function game() {
         }
         node.on.data('Group K!', function(msg) {
             node.game.group="K";
+            node.set({role:"K"})
             console.log('I\'m Group K!');
         });
         node.on.data('Group G!', function(msg) {
             node.game.group="G";
+            node.set({role:"G"})
             console.log('I\'m Group G! ');
         });
 
@@ -534,6 +537,8 @@ function taxReturn(){
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         node.game.lastResult=null;
         node.game.earnings=0;
+        node.game.declareTax=0;
+
         if(node.game.group=="K"){
 
             node.game.earnings= node.game.settings.SALARY_K*node.game.correct;
@@ -547,7 +552,10 @@ function taxReturn(){
         var b = W.getElementById('read');
         b.onclick = function() {
             var value= W.getElementById('declareTaxReturn').value;
+
             value = JSUS.isInt(value, 0, node.game.earnings);
+
+
             node.game.declareTax=value;
             if ( value===false ) {
                 W.getElementById("maxEarnings").innerHTML=node.game.earnings+" ECUs.";
@@ -558,6 +566,7 @@ function taxReturn(){
 
             }
             else {
+
                 node.done();
             }
         };
@@ -565,18 +574,50 @@ function taxReturn(){
 }
 function result(){
     W.loadFrame('result.html',function(){
-        W.getElementById("numberCorrect").innerHTML=node.game.correct;
 
-        W.getElementById("totalEarnings").innerHTML=node.game.earnings+" ECUs.";
-
-        var taxPaid=node.game.settings.TAX_MODULE_2*node.game.earnings+" ECUs.";
-        W.getElementById("taxPaid").innerHTML=taxPaid;
+        var finalEarnings=0;
+        var taxPaid=0;
         var diceValue= Math.random();
-        if(diceValue<node.game.settings.PROBABILITY_MODULE_2){
-            W.getElementById("revision").innerHTML="Tú declaración fue revisada"
+        var value=0;
+        var estado=false;
+        var probability=0;
+        var tax=0;
+        if(node.game.module==2){
+            tax=node.game.settings.TAX_MODULE_2;
+            probability=node.game.settings.PROBABILITY_MODULE_2;
         }else{
-            W.getElementById("revision").innerHTML="Tú declaración no fue revisada"
+            tax=node.game.settings.TAX_MODULE_3;
+            probability=node.game.settings.PROBABILITY_MODULE_3;
         }
+        if(diceValue<probability){
+
+
+            if(node.game.earnings!=node.game.declareTax){
+                taxPaid=tax*node.game.earnings;
+                finalEarnings=node.game.earnings-(tax+0.5)*node.game.earnings;
+            }else{
+                taxPaid=tax*node.game.earnings;
+                finalEarnings=node.game.earnings-taxPaid;
+            }
+
+        }else{
+
+            taxPaid=node.game.declareTax*tax;
+            finalEarnings=node.game.earnings-taxPaid;
+        }
+        node.say('DECLARE','SERVER',taxPaid);
+        node.on.data('PART',function(msg){
+                value=msg.data;
+                W.getElementById("totalEarnings").innerHTML=finalEarnings+value;
+            });
+        W.getElementById("numberCorrect").innerHTML=node.game.correct;
+        W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
+        W.getElementById("declareEarnings").innerHTML=node.game.declareTax+" ECUs.";
+        if(estado) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+        else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+        W.getElementById("taxPaid").innerHTML=taxPaid+" ECUs.";
+        W.getElementById("finalEarnings").innerHTML=finalEarnings+" ECUs.";
+
 
 
 

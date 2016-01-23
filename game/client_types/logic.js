@@ -13,6 +13,7 @@ var ngc = require('nodegame-client');
 var stepRules = ngc.stepRules;
 var constants = ngc.constants;
 var counter = 0;
+var nocache = true;
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
@@ -22,18 +23,23 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     // Must implement the stages here.
 
     // Increment counter.
-    counter = counter ? ++counter : settings.SESSION_ID || 1;
+    var cbs = channel.require(__dirname + '/includes/logic.callbacks.js', {
+        node: node,
+        gameRoom: gameRoom,
+        settings: settings,
+        counter: counter
+        // Reference to channel added by default.
+    }, nocache);
 
-    stager.setOnInit(function() {
-        
-        // Initialize the client.
-        node.game.verbosity = -100;
-    });
+    stager.setOnInit(cbs.init);
 
-    stager.setDefaultCallback(function() {
-        console.log(node.game.getCurrentStepObj().id, node.player.stage);
-    });
 
+    stager.setDefaultProperty('minPlayers', [
+        settings.MIN_PLAYERS,
+        cbs.notEnoughPlayers
+    ]);
+
+    stager.setDefaultCallback(function() {});
     /*stager.extendStep('precache', {
         cb: function() {
             console.log('precache.');
@@ -100,9 +106,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStage('game', {
         init: function() {
+            var g,i;
             node.game.loopFinished = false;
             node.game.nConectP=0;
             var orden=true;
+            g=node.game.pl.shuffle();
+            console.log(g);
+           /* for(i=0;i<node.game.pl.size();i=i+2);
+            {
+
+            }*/
             node.game.pl.each(function(p) {
 
                 // Check this.
@@ -160,11 +173,31 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('result', {
         cb: function() {
+            var total=0;
+            var nmsg=0;
+
+            node.on.data('DECLARE',function(msg){
+                    console.log('declare: '+ msg.data);
+                    total=total+msg.data;
+                    nmsg++;
+                    if(nmsg==node.game.pl.size()){
+                        var value= total/node.game.pl.size();
+                        console.log('parte: '+value);
+                        node.game.pl.each(function(p) {
+                           node.say('PART', p.id,value);
+                        });
+
+                    }
+
+                }
+            );
+            console.log('players: '+node.game.pl.size());
             console.log('result');
         }
     });
     stager.extendStep('taxReturn', {
         cb: function() {
+
             console.log('taxReturn');
         }
     });

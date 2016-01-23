@@ -22,7 +22,7 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 4,
+    REPEAT: 1,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 100000,
     //Timer instructions
@@ -41,6 +41,9 @@ module.exports = {
     TIMER_TOTAL:90,
     TAX_MODULE_2:0.1,
     PROBABILITY_MODULE_2:0.0,
+    TAX_MODULE_3:0.1,
+    PROBABILITY_MODULE_3:0.0,
+
     UNIDAD_ESTANDAR:"ECUs",
 
     MIN_PLAYERS: 1,

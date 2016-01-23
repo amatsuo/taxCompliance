@@ -45,10 +45,8 @@ function init() {
 
     J.mkdirSyncRecursive(DUMP_DIR, 0777);
 
-    console.log('********************** ultimatum room ' + counter++ +
+    console.log('********************** taxCompliace room ' + counter++ +
                 ' **********************');
-
-    var COINS = settings.COINS;
 
     node.game.lastStage = node.game.getCurrentGameStage();
 
@@ -209,7 +207,7 @@ function init() {
     });
 
     // Update the Payoffs
-    node.on.data('response', function(msg) {
+  /*  node.on.data('response', function(msg) {
         var resWin, bidWin, code, response;
         response = msg.data;
 
@@ -223,7 +221,7 @@ function init() {
             node.game.lastBids[msg.from] = resWin;
             node.game.lastBids[response.from] = bidWin;
         }
-    });
+    });*/
 
     console.log('init');
 }

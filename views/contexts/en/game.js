@@ -7,7 +7,7 @@ module.exports = function(settings, headers) {
         num1: Math.floor(Math.random()*(99-10)+10),
         num2: Math.floor(Math.random()*(99-10)+10),
         linea:"__________",
-        proceed: "Compartir",
+        proceed: "Resolver",
         good: "Correcto",
         bad:"Incorrecto"
     };
