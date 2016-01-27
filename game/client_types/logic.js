@@ -150,7 +150,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('game2', {
         cb: function() {
             console.log('game ', node.player.stage.round);
-            node.events.printAll('stage');
+            //node.events.printAll('stage');
         }
     });
     stager.extendStep('result2', {
@@ -181,6 +181,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
 
             console.log('taxReturn');
+        }
+    });
+    stager.extendStep('module4', {
+        cb: function() {
+            console.log('module4');
         }
     });
 

@@ -50,8 +50,10 @@ module.exports = function(stager, settings) {
             stager.next('result2 AS result2'+i+' '+ j);
 
     //      Need to skip all of them manually if not commented.
-            
-            if((i==len-1)&&(j==0)) stager.next('instructionsModule3 AS instructionsModule3_' + i);
+
+            if((i==len-1)&&(j==0))
+            //MODULE 3
+                stager.next('instructionsModule3 AS instructionsModule3_' + i);
     //      stager.next('instructionsModule4 AS instructionsModule4_' + i);
         }
 
@@ -59,9 +61,10 @@ module.exports = function(stager, settings) {
 
 
     // Continue experiment.
-    //MODULE 3
+    //MODULE 4
 
     stager.next('instructionsModule4');
+    stager.next('module4');
 
 
 
@@ -71,6 +74,7 @@ module.exports = function(stager, settings) {
     //stager.skip('results');
     stager.skip('instructionsModule1');
     stager.skip('instructionsModule2');
+    //stager.skip('module4');
     //stager.skip('instructionsModule3');
    // stager.skip('instructionsModule4');
     stager.skip('module1')

@@ -2,29 +2,232 @@ extends iframe-layout
 block mainContent
    div(id='container')
       h1=Module
-      div(id='taxReturn')
-         br
-         p=text1
-         span#numberCorrect
-         br
-         p=text2
-         span#totalEarnings
-         br
-         p=text3
-         input(   type= "number", min= "0", id= "declareTaxReturn")
-         br
-         br
-         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
-         .modal(id='ERROR')
-            .modal-dialog.modal-lg
-               .modal-content(style=".modal-content")
-                  .modal-header
-                     button(type="button", class="close", data-dismiss="modal",aria-label="Close",)
-                        span(aria-hidden="true") &times;
-                  .modal-body(style=".modal-body")
-                     =error
-                     span#maxEarnings
-                  .modal-footer
-                     button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar//
-   Created by joseorellana on 27-01-16.
+      div(id='module4')
+         table(border='3px solid', width="120%", font-size="40%")
+            tr
+               td
+                  strong A:
+                  span#percentA1
+                  =valorA1
+                  span#percentA2
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB1
+                  =valorB1
+                  span#percentB2
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+
+
+
+               td
+                  strong A:
+                  span#percentA11
+                  =valorA1
+                  span#percentA12
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB11
+                  =valorB1
+                  span#percentB12
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+
+
+            tr
+               td
+                  strong A:
+                  span#percentA3
+                  =valorA1
+                  span#percentA4
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB3
+                  =valorB1
+                  span#percentB4
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+               td
+                  strong A:
+                  span#percentA13
+                  =valorA1
+                  span#percentA14
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB13
+                  =valorB1
+                  span#percentB14
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+            tr
+               td
+                  strong A:
+                  span#percentA5
+                  =valorA1
+                  span#percentA6
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB5
+                  =valorB1
+                  span#percentB6
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+
+               td
+                  strong A:
+                  span#percentA15
+                  =valorA1
+                  span#percentA16
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB15
+                  =valorB1
+                  span#percentB16
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+
+
+            tr
+               td
+                  strong A:
+                  span#percentA7
+                  =valorA1
+                  span#percentA8
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB7
+                  =valorB1
+                  span#percentB8
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+               td
+                  strong A:
+                  span#percentA17
+                  =valorA1
+                  span#percentA18
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB17
+                  =valorB1
+                  span#percentB18
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+            tr
+               td
+                  strong A:
+                  span#percentA9
+                  =valorA1
+                  span#percentA10
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB9
+                  =valorB1
+                  span#percentB10
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+               td
+                  strong A:
+                  span#percentA19
+                  =valorA1
+                  span#percentA20
+                  =valorA2
+                  br
+                  strong B:
+                  span#percentB19
+                  =valorB1
+                  span#percentB20
+                  =valorB2
+                  div(align="center")
+                     from(role="form")
+                        div(class="radio")
+                           input(type="radio" )
+                           label A
+
+                        div(class="radio")
+                           input(type="radio" )
+                           label B
+
+      input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+//Created by joseorellana on 27-01-16.
 

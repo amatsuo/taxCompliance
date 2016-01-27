@@ -19,6 +19,7 @@ module.exports = {
     result:result,
     instructionsModule3:instructionsModule3,
     instructionsModule4:instructionsModule4,
+    module4:module4,
 
     //module2:module2,
 
@@ -632,6 +633,20 @@ function result(){
 
     });
     node.game.correct=0;
+}
+function module4(){
+    W.loadFrame('module4.html',function(){
+        var i=1;
+        var percent=10;
+        for (;i<20;i=i+2){
+            W.getElementById("percentA"+i).innerHTML=" "+percent;
+            W.getElementById("percentA"+(i+1)).innerHTML=" "+(100-percent);
+            W.getElementById("percentB"+i).innerHTML=" "+percent;
+            W.getElementById("percentB"+(i+1)).innerHTML=" "+(100-percent);
+            percent=percent+10;
+
+        }
+    });
 }
 
 
