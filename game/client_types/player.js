@@ -189,7 +189,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
-    stager.extendStage('game', {
+    stager.extendStage('game2', {
         init: function() {
             this.loopFinished = false;
         },
@@ -200,7 +200,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             });
         }
     });
-    stager.extendStep('game', {
+    stager.extendStep('game2', {
         cb: cbs.game,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
@@ -208,7 +208,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         stepRule: stepRules.SOLO
     });
 
-    stager.extendStep('taxReturn', {
+    stager.extendStep('taxReturn2', {
         cb: cbs.taxReturn,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
@@ -219,12 +219,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return true;
         }
     });
-    stager.extendStep('result', {
+    stager.extendStep('result2', {
         cb: cbs.result,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
+
    /*
     stager.extendStep('end', {
         // frame: 'end.htm',

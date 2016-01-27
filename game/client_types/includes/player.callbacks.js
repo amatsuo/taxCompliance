@@ -42,7 +42,7 @@ function init() {
     node.game.lastResult=null;
     node.game.correct=0;
     node.game.group=null;
-    node.game.module=0;
+    node.game.module=2;
 
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
@@ -464,7 +464,8 @@ function game() {
     W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
         var round;
-
+        var title=W.getElementById('titleGame');
+        title.innerHTML=title.innerHTML+node.game.module;
         round = node.player.stage.round;
         if (round === 1) {
             node.game.timer.init({

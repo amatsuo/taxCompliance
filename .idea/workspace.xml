@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f641ee97-e8fa-4d3d-83ad-84d0a37e2ee5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/game/client_types/autoplay.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/contexts/en/game.js" afterPath="$PROJECT_DIR$/views/contexts/en/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/game.settings.js" afterPath="$PROJECT_DIR$/game/game.settings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/game.stages.js" afterPath="$PROJECT_DIR$/game/game.stages.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/client_types/includes/logic.callbacks.js" afterPath="$PROJECT_DIR$/game/client_types/includes/logic.callbacks.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/client_types/logic.js" afterPath="$PROJECT_DIR$/game/client_types/logic.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/client_types/includes/player.callbacks.js" afterPath="$PROJECT_DIR$/game/client_types/includes/player.callbacks.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/templates/result.jade" afterPath="$PROJECT_DIR$/views/templates/result.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/contexts/en/result.js" afterPath="$PROJECT_DIR$/views/contexts/en/result.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/client_types/player.js" afterPath="$PROJECT_DIR$/game/client_types/player.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="taxCompliance.iws" />
@@ -35,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="player.callbacks.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="player.callbacks.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game/client_types/includes/player.callbacks.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="8580" max-vertical-offset="13365">
-              <caret line="591" column="34" selection-start-line="591" selection-start-column="34" selection-end-line="591" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.38352272" vertical-offset="8580" max-vertical-offset="13365">
+              <caret line="590" column="9" selection-start-line="590" selection-start-column="9" selection-end-line="590" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -48,8 +42,8 @@
       <file leaf-file-name="game.stages.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game/game.stages.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="301" max-vertical-offset="1305">
-              <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="271" max-vertical-offset="1260">
+              <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -58,7 +52,7 @@
       <file leaf-file-name="logic.callbacks.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game/client_types/includes/logic.callbacks.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="286" max-vertical-offset="5430">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1771" max-vertical-offset="5430">
               <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
@@ -68,8 +62,8 @@
       <file leaf-file-name="logic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game/client_types/logic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2206" max-vertical-offset="3720">
-              <caret line="185" column="55" selection-start-line="185" selection-start-column="55" selection-end-line="185" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2326" max-vertical-offset="3720">
+              <caret line="197" column="34" selection-start-line="197" selection-start-column="34" selection-end-line="197" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -78,18 +72,18 @@
       <file leaf-file-name="player.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game/client_types/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2866" max-vertical-offset="3705">
-              <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2731" max-vertical-offset="3720">
+              <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.settings.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game.settings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game/game.settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19176136" vertical-offset="225" max-vertical-offset="1200">
-              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1200">
+              <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -155,17 +149,17 @@
         <option value="$PROJECT_DIR$/views/contexts/en/taxReturn.js" />
         <option value="$PROJECT_DIR$/views/contexts/es/taxReturn.js" />
         <option value="$PROJECT_DIR$/views/templates/taxReturn.jade" />
-        <option value="$PROJECT_DIR$/game/client_types/player.js" />
         <option value="$PROJECT_DIR$/views/contexts/es/result.js" />
         <option value="$PROJECT_DIR$/views/contexts/es/instructionsModule3.js" />
         <option value="$PROJECT_DIR$/game/client_types/includes/logic.callbacks.js" />
         <option value="$PROJECT_DIR$/views/contexts/en/result.js" />
         <option value="$PROJECT_DIR$/views/contexts/en/game.js" />
         <option value="$PROJECT_DIR$/views/templates/result.jade" />
-        <option value="$PROJECT_DIR$/game/client_types/logic.js" />
-        <option value="$PROJECT_DIR$/game/client_types/includes/player.callbacks.js" />
-        <option value="$PROJECT_DIR$/game/game.stages.js" />
         <option value="$PROJECT_DIR$/game/game.settings.js" />
+        <option value="$PROJECT_DIR$/game/client_types/logic.js" />
+        <option value="$PROJECT_DIR$/game/game.stages.js" />
+        <option value="$PROJECT_DIR$/game/client_types/player.js" />
+        <option value="$PROJECT_DIR$/game/client_types/includes/player.callbacks.js" />
       </list>
     </option>
   </component>
@@ -457,26 +451,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16521049" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -805,14 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/client_types/player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2866" max-vertical-offset="3705">
-          <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/contexts/en/taxReturn.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
@@ -845,34 +811,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/client_types/logic.js">
+    <entry file="file://$PROJECT_DIR$/game/game.settings.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2611" max-vertical-offset="3720">
-          <caret line="185" column="55" selection-start-line="185" selection-start-column="55" selection-end-line="185" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1200">
+          <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/client_types/includes/player.callbacks.js">
+    <entry file="file://$PROJECT_DIR$/game/client_types/logic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8580" max-vertical-offset="13365">
-          <caret line="591" column="34" selection-start-line="591" selection-start-column="34" selection-end-line="591" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2326" max-vertical-offset="3720">
+          <caret line="197" column="34" selection-start-line="197" selection-start-column="34" selection-end-line="197" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game/game.stages.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="301" max-vertical-offset="1305">
-          <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="271" max-vertical-offset="1260">
+          <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/game.settings.js">
+    <entry file="file://$PROJECT_DIR$/game/client_types/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19176136" vertical-offset="225" max-vertical-offset="1200">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2731" max-vertical-offset="3720">
+          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game/client_types/includes/player.callbacks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38352272" vertical-offset="8580" max-vertical-offset="13365">
+          <caret line="590" column="9" selection-start-line="590" selection-start-column="9" selection-end-line="590" selection-end-column="9" />
           <folding />
         </state>
       </provider>

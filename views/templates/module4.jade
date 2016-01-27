@@ -1,0 +1,30 @@
+extends iframe-layout
+block mainContent
+   div(id='container')
+      h1=Module
+      div(id='taxReturn')
+         br
+         p=text1
+         span#numberCorrect
+         br
+         p=text2
+         span#totalEarnings
+         br
+         p=text3
+         input(   type= "number", min= "0", id= "declareTaxReturn")
+         br
+         br
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+         .modal(id='ERROR')
+            .modal-dialog.modal-lg
+               .modal-content(style=".modal-content")
+                  .modal-header
+                     button(type="button", class="close", data-dismiss="modal",aria-label="Close",)
+                        span(aria-hidden="true") &times;
+                  .modal-body(style=".modal-body")
+                     =error
+                     span#maxEarnings
+                  .modal-footer
+                     button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar//
+   Created by joseorellana on 27-01-16.
+

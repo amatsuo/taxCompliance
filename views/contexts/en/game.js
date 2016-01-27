@@ -2,8 +2,8 @@ module.exports = function(settings, headers) {
 
     var value=settings.standard.CANTIDAD,unidad=settings.standard.UNIDAD_ESTANDAR;
     return {
-        title: "Module2",
-        Module: "Module 2",
+        title: "Module",
+        Module: "Module ",
         num1: Math.floor(Math.random()*(99-10)+10),
         num2: Math.floor(Math.random()*(99-10)+10),
         linea:"__________",
