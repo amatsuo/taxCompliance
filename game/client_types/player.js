@@ -189,8 +189,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
-    stager.extendStep('module4', {
-        cb: cbs.module4,
+    stager.extendStep('questionary1', {
+        cb: cbs.questionary1,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
@@ -231,7 +231,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
-
+    stager.extendStep('dataPlayer', {
+        cb: cbs.dataPlayer,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_INSTRUCTIONS
+    });
    /*
     stager.extendStep('end', {
         // frame: 'end.htm',

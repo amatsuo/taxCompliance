@@ -183,9 +183,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('taxReturn');
         }
     });
-    stager.extendStep('module4', {
+    stager.extendStep('questionary1', {
         cb: function() {
-            console.log('module4');
+            console.log('questionary1');
+        }
+    });
+    stager.extendStep('dataPlayer', {
+        cb: function() {
+            console.log('dataPlayer');
         }
     });
 

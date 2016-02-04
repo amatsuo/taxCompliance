@@ -26,7 +26,7 @@ module.exports = {
     //Timer selec_Lang
     TIMER_SELEC_LANG: 100000,
     //Timer instructions
-    TIMER_INSTRUCTIONS: 20000,
+    TIMER_INSTRUCTIONS: 200000,
     //Timer instructions
     TIMER_GAME:2000,
     //

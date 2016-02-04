@@ -19,7 +19,8 @@ module.exports = {
     result:result,
     instructionsModule3:instructionsModule3,
     instructionsModule4:instructionsModule4,
-    module4:module4,
+    questionary1:questionary1,
+    dataPlayer:dataPlayer,
 
     //module2:module2,
 
@@ -44,6 +45,7 @@ function init() {
     node.game.correct=0;
     node.game.group=null;
     node.game.module=2;
+    node.game.answersModule4=[];
 
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
@@ -423,45 +425,8 @@ function instructionsModule3(){
     });
     console.log('instructionsModule3');
 }
-function instructionsModule4(){
-    W.loadFrame('instructionsModule4.html', function() {
-
-        var b = W.getElementById('read');
-        b.onclick = function() {
-            node.game.module++;
-            node.done();
-        };
-
-        ////////////////////////////////////////////////
-        // nodeGame hint:
-        //
-        // node.env executes a function conditionally to
-        // the environments defined in the configuration
-        // options.
-        //
-        // If the 'auto' environment was set to TRUE,
-        // then the function will be executed
-        //
-        ////////////////////////////////////////////////
-        node.env('auto', function() {
-
-            //////////////////////////////////////////////
-            // nodeGame hint:
-            //
-            // Execute a function randomly in a time interval
-            // from 0 to 2000 milliseconds
-            //
-            //////////////////////////////////////////////
-            node.timer.randomExec(function() {
-                node.done();
-            }, 2000);
-        });
-    });
-    console.log('instructionsModule4');
-}
-
 function game() {
-    
+
     W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
         var round;
@@ -514,13 +479,13 @@ function game() {
                 console.log("validación Modal error");
             }
             else{
-                 if(resultint == num1+num2){
-                     node.game.lastResult="succes";
-                     node.game.correct++;
+                if(resultint == num1+num2){
+                    node.game.lastResult="succes";
+                    node.game.correct++;
 
-                 }
-                 else{
-                     node.game.lastResult="danger";
+                }
+                else{
+                    node.game.lastResult="danger";
                 }
                 node.done();
 
@@ -535,7 +500,7 @@ function game() {
 
 function taxReturn(){
     W.loadFrame('taxReturn.html',function() {
-        
+
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         node.game.lastResult=null;
         node.game.earnings=0;
@@ -609,9 +574,9 @@ function result(){
         }
         node.say('DECLARE','SERVER',taxPaid);
         node.on.data('PART',function(msg){
-                value=msg.data;
-                W.getElementById("totalEarnings").innerHTML=finalEarnings+value;
-            });
+            value=msg.data;
+            W.getElementById("totalEarnings").innerHTML=finalEarnings+value+"ESUs.";
+        });
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
         W.getElementById("declareEarnings").innerHTML=node.game.declareTax+" ECUs.";
@@ -627,17 +592,56 @@ function result(){
         b.onclick = function() {
 
 
-                node.done();
+            node.done();
 
         };
 
     });
     node.game.correct=0;
 }
-function module4(){
-    W.loadFrame('module4.html',function(){
+function instructionsModule4(){
+    W.loadFrame('instructionsModule4.html', function() {
+
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.game.module++;
+            node.done();
+        };
+
+        ////////////////////////////////////////////////
+        // nodeGame hint:
+        //
+        // node.env executes a function conditionally to
+        // the environments defined in the configuration
+        // options.
+        //
+        // If the 'auto' environment was set to TRUE,
+        // then the function will be executed
+        //
+        ////////////////////////////////////////////////
+        node.env('auto', function() {
+
+            //////////////////////////////////////////////
+            // nodeGame hint:
+            //
+            // Execute a function randomly in a time interval
+            // from 0 to 2000 milliseconds
+            //
+            //////////////////////////////////////////////
+            node.timer.randomExec(function() {
+                node.done();
+            }, 2000);
+        });
+    });
+    console.log('instructionsModule4');
+}
+
+
+function questionary1(){
+    W.loadFrame('questionary1.html',function(){
         var i=1;
         var percent=10;
+
         for (;i<20;i=i+2){
             W.getElementById("percentA"+i).innerHTML=" "+percent;
             W.getElementById("percentA"+(i+1)).innerHTML=" "+(100-percent);
@@ -646,8 +650,41 @@ function module4(){
             percent=percent+10;
 
         }
+        var b=W.getElementById('read');
+        b.onclick=function(){
+            var arrayAnswers=[];
+            for(var i=1;i<=10;i++){
+                var a,b;
+
+                a=W.getElementById('answerA'+i).checked;
+                b=W.getElementById('answerB'+i).checked;
+                if(a) arrayAnswers.push('A');
+                else if(b) arrayAnswers.push('B');
+
+            }
+            if(arrayAnswers.length<10){
+                console.log("validar");
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
+                console.log(arrayAnswers);
+            }else{
+                node.done();
+                node.game.answersModule4=arrayAnswers;
+                console.log(arrayAnswers);
+            }
+
+        }
     });
 }
+
+function dataPlayer(){
+    W.loadFrame('dataPlayer.html',function(){
+        console.log('aqui')
+    });
+
+}
+
 
 
 function quiz() {
@@ -664,194 +701,6 @@ function quiz() {
     console.log('Quiz');
 }
 
-function ultimatum() {
-
-    //////////////////////////////////////////////
-    // nodeGame hint:
-    //
-    // var that = this;
-    //
-    // /this/ is usually a reference to node.game
-    //
-    // However, unlike in many progamming languages,
-    // in javascript the object /this/ assumes
-    // different values depending on the scope
-    // of the function where it is called.
-    //
-    /////////////////////////////////////////////
-    var that = this;
-
-    var root, b, options, other;
-
-    node.game.rounds.setDisplayMode(['COUNT_UP_STAGES_TO_TOTAL',
-                                     'COUNT_UP_ROUNDS_TO_TOTAL']);
-
-
-    // Hack to avoid double offers. Todo: fix.
-    node.game.offerDone = false;
-
-    // Load the BIDDER interface.
-    node.on.data('BIDDER', function(msg) {
-        console.log('RECEIVED BIDDER!');
-        other = msg.data.other;
-        node.set({role: 'BIDDER'});
-
-        //////////////////////////////////////////////
-        // nodeGame hint:
-        //
-        // W.loadFrame takes an optional third 'options' argument which
-        // can be used to request caching of the displayed frames (see
-        // the end of the following function call). The caching mode
-        // can be set with two fields: 'loadMode' and 'storeMode'.
-        //
-        // 'loadMode' specifies whether the frame should be reloaded
-        // regardless of caching (loadMode = 'reload') or whether the
-        // frame should be looked up in the cache (loadMode = 'cache',
-        // default).  If the frame is not in the cache, it is always
-        // loaded from the server.
-        //
-        // 'storeMode' says when, if at all, to store the loaded frame.
-        // By default the cache isn't updated (storeMode = 'off'). The
-        // other options are to cache the frame right after it has been
-        // loaded (storeMode = 'onLoad') and to cache it when it is
-        // closed, that is, when the frame is replaced by other
-        // contents (storeMode = 'onClose'). This last mode preserves
-        // all the changes done while the frame was open.
-        //
-        /////////////////////////////////////////////
-        W.loadFrame('bidder.html', function() {
-            // Start the timer after an offer was received.
-            options = {
-                milliseconds: 30000,
-                timeup: function() {
-                    node.emit('BID_DONE',
-                              Math.floor(Math.random() * 101), other, true);
-                }
-            };
-
-            node.game.timer.startTiming(options);
-
-            b = W.getElementById('submitOffer');
-
-            node.env('auto', function() {
-
-                //////////////////////////////////////////////
-                // nodeGame hint:
-                //
-                // Execute a function randomly
-                // in a time interval between 0 and 1 second
-                //
-                //////////////////////////////////////////////
-                node.timer.randomExec(function() {
-                    node.emit('BID_DONE',
-                              Math.floor(Math.random() * 101), other);
-                }, 4000);
-            });
-
-            b.onclick = function() {
-                var offer = W.getElementById('offer');
-                if (!that.isValidBid(offer.value)) {
-                    W.writeln('Please enter a number between 0 and 100');
-                    return;
-                }
-                node.emit('BID_DONE', parseInt(offer.value, 10), other);
-            };
-
-            root = W.getElementById('container');
-
-            node.on.data('ACCEPT', function(msg) {
-                W.write(' Your offer was accepted.', root);
-                node.timer.randomExec(function() {
-                    node.done();
-                }, 3000);
-            });
-
-            node.on.data('REJECT', function(msg) {
-                W.write(' Your offer was rejected.', root);
-                node.timer.randomExec(function() {
-                    node.done();
-                }, 3000);
-            });
-
-            node.timer.setTimestamp('bidder_loaded');
-
-        }, { cache: { loadMode: 'cache', storeMode: 'onLoad' } });
-    });
-
-    // Load the respondent interface.
-    node.on.data('RESPONDENT', function(msg) {
-        console.log('RECEIVED RESPONDENT!');
-        other = msg.data.other;
-        node.set({role: 'RESPONDENT'});
-
-        W.loadFrame('resp.html', function() {
-            options = {
-                milliseconds: 30000
-            };
-
-            node.game.timer.startWaiting(options);
-            node.game.timer.mainBox.hideBox();
-
-            //////////////////////////////////////////////
-            // nodeGame hint:
-            //
-            // nodeGame offers several types of event
-            // listeners. They are all resemble the syntax
-            //
-            // node.on.<target>
-            //
-            // For example: node.on.data(), node.on.plist().
-            //
-            // The low level event listener is simply
-            //
-            // node.on
-            //
-            // For example, node.on('in.say.DATA', cb) can
-            // listen to all incoming DATA messages.
-            //
-            /////////////////////////////////////////////
-            node.on.data('OFFER', function(msg) {
-                var theofferSpan, offered, accept, reject;
-
-                options = {
-                    timeup: function() {
-                        that.randomAccept(msg.data, other);
-                    }
-                };
-                node.game.timer.startTiming(options);
-
-
-                offered = W.getElementById('offered');
-                theofferSpan = W.getElementById('theoffer');
-                theofferSpan.innerHTML = msg.data;
-                offered.style.display = '';
-
-                accept = W.getElementById('accept');
-                reject = W.getElementById('reject');
-
-                node.env('auto', function() {
-                    node.timer.randomExec(function() {
-                        that.randomAccept(msg.data, other);
-                    }, 3000);
-                });
-
-                accept.onclick = function() {
-                    node.emit('RESPONSE_DONE', 'ACCEPT', msg.data, other);
-                };
-
-                reject.onclick = function() {
-                    node.emit('RESPONSE_DONE', 'REJECT', msg.data, other);
-                };
-
-                node.timer.setTimestamp('offer_received');
-            });
-
-        }, { cache: { loadMode: 'cache', storeMode: 'onLoad' } });
-
-    });
-
-    console.log('Ultimatum');
-}
 
 function postgame() {
     node.game.rounds.setDisplayMode(['COUNT_UP_STAGES_TO_TOTAL']);

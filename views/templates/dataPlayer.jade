@@ -1,0 +1,32 @@
+
+extends iframe-layout
+block mainContent
+   div(id='container')
+      h1=title
+      div(id='')
+         =text1
+         br
+         br
+         =text2
+         input#age( type= "number")
+         br
+         br
+         div
+         =text3
+         from(role="form")
+               div(class="radio")
+
+                  label
+                     input(type="radio", value='A',name='gender' )#genderF
+                     =text4
+               div(class="radio")
+                  label
+                     input(type="radio", value='B',name='gender' )#genderM
+                     =text5
+         br
+         br
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+
+//
+   Created by joseorellana on 29-01-16.
+

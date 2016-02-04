@@ -3,6 +3,9 @@ block mainContent
    div(id='container')
       h1=Module
       div(id='module4')
+         br
+         br
+         br
          table(border='3px solid', width="120%", font-size="40%")
             tr
                td
@@ -18,13 +21,12 @@ block mainContent
                   span#percentB2
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion1
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question1' )#answerA1
                            label A
-
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question1' )#answerB1
                            label B
 
 
@@ -42,13 +44,13 @@ block mainContent
                   span#percentB12
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion6
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question6' )#answerA6
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question6' )#answerB6
                            label B
 
 
@@ -65,14 +67,14 @@ block mainContent
                   =valorB1
                   span#percentB4
                   =valorB2
-                  div(align="center")
+                  div(align="center")#fQuestion2
                      from(role="form")
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question2' )#answerA2
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question2' )#answerB2
                            label B
                td
                   strong A:
@@ -87,13 +89,13 @@ block mainContent
                   span#percentB14
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion7
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question7' )#answerA7
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question7' )#answerB7
                            label B
             tr
                td
@@ -109,13 +111,13 @@ block mainContent
                   span#percentB6
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion3
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question3' )#answerA3
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question3' )#answerB3
                            label B
 
                td
@@ -131,13 +133,13 @@ block mainContent
                   span#percentB16
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion8
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question8' )#answerA8
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question8' )#answerB8
                            label B
 
 
@@ -155,13 +157,13 @@ block mainContent
                   span#percentB8
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion4
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question4' )#answerA4
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question4' )#answerB4
                            label B
                td
                   strong A:
@@ -176,13 +178,13 @@ block mainContent
                   span#percentB18
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion9
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question9' )#answerA9
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question9' )#answerB9
                            label B
             tr
                td
@@ -198,13 +200,13 @@ block mainContent
                   span#percentB10
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion5
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A',name='Question5' )#answerA5
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question5' )#answerB5
                            label B
                td
                   strong A:
@@ -219,15 +221,27 @@ block mainContent
                   span#percentB20
                   =valorB2
                   div(align="center")
-                     from(role="form")
+                     from(role="form")#fQuestion10
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='A10',name='Question10' )#answerA10
                            label A
 
                         div(class="radio")
-                           input(type="radio" )
+                           input(type="radio", value='B',name='Question10' )#answerB10
                            label B
 
-      input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+         br
+         br
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+         .modal(id='ERROR')
+            .modal-dialog.modal-lg
+               .modal-content(style=".modal-content")
+                  .modal-header
+                     button(type="button", class="close", data-dismiss="modal",aria-label="Close")
+                     span(aria-hidden="true") &times;
+                  .modal-body(style=".modal-body")
+                     =error
+                  .modal-footer
+                  button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar
 //Created by joseorellana on 27-01-16.
 
