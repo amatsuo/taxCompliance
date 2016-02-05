@@ -13,3 +13,9 @@ div#container {
 .question {
     font-weight: bold;
 }
+input.bar {
+    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
