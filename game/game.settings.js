@@ -28,7 +28,7 @@ module.exports = {
     //Timer instructions
     TIMER_INSTRUCTIONS: 200000,
     //Timer instructions
-    TIMER_GAME:2000,
+    TIMER_GAME:20000,
     //
     CANTIDAD:1000,
     CANTIDAD_ESU_x_PCH:300,

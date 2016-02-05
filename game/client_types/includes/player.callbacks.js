@@ -22,6 +22,7 @@ module.exports = {
     questionary1:questionary1,
     dataPlayer:dataPlayer,
     questionary2:questionary2,
+    questionary3:questionary3,
 
     //module2:module2,
 
@@ -45,7 +46,7 @@ function init() {
     node.game.lastResult=null;
     node.game.correct=0;
     node.game.group=null;
-    node.game.module=2;
+    node.game.module=0;
     node.game.answersModule4=[];
 
     // Setup the header (by default on the left side).
@@ -576,7 +577,7 @@ function result(){
         node.say('DECLARE','SERVER',taxPaid);
         node.on.data('PART',function(msg){
             value=msg.data;
-            W.getElementById("totalEarnings").innerHTML=finalEarnings+value+"ESUs.";
+            W.getElementById("totalEarnings").innerHTML=finalEarnings+value+"ECUs.";
         });
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
@@ -729,13 +730,38 @@ function questionary2(){
                 console.log("validar");
 
                 console.log(arrayAnswers);
+                node.done();
             } else {
-                //node.done();
+                node.done();
                 //node.game.answersModule4 = arrayAnswers;
                 console.log(arrayAnswers);
             }
         }
     });
+}
+
+function questionary3(){
+    var socio, flag=true;
+    W.loadFrame('questionary3.html',function(){
+        var b= W.getElementById('read')
+        b.onclick= function(){
+            for(var i=1;i<=18;i++){
+                if(W.getElementById('answer'+i).checked){
+                    socio=i;
+                    flag=false;
+                    break;
+                }
+            }
+
+            if(flag){
+                console.log('validar')
+            }else{
+                node.done();
+            }
+        }
+
+    });
+
 }
 
 
