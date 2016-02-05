@@ -81,10 +81,9 @@ module.exports = function(stager, settings) {
     //MODULE 5
     stager.stage('module5Stage')
     stager.step('dataPlayer');
-    /*stager.step('questionary2');
-
+    stager.step('questionary2');
+/*
     stager.step('questionary3');
-    stager.step('questionary4');
 
     //RESULT
 

@@ -9,12 +9,12 @@ block mainContent
          br
          label
             =text2
-         label
-            input#age( type= "number")
+
+         input#age( type= "number")
          br
          label
             =text3
-         from(role="form")
+         from(role="form",name="formGender")
                div(class="radio")
 
                   label
@@ -27,12 +27,14 @@ block mainContent
          br
          =text6
          br
-         from(role="from")
+         from(role="from", name="formPolitics")
 
             table
                tr(style="font-size:70%")
                   td
                      p
+                  td
+                    p 0
                   td
                      p 1
                   td
@@ -60,38 +62,40 @@ block mainContent
                     label
                         =text7
                   td
-                     input(type="radio", value='1',name='politics',class="bar" ) 1
+                     input(type="radio", value='0',name='politics',class="bar" )#politics0 0
                   td
-                     input(type="radio", value='2',name='politics',class="bar" ) 2
+                     input(type="radio", value='1',name='politics',class="bar" )#politics1 1
                   td
-                     input(type="radio", value='3',name='politics',class="bar" ) 3
+                     input(type="radio", value='2',name='politics',class="bar" )#politics2 2
                   td
-                     input(type="radio", value='4',name='politics',class="bar" ) 4
+                     input(type="radio", value='3',name='politics',class="bar" )#politics3 3
                   td
-                     input(type="radio", value='5',name='politics',class="bar" ) 5
+                     input(type="radio", value='4',name='politics',class="bar" )#politics4 4
                   td
-                     input(type="radio", value='6',name='politics',class="bar" ) 6
+                     input(type="radio", value='5',name='politics',class="bar" )#politics5 5
                   td
-                     input(type="radio", value='7',name='politics',class="bar" ) 7
+                     input(type="radio", value='6',name='politics',class="bar" )#politics6 6
                   td
-                     input(type="radio", value='8',name='politics',class="bar" ) 8
+                     input(type="radio", value='7',name='politics',class="bar" )#politics7 7
                   td
-                     input(type="radio", value='9',name='politics',class="bar" ) 9
+                     input(type="radio", value='8',name='politics',class="bar" )#politics8 8
                   td
-                     input(type="radio", value='10',name='politics',class="bar") 10
+                     input(type="radio", value='9',name='politics',class="bar" )#politics9 9
+                  td
+                     input(type="radio", value='10',name='politics',class="bar")#politics10 10
                   td
                     label
                         =text8
          br
          =text9
-         from(role="form")
+         from(role="form",name="formAnwser")
             div(class="radio",style="font-size:85%")
                label
-                  input(type="radio", value='A',name='conf' )
+                  input(type="radio", value='A',name='conf' )#confA
                   =text10
             div(class="radio")
                label
-                  input(type="radio", value='B',name='conf' )
+                  input(type="radio", value='B',name='conf' )#confB
                   =text11
          br
          br

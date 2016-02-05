@@ -21,6 +21,7 @@ module.exports = {
     instructionsModule4:instructionsModule4,
     questionary1:questionary1,
     dataPlayer:dataPlayer,
+    questionary2:questionary2,
 
     //module2:module2,
 
@@ -680,9 +681,61 @@ function questionary1(){
 
 function dataPlayer(){
     W.loadFrame('dataPlayer.html',function(){
-        console.log('aqui')
+        var b = W.getElementById('read');
+        var gender,politics,anwser,age;
+        b.onclick = function() {
+
+            if(W.getElementById("genderF").checked) gender="F";
+            else gender="M";
+
+            for(var i=0; i<=10;i++){
+                if(W.getElementById("politics"+i).checked){
+                    politics=i;
+                    break;
+                }
+            }
+
+            if(W.getElementById("confA").checked) anwser="A";
+            else anwser="B";
+
+            var value= W.getElementById('age').value;
+
+            value = JSUS.isInt(value, 0, 150);
+
+            age=value;
+            console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+anwser);
+            node.done();
+
+        };
+
     });
 
+}
+function questionary2(){
+    W.loadFrame('questionary2.html',function() {
+        var b = W.getElementById('read');
+        b.onclick = function () {
+            var arrayAnswers = [];
+            for (var i = 1; i <= 10; i++) {
+                for (var j = 1; j <= 4; j++) {
+                    if (W.getElementById('answer' + j + "-" + i).checked) {
+                        arrayAnswers.push(j);
+                        break;
+                    }
+                }
+            }
+
+            if (arrayAnswers.length < 10) {
+                console.log("validar");
+
+                console.log(arrayAnswers);
+            } else {
+                //node.done();
+                //node.game.answersModule4 = arrayAnswers;
+                console.log(arrayAnswers);
+            }
+        }
+    });
 }
 
 

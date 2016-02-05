@@ -193,6 +193,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('dataPlayer');
         }
     });
+    stager.extendStep('questionary2', {
+        cb: function() {
+            console.log('questionary2');
+        }
+    });
 
    /* stager.extendStep('game', {
         cb: function() {
