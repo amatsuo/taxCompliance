@@ -19,6 +19,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var node = gameRoom.node;
     var channel =  gameRoom.channel;
+    var couples=[];
 
     // Must implement the stages here.
 
@@ -68,7 +69,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('module1', {
         cb: function() {
+            var g;
+            var par,i;
             console.log('Start Module 1');
+            g=node.game.pl.shuffle();
+            for(i=0;i<node.game.pl.size();i=i+2){
+                console.log('Player id: '+g[i].id)
+            };
+
+
         }
     });
     stager.extendStep('instructionsModule2', {

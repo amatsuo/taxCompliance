@@ -1,0 +1,31 @@
+extends iframe-layout
+block mainContent
+   div(id='container')
+      h1=Module
+      div(id='results')
+         br
+         p=text1
+         span#numberCorrect
+         br
+         p=text2
+         span#preEarnings
+         br
+         p=text3
+         span#declareEarnings
+         br
+         span#revision(style="font-weight:bold")
+         P=text4
+         span#taxPaid
+         br
+         P=text5
+         span#finalEarnings
+         br
+         p=text6
+         span#totalEarnings
+         br
+         br
+         input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+
+//
+   Created by joseorellana on 07-02-16.
+

@@ -25,7 +25,7 @@ module.exports = function(stager, settings) {
         .next('module1')
 //MODULE 2
         .next('instructionsModule2');
-        //stager.stepBlock(0)
+
 
     // First practice stage.
 
