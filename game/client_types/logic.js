@@ -71,10 +71,32 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             var g;
             var par,i;
+            var playerA,playerB;
             console.log('Start Module 1');
             g=node.game.pl.shuffle();
             for(i=0;i<node.game.pl.size();i=i+2){
-                console.log('Player id: '+g[i].id)
+                playerA=g.db[i];
+                playerB=g.db[i+1];
+
+                var dataPA={
+                    role:'A',
+                    other:playerB.id
+
+                };
+                var dataPB={
+                    role:'B',
+                    other:playerA.id
+
+                };
+                console.log('Player id A: ' + playerA.id);
+                console.log('Role A: ' + dataPA.role);
+                console.log('Other A: ' + dataPA.other);
+                console.log('Player id B: ' + playerB.id);
+                console.log('Role B: ' + dataPB.role);
+                console.log('Other B: ' + dataPB.other);
+                node.say('Role A' , playerA.id, dataPA);
+                node.say('Role B', playerB.id, dataPB);
+
             };
 
 
@@ -210,6 +232,35 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('questionary3', {
         cb: function() {
             console.log('questionary3');
+        }
+    });
+    stager.extendStep('resultModule1', {
+        cb: function() {
+            var results= node.game.memory.select('done');
+            var dataResult;
+            for(var i=0;i<results.size();i++){
+                if(results.db[i].module=='Module1'){
+                    dataResult={
+                        id:results.db[i].player,
+                        role:results.db[i].role,
+                        value:results.db[i].value,
+                        other:results.db[i].other
+                    };
+                    console.log('--------------------------');
+                    console.log('Player '+i);
+                    console.log('Id: '+dataResult.id);
+                    console.log('Role: '+dataResult.role);
+                    console.log('Value: '+dataResult.value);
+                    console.log('Other: '+dataResult.other);
+
+                    node.say('Result',dataResult.id,dataResult)
+
+                }
+
+            }
+            console.log('--------------------------');
+            console.log('resultModule1');
+
         }
     });
 

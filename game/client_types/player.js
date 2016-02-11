@@ -248,6 +248,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
+    })
+    stager.extendStep('resultModule1', {
+        cb: cbs.resultModule1,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_INSTRUCTIONS
     });
    /*
     stager.extendStep('end', {

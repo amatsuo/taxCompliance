@@ -23,7 +23,7 @@ module.exports = {
     dataPlayer:dataPlayer,
     questionary2:questionary2,
     questionary3:questionary3,
-
+    resultModule1:resultModule1,
     //module2:module2,
 
     //quiz: quiz,
@@ -337,8 +337,21 @@ function instructionsModule1(){
 function module1(){
     W.loadFrame('module1.html', function () {
 
+        var role,other;
         var b = W.getElementById('read');
+        node.on.data('Role A', function(msg) {
+            role=msg.data.role;
+            other=msg.data.other;
+            console.log('Role '+ role);
+        });
+        node.on.data('Role B', function(msg) {
+            role=msg.data.role;
+            other=msg.data.other;
+            console.log('Role '+role );
+        });
+
         b.onclick = function() {
+            var valueR=0;
             var value= W.getElementById('Send').value;
             value = JSUS.isInt(value, 0, node.game.settings.CANTIDAD);
 
@@ -347,10 +360,34 @@ function module1(){
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
                 $('.modal-backdrop').remove();
-            } 
-            else {
 
-                node.done();
+            }
+            else {
+                console.log('Role '+role );
+                node.say('send',other,value);
+                node.on.data('send',function(msg){
+                    valueR=msg.data;
+                    if(role=='A') {
+
+                        node.done({
+                            value: 1000 - value,
+                            role: role,
+                            other: other,
+                            module:'Module1'
+                        });
+                        node.say('send',other,value);
+
+                    }else{
+                        node.done({
+                            value: valueR,
+                            role: role,
+                            other: other,
+                            module:'Module1'
+                        });
+                        node.say('send',other,value);
+
+                    }
+                });
             }
         };
     });
@@ -763,6 +800,24 @@ function questionary3(){
     });
 
 }
+function resultModule1(){
+    W.loadFrame('resultModule1.html',function(){
+        node.on.data('Result',function(msg){
+            if(msg.data.role=='A'){
+                W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" envío a otros participantes "+(1000-msg.data.value)+"ECUs.";
+                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+"ECUs.";
+            }else{
+                W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" recibío de otros participantes "+msg.data.value+"ECUs.";
+                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+"ECUs.";
+
+            }
+        });
+
+    });
+
+};
 
 
 
