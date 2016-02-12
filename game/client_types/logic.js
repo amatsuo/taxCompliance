@@ -124,7 +124,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.game.nConectP=0;
             var orden=true;
             g=node.game.pl.shuffle();
-            console.log(g);
+            //console.log(g);
            /* for(i=0;i<node.game.pl.size();i=i+2);
             {
 
@@ -148,8 +148,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             node.on('in.set.DATA', function(msg) {
                 var done;
-                console.log('received in.set.DATA');
-                console.log(msg.data.done, msg.stage.step);
+                //console.log('received in.set.DATA');
+                //console.log(msg.data.done, msg.stage.step);
                 if (msg.data.loopFinished) {
                     done = true;
                     node.game.pl.each(function(p) {
@@ -190,12 +190,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             var nmsg=0;
 
             node.on.data('DECLARE',function(msg){
-                    console.log('declare: '+ msg.data);
+                    //console.log('declare: '+ msg.data);
                     total=total+msg.data;
                     nmsg++;
                     if(nmsg==node.game.pl.size()){
                         var value= total/node.game.pl.size();
-                        console.log('parte: '+value);
+                        //console.log('parte: '+value);
                         node.game.pl.each(function(p) {
                            node.say('PART', p.id,value);
                         });
@@ -204,8 +204,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 }
             );
-            console.log('players: '+node.game.pl.size());
-            console.log('result');
+            //console.log('players: '+node.game.pl.size());
+            //console.log('result');
         }
     });
     stager.extendStep('taxReturn2', {
@@ -247,8 +247,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         other:results.db[i].other
                     };
                     console.log('--------------------------');
-                    console.log('Player '+i);
-                    console.log('Id: '+dataResult.id);
+                    console.log('Player '+dataResult.id);
                     console.log('Role: '+dataResult.role);
                     console.log('Value: '+dataResult.value);
                     console.log('Other: '+dataResult.other);
@@ -260,6 +259,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
             console.log('--------------------------');
             console.log('resultModule1');
+
+        }
+    });
+    stager.extendStep('resultModule2', {
+        cb: function() {
+            var results= node.game.memory.select('done');
+            var players=node.game.pl;
+            for(var j=0;j<node.game.pl.size();j++){
+                var resultsArray=[];
+                console.log('IdPlayer: '+node.game.pl.db[j].id +'\nArrayResults: ');
+                for(var i=0;i<results.size();i++){
+                    if((results.db[i].module=='Module2')&&(results.db[i].player===players.db[j].id)){
+
+                        resultsArray.push(results.db[i]);
+                    }
+                }
+                console.log(resultsArray);
+            }
+
+
+            console.log('resultModule2');
 
         }
     });

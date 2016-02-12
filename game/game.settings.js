@@ -22,7 +22,7 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 1,
+    REPEAT: 2,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 100000,
     //Timer instructions

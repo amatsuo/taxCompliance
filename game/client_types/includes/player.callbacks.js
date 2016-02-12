@@ -24,6 +24,7 @@ module.exports = {
     questionary2:questionary2,
     questionary3:questionary3,
     resultModule1:resultModule1,
+    resultModule2:resultModule2,
     //module2:module2,
 
     //quiz: quiz,
@@ -48,6 +49,7 @@ function init() {
     node.game.group=null;
     node.game.module=0;
     node.game.answersModule4=[];
+    node.game.round=-1;
 
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
@@ -433,6 +435,7 @@ function instructionsModule3(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.rounds=-1;
             node.game.module++;
             node.done();
         };
@@ -498,12 +501,12 @@ function game() {
         }
         node.on.data('Group K!', function(msg) {
             node.game.group="K";
-            node.set({role:"K"})
+            node.set({role:"K"});
             console.log('I\'m Group K!');
         });
         node.on.data('Group G!', function(msg) {
             node.game.group="G";
-            node.set({role:"G"})
+            node.set({role:"G"});
             console.log('I\'m Group G! ');
         });
 
@@ -526,6 +529,7 @@ function game() {
                 else{
                     node.game.lastResult="danger";
                 }
+
                 node.done();
 
             }
@@ -629,14 +633,27 @@ function result(){
 
         var b = W.getElementById('read');
         b.onclick = function() {
+            var correct=node.game.correct;
+            if(node.game<0) node.done();
+            else node.done({
+                    module:'Module'+node.game.module,
+                    round:node.player.stage.round,
+                    preEarnings:node.game.earnings,
+                    totalEarnings:(finalEarnings+value),
+                    correct:correct,
+                    statusDeclare:estado,
+                    taxPaid:taxPaid,
+                    finalEarnings:finalEarnings
 
-
-            node.done();
+                });
+            node.game.correct=0;
+            node.game.rounds++;
 
         };
 
+
     });
-    node.game.correct=0;
+
 }
 function instructionsModule4(){
     W.loadFrame('instructionsModule4.html', function() {
@@ -805,17 +822,26 @@ function resultModule1(){
         node.on.data('Result',function(msg){
             if(msg.data.role=='A'){
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" envío a otros participantes "+(1000-msg.data.value)+"ECUs.";
-                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+"ECUs.";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" envío a otros participantes "+(1000-msg.data.value)+" ECUs.";
+                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
             }else{
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" recibío de otros participantes "+msg.data.value+"ECUs.";
-                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+"ECUs.";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" recibío de otros participantes "+msg.data.value+" ECUs.";
+                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
 
             }
         });
 
     });
+
+}
+function resultModule2(){
+   /* W.loadFrame('resultModule2.html',function(){
+        node.on.data('Result',function(msg){
+
+        });
+
+    });*/
 
 };
 
