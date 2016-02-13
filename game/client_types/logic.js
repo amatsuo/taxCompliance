@@ -252,7 +252,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     console.log('Value: '+dataResult.value);
                     console.log('Other: '+dataResult.other);
 
-                    node.say('Result',dataResult.id,dataResult)
+                    node.say('Result',dataResult.id,dataResult);
 
                 }
 
@@ -266,6 +266,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             var results= node.game.memory.select('done');
             var players=node.game.pl;
+
             for(var j=0;j<node.game.pl.size();j++){
                 var resultsArray=[];
                 console.log('IdPlayer: '+node.game.pl.db[j].id +'\nArrayResults: ');
@@ -276,6 +277,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }
                 }
                 console.log(resultsArray);
+                var choise=Math.floor(Math.random()*(resultsArray.length-1));
+                var resultChoise=resultsArray[choise];
+                console.log("Choise: "+choise+"\n Result: ");
+                //console.log(resultChoise);
+                var dataResult={
+                    id:resultChoise.player,
+                    round:resultChoise.round,
+                    preEarnings:resultChoise.preEarnings,
+                    totalEarnings:resultChoise.totalEarnings,
+                    declareEarnings:resultChoise.declareEarnings,
+                    correct:resultChoise.correct,
+                    statusDeclare:resultChoise.statusDeclare,
+                    taxPaid:resultChoise.taxPaid,
+                    finalEarnings:resultChoise.finalEarnings
+
+                };
+                console.log(dataResult);
+                node.say('Result',dataResult.id,dataResult);
             }
 
 
@@ -283,7 +302,87 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         }
     });
+    stager.extendStep('resultModule3', {
+        cb: function() {
+            var results= node.game.memory.select('done');
+            var players=node.game.pl;
 
+            for(var j=0;j<node.game.pl.size();j++){
+                var resultsArray=[];
+                console.log('IdPlayer: '+node.game.pl.db[j].id +'\nArrayResults: ');
+                for(var i=0;i<results.size();i++){
+                    if((results.db[i].module=='Module3')&&(results.db[i].player===players.db[j].id)){
+
+                        resultsArray.push(results.db[i]);
+                    }
+                }
+                console.log(resultsArray);
+                var choise=Math.abs(Math.floor(Math.random()*(resultsArray.length-1)));
+                var resultChoise=resultsArray[choise];
+                console.log("Choise: "+choise+"\n Result: ");
+                console.log(resultChoise);
+                var dataResult={
+                    id:resultChoise.player,
+                    round:resultChoise.round,
+                    preEarnings:resultChoise.preEarnings,
+                    totalEarnings:resultChoise.totalEarnings,
+                    declareEarnings:resultChoise.declareEarnings,
+                    correct:resultChoise.correct,
+                    statusDeclare:resultChoise.statusDeclare,
+                    taxPaid:resultChoise.taxPaid,
+                    finalEarnings:resultChoise.finalEarnings
+
+                };
+                console.log(dataResult);
+                node.say('Result',dataResult.id,dataResult);
+            }
+
+
+            console.log('resultModule3');
+
+        }
+    });
+    stager.extendStep('resultModule4', {
+        cb: function() {
+            var results= node.game.memory.select('done');
+            var players=node.game.pl;
+
+            for(var j=0;j<node.game.pl.size();j++){
+                var resultsArray=[];
+                console.log('IdPlayer: '+node.game.pl.db[j].id +'\nArrayResults: ');
+                for(var i=0;i<results.size();i++){
+                    if((results.db[i].module=='Module4')&&(results.db[i].player===players.db[j].id)){
+
+                        resultsArray.push(results.db[i]);
+                    }
+                }
+                /*console.log(resultsArray);
+                var choise=Math.abs(Math.floor(Math.random()*(resultsArray.length-1)));
+                var resultChoise=resultsArray[choise];
+                console.log("Choise: "+choise+"\n Result: ");
+                console.log(resultChoise);
+                var dataResult={
+                    id:resultChoise.player,
+                    round:resultChoise.round,
+                    preEarnings:resultChoise.preEarnings,
+                    totalEarnings:resultChoise.totalEarnings,
+                    declareEarnings:resultChoise.declareEarnings,
+                    correct:resultChoise.correct,
+                    statusDeclare:resultChoise.statusDeclare,
+                    taxPaid:resultChoise.taxPaid,
+                    finalEarnings:resultChoise.finalEarnings
+
+                };
+                console.log(dataResult);
+                node.say('Result',dataResult.id,dataResult);
+                */
+            }
+
+
+            console.log('resultModule4');
+
+        }
+    });
    /* stager.extendStep('game', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);

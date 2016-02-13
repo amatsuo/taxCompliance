@@ -91,10 +91,10 @@ module.exports = function(stager, settings) {
     //RESULT
 
     stager.stage('resultStage');
-    stager.step('resultModule1');
-    stager.step('resultModule2');
-/*  stager.step('resultModule3');
-    stager.step('resultModule4');
+    stager.stage('resultModule1');
+    stager.stage('resultModule2');
+    stager.stage('resultModule3');
+/*    stager.step('resultModule4');
 
     stager.step('end');
 
@@ -105,7 +105,7 @@ module.exports = function(stager, settings) {
 
 
     // Modify the stager to skip one stage.
-   /* stager.skip('instructions');
+   stager.skip('instructions');
     stager.skip('modulo4Stage');
     stager.skip('module5Stage');
     //stager.skip('results');
@@ -115,8 +115,9 @@ module.exports = function(stager, settings) {
     //stager.skip('instructionsModule3');
    // stager.skip('instructionsModule4');
     stager.skip('resultModule1');
+   // stager.skip('resultModule3');
     stager.skip('module1');
-    stager.skip('selectLanguage');*/
+    stager.skip('selectLanguage');
 
     return stager.getState();
 };

@@ -25,6 +25,8 @@ module.exports = {
     questionary3:questionary3,
     resultModule1:resultModule1,
     resultModule2:resultModule2,
+    resultModule3:resultModule3,
+    resultModule4:resultModule4,
     //module2:module2,
 
     //quiz: quiz,
@@ -47,9 +49,9 @@ function init() {
     node.game.lastResult=null;
     node.game.correct=0;
     node.game.group=null;
-    node.game.module=0;
+    node.game.module=2;
     node.game.answersModule4=[];
-    node.game.round=-1;
+    node.game.round=0;
 
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
@@ -540,7 +542,6 @@ function game() {
 
     });
 }
-
 function taxReturn(){
     W.loadFrame('taxReturn.html',function() {
 
@@ -628,29 +629,27 @@ function result(){
         W.getElementById("taxPaid").innerHTML=taxPaid+" ECUs.";
         W.getElementById("finalEarnings").innerHTML=finalEarnings+" ECUs.";
 
-
-
-
         var b = W.getElementById('read');
         b.onclick = function() {
             var correct=node.game.correct;
             if(node.game<0) node.done();
             else node.done({
                     module:'Module'+node.game.module,
-                    round:node.player.stage.round,
+                    round:node.game.round+1,
                     preEarnings:node.game.earnings,
                     totalEarnings:(finalEarnings+value),
                     correct:correct,
+                    declareEarnings:node.game.declareTax,
                     statusDeclare:estado,
                     taxPaid:taxPaid,
                     finalEarnings:finalEarnings
 
                 });
+            node.game.round++;
             node.game.correct=0;
-            node.game.rounds++;
+
 
         };
-
 
     });
 
@@ -692,7 +691,6 @@ function instructionsModule4(){
     console.log('instructionsModule4');
 }
 
-
 function questionary1(){
     W.loadFrame('questionary1.html',function(){
         var i=1;
@@ -733,7 +731,6 @@ function questionary1(){
         }
     });
 }
-
 function dataPlayer(){
     W.loadFrame('dataPlayer.html',function(){
         var b = W.getElementById('read');
@@ -793,7 +790,6 @@ function questionary2(){
         }
     });
 }
-
 function questionary3(){
     var socio, flag=true;
     W.loadFrame('questionary3.html',function(){
@@ -830,20 +826,60 @@ function resultModule1(){
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
 
             }
+            var b = W.getElementById('read');
+            b.onclick = function() {
+                node.done();
+            };
         });
 
     });
 
 }
 function resultModule2(){
-   /* W.loadFrame('resultModule2.html',function(){
+    W.loadFrame('resultModule2.html',function(){
         node.on.data('Result',function(msg){
-
+            W.getElementById("round").innerHTML=msg.data.round;
+            W.getElementById("totalEarnings").innerHTML=msg.data.totalEarnings+"ECUs.";
+            W.getElementById("numberCorrect").innerHTML=msg.data.correct;
+            W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
+            W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
+            if(msg.data.statusDeclare)
+                W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+            else
+                W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
+            W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
+            var b = W.getElementById('read');
+            b.onclick = function() {
+                node.done();
+            };
         });
 
-    });*/
+    });
 
-};
+}
+function resultModule3(){
+    W.loadFrame('resultModule3.html',function(){
+        node.on.data('Result',function(msg){
+
+            W.getElementById("round").innerHTML=msg.data.round;
+            W.getElementById("totalEarnings").innerHTML=msg.data.totalEarnings+"ECUs.";
+            W.getElementById("numberCorrect").innerHTML=msg.data.correct;
+            W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
+            W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
+            if(msg.data.statusDeclare)
+                W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+            else
+                W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
+            W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
+        });
+
+    });
+}
+function resultModule4(){
+
+}
 
 
 

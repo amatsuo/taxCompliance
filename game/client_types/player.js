@@ -261,6 +261,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
+    stager.extendStep('resultModule3', {
+        cb: cbs.resultModule3,
+        minPlayers: MIN_PLAYERS,
+        // syncOnLoaded: true,
+        timer: settings.TIMER_INSTRUCTIONS
+    });
    /*
     stager.extendStep('end', {
         // frame: 'end.htm',
