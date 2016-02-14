@@ -49,7 +49,7 @@ function init() {
     node.game.lastResult=null;
     node.game.correct=0;
     node.game.group=null;
-    node.game.module=2;
+    node.game.module=0;
     node.game.answersModule4=[];
     node.game.round=0;
 
@@ -723,7 +723,10 @@ function questionary1(){
                 $('.modal-backdrop').remove();
                 console.log(arrayAnswers);
             }else{
-                node.done();
+                node.done({
+                    module:'Module4',
+                    arrayAnswers:arrayAnswers
+                });
                 node.game.answersModule4=arrayAnswers;
                 console.log(arrayAnswers);
             }
@@ -878,7 +881,15 @@ function resultModule3(){
     });
 }
 function resultModule4(){
+    W.loadFrame('resultModule4.html',function(){
+        node.on.data('Result',function(msg){
 
+            W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
+            W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
+            W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+' pesos';
+        });
+
+    });
 }
 
 

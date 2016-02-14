@@ -4,24 +4,11 @@ block mainContent
       h1=Module
       div(id='results')
          br
-         p=text1
-         span#numberCorrect
+         p#choise=text1
          br
-         p=text2
-         span#preEarnings
+         p#selection=text2
          br
-         p=text3
-         span#declareEarnings
-         br
-         span#revision(style="font-weight:bold")
-         P=text4
-         span#taxPaid
-         br
-         P=text5
-         span#finalEarnings
-         br
-         p=text6
-         span#totalEarnings
+         p#earnings=text3
          br
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
