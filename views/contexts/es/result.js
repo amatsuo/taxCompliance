@@ -4,10 +4,11 @@ module.exports = function(settings, headers) {
         title: "Resultado",
         Module: "Result Module",
         text1:"Número respuestas correctas:",
-        text2:"Sus ganancias declaradas:",
-        text3:"Deduciones totales:",
-        text4:"Cantidad recibida después de deduciones:",
-        text5:"Ganancias de esta ronda:",
+        text2:"Ganancias preliminares:",
+        text3:"Sus ganancias declaradas:",
+        text4:"Deduciones totales:",
+        text5:"Cantidad recibida después de deduciones:",
+        text6:"Ganancias de esta ronda:",
         proceed:"Continuar"
     };
 };

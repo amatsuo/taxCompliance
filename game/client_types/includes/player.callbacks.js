@@ -818,6 +818,7 @@ function questionary3(){
 }
 function resultModule1(){
     W.loadFrame('resultModule1.html',function(){
+        var dataResult;
         node.on.data('Result',function(msg){
             if(msg.data.role=='A'){
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
@@ -829,17 +830,26 @@ function resultModule1(){
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
 
             }
-            var b = W.getElementById('read');
-            b.onclick = function() {
-                node.done();
+            dataResult={
+                value: msg.data.valueR,
+                role: msg.data.role,
+                other: msg.data.other,
+                module:'resultModule'
+
             };
         });
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done(dataResult);
+
+        };
 
     });
 
 }
 function resultModule2(){
     W.loadFrame('resultModule2.html',function(){
+        var dataResult;
         node.on.data('Result',function(msg){
             W.getElementById("round").innerHTML=msg.data.round;
             W.getElementById("totalEarnings").innerHTML=msg.data.totalEarnings+"ECUs.";
@@ -852,17 +862,32 @@ function resultModule2(){
                 W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
-            var b = W.getElementById('read');
-            b.onclick = function() {
-                node.done();
-            };
-        });
+            dataResult={
+                module:'resultModule',
+                round:msg.data.round,
+                preEarnings:msg.data.preEarnings,
+                totalEarnings:msg.data.totalEarnings,
+                correct:msg.data.correct,
+                declareEarnings:msg.data.declareTax,
+                statusDeclare:msg.data.statusDeclare,
+                taxPaid:msg.data.taxPaid,
+                finalEarnings:msg.data.finalEarnings
 
+            };
+
+        });
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done(dataResult);
+        };
     });
+
+
 
 }
 function resultModule3(){
     W.loadFrame('resultModule3.html',function(){
+        var dataResult;
         node.on.data('Result',function(msg){
 
             W.getElementById("round").innerHTML=msg.data.round;
@@ -876,18 +901,46 @@ function resultModule3(){
                 W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
+
+            dataResult={
+                module:'resultModule',
+                round:msg.data.round,
+                preEarnings:msg.data.preEarnings,
+                totalEarnings:msg.data.totalEarnings,
+                correct:msg.data.correct,
+                declareEarnings:msg.data.declareTax,
+                statusDeclare:msg.data.statusDeclare,
+                taxPaid:msg.data.taxPaid,
+                finalEarnings:msg.data.finalEarnings
+
+            };
         });
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done(dataResult);
+        };
 
     });
 }
 function resultModule4(){
     W.loadFrame('resultModule4.html',function(){
+        var dataResult;
         node.on.data('Result',function(msg){
 
             W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
             W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
             W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+' pesos';
+            dataResult={
+                module:'resultModule',
+                choise:msg.data.choise,
+                select:msd.data.select,
+                value:msg.data.value
+            };
         });
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done(dataResult);
+        };
 
     });
 }

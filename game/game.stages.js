@@ -30,13 +30,13 @@ module.exports = function(stager, settings) {
     // First practice stage.
 
     stager.doLoop('game2', checkLoop);
-    stager.skip('game2');
+    //stager.skip('game2');
     stager.next('taxReturn2');
-    stager.skip('taxReturn2');
+    //stager.skip('taxReturn2');
     stager.next('result2');
-    stager.skip('result2');
+    //stager.skip('result2');
     stager.next('instructionsModule3');
-    stager.skip('instructionsModule3');
+    //stager.skip('instructionsModule3');
 
     // Add as many repetitions as needed.
 
@@ -48,7 +48,7 @@ module.exports = function(stager, settings) {
 
     j=0;
 
-    for(;++j<0;){
+    for(;++j<2;){
         i=0;
         for ( ; ++i < len ; ) {
             //console.log("VOY EN: "+i+" , "+j);
@@ -91,10 +91,10 @@ module.exports = function(stager, settings) {
     //RESULT
 
     stager.stage('resultStage');
-    stager.stage('resultModule1');
-    stager.stage('resultModule2');
-    stager.stage('resultModule3');
-    stager.stage('resultModule4');
+    stager.step('resultModule1');
+    stager.step('resultModule2');
+    stager.step('resultModule3');
+    stager.step('resultModule4');
 /*
     stager.step('end');
 
@@ -105,8 +105,8 @@ module.exports = function(stager, settings) {
 
 
     // Modify the stager to skip one stage.
-   stager.skip('instructions');
-    //stager.skip('modulo4Stage');
+    /*stager.skip('instructions');
+    stager.skip('modulo4Stage');
     stager.skip('module5Stage');
     //stager.skip('results');
     stager.skip('instructionsModule1');
@@ -120,6 +120,6 @@ module.exports = function(stager, settings) {
    // stager.skip('resultModule3');
     stager.skip('module1');
     stager.skip('selectLanguage');
-
+*/
     return stager.getState();
 };

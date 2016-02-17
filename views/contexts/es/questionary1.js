@@ -8,7 +8,9 @@ module.exports = function(settings, headers) {
         valorA2:"% 1600 pesos.",
         valorB1:"% 3850 pesos,",
         valorB2:"% 100 pesos.",
-        proceed:"continue"
+        proceed:"Continuar",
+        error:"Debe responder todas las preguntas antes de continuar."
+
 
     };
 };

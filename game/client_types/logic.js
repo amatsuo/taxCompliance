@@ -236,25 +236,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('resultModule1', {
         cb: function() {
-            var results= node.game.memory.select('done');
-            var dataResult;
-            for(var i=0;i<results.size();i++){
-                if(results.db[i].module=='Module1'){
-                    dataResult={
-                        id:results.db[i].player,
-                        role:results.db[i].role,
-                        value:results.db[i].value,
-                        other:results.db[i].other
-                    };
-                    console.log('--------------------------');
-                    console.log('Player '+dataResult.id);
-                    console.log('Role: '+dataResult.role);
-                    console.log('Value: '+dataResult.value);
-                    console.log('Other: '+dataResult.other);
+            var results= node.game.memory.select('done')
+                .and('module','==','Module1')
+                .fetch();
 
-                    node.say('Result',dataResult.id,dataResult);
+            for(var i=0;i<results.length;i++){
 
-                }
+                var dataResult= {
+                    id: results[i].player,
+                    role: results[i].role,
+                    value: results[i].value,
+                    other: results[i].other
+                };
+                console.log('--------------------------');
+                console.log('Player '+dataResult.id);
+                console.log('Role: '+dataResult.role);
+                console.log('Value: '+dataResult.value);
+                console.log('Other: '+dataResult.other);
+
+                node.say('Result',dataResult.id,dataResult);
+
+
 
             }
             console.log('--------------------------');
@@ -264,18 +266,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('resultModule2', {
         cb: function() {
-            var results= node.game.memory.select('done');
+
             var players=node.game.pl;
 
-            for(var j=0;j<node.game.pl.size();j++){
-                var resultsArray=[];
-                console.log('IdPlayer: '+node.game.pl.db[j].id +'\nArrayResults: ');
-                for(var i=0;i<results.size();i++){
-                    if((results.db[i].module=='Module2')&&(results.db[i].player===players.db[j].id)){
-
-                        resultsArray.push(results.db[i]);
-                    }
-                }
+            for(var j=0;j<players.size();j++){
+                var player=players.db[j].id;
+                var resultsArray=node.game.memory.select('done')
+                    .and('module','==','Module2')
+                    .and('player','==',player+'')
+                    .fetch();
+                console.log('IdPlayer: '+player +'\nArrayResults: ');
                 console.log(resultsArray);
                 var choise=Math.abs(Math.floor(Math.random()*(resultsArray.length-1)));
                 var resultChoise=resultsArray[choise];
@@ -304,18 +304,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('resultModule3', {
         cb: function() {
-            var results= node.game.memory.select('done');
+
             var players=node.game.pl;
 
             for(var j=0;j<node.game.pl.size();j++){
-                var resultsArray=[];
-                console.log('IdPlayer: '+node.game.pl.db[j].id +'\nArrayResults: ');
-                for(var i=0;i<results.size();i++){
-                    if((results.db[i].module=='Module3')&&(results.db[i].player===players.db[j].id)){
-
-                        resultsArray.push(results.db[i]);
-                    }
-                }
+                var player=players.db[j].id;
+                var resultsArray=node.game.memory.select('done')
+                    .and('module','==','Module2')
+                    .and('player','==',player+'')
+                    .fetch();
                 console.log(resultsArray);
                 var choise=Math.abs(Math.floor(Math.random()*(resultsArray.length-1)));
                 var resultChoise=resultsArray[choise];
@@ -345,72 +342,56 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('resultModule4', {
         cb: function() {
-            var results= node.game.memory.select('done');
+            var  results= node.game.memory.select('done')
+                .and('module','==','Module4')
+                .fetch();
             var dataResult, dataUser;
-            for(var i=0;i<results.size();i++){
-                if(results.db[i].module=='Module4'){
-                    var dataUser=results.db[i];
-                    var choise=Math.abs(Math.floor(Math.random()*(dataUser.arrayAnswers.length-1)));
-                    var probability1,probability2;
-                    probability1=(10*(choise+1))/100;
-                    probability2=(100-probability1)/100;
-                    console.log(dataUser);
-                    var valueDice=Math.random();
-                    var opcion,value;
+            for(var i=0;i<results.length ;i++){
 
-                    if(valueDice<probability2){
-                            opcion=false;
-                    }else{
-                            opcion=true;
-                    }
-                    if(dataUser.arrayAnswers[choise]=='A'){
-                        if(opcion) value=2000;
-                        else value=1600;
+                var dataUser=results[i];
+                var choise=Math.abs(Math.floor(Math.random()*(dataUser.arrayAnswers.length-1)));
+                var probability1,probability2;
+                probability1=(10*(choise+1))/100;
+                probability2=(100-probability1)/100;
+                console.log(dataUser);
+                var valueDice=Math.random();
+                var opcion,value;
 
-
-                    }else{
-                        if(opcion) value=3850;
-                        else value=100
-                    }
-
-                    dataResult={
-                        id:dataUser.player,
-                        choise:choise+1,
-                        select:dataUser.arrayAnswers[choise],
-                        value:value
-                    };
-                    console.log('--------------------------');
-                    console.log('Player '+dataResult.id);
-                    console.log('choise: '+dataResult.choise);
-                    console.log('select: '+dataResult.select);
-                    console.log('Value: '+dataResult.value);
-
-
-                    node.say('Result',dataResult.id,dataResult);
-
+                if(valueDice<probability2){
+                        opcion=false;
+                }else{
+                        opcion=true;
                 }
+                if(dataUser.arrayAnswers[choise]=='A'){
+                    if(opcion) value=2000;
+                    else value=1600;
+
+
+                }else{
+                    if(opcion) value=3850;
+                    else value=100
+                }
+
+                dataResult={
+                    id:dataUser.player,
+                    choise:choise+1,
+                    select:dataUser.arrayAnswers[choise],
+                    value:value
+                };
+                console.log('--------------------------');
+                console.log('Player '+dataResult.id);
+                console.log('choise: '+dataResult.choise);
+                console.log('select: '+dataResult.select);
+                console.log('Value: '+dataResult.value);
+
+
+                node.say('Result',dataResult.id,dataResult);
+
+
 
             }
             console.log('--------------------------');
-            /*var choise=Math.abs(Math.floor(Math.random()*(resultsArray.length-1)));
-            var resultChoise=resultsArray[choise];
-            console.log("Choise: "+choise+"\n Result: ");
-            console.log(resultChoise);
-            var dataResult={
-                id:resultChoise.player,
-                round:resultChoise.round,
-                preEarnings:resultChoise.preEarnings,
-                totalEarnings:resultChoise.totalEarnings,
-                declareEarnings:resultChoise.declareEarnings,
-                correct:resultChoise.correct,
-                statusDeclare:resultChoise.statusDeclare,
-                taxPaid:resultChoise.taxPaid,
-                finalEarnings:resultChoise.finalEarnings
 
-            };
-            console.log(dataResult);
-            node.say('Result',dataResult.id,dataResult);
-            */
 
 
 

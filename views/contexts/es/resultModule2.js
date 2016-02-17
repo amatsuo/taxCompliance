@@ -2,7 +2,7 @@ module.exports = function(settings, headers) {
 
     return {
         title: "Resultado",
-        Module: "Result Module",
+        Module: "Result Module 2",
         text1:"El round escogido es: ",
         text2:"Número respuestas correctas: ",
         text3:"Ganancias preliminares: ",

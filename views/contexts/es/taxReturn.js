@@ -1,14 +1,13 @@
 module.exports = function(settings, headers) {
 
     return {
-        title: "Resultado",
-        Module: "Resultado Modulo",
-        text1:"Número respuestas correctas:",
-        text2:"Sus ganancias declaradas:",
-        text3:"Deduciones totales:",
-        text4:"Cantidad recibida después de deduciones",
-        text5:"Ganancias de esta ronda",
-        proceed:"Continuar"
+        title: "Declaración",
+        Module: "Declaración",
+        text1:"Número respuestas correctas: ",
+        text2:"Ganancias Totales: ",
+        text3:"Cuanto desea declarar: ",
+        proceed:"Declarar",
+        error:"Ingrese un valor entre 0 y "
     };
 };
 

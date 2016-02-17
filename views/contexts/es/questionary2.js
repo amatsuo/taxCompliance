@@ -18,7 +18,6 @@ module.exports = function(settings, headers) {
         opcion2:"Raramente se justifica",
         opcion3:"Aveces se justifica",
         opcion4:"Siempre se justifica",
-
         proceed:"Continuar",
         error:"Debe responder todas las preguntas antes de continuar."
 

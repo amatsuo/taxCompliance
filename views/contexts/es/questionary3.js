@@ -4,8 +4,8 @@ module.exports = function(settings, headers) {
     return {
         title: "Modulo4",
         Module: "Cuestionario",
-        text:"Un hogar es definido como una o más personas(no necesariamente familiares) que viven juntas. Y que comparten gastos como unidad respecto a alimentación y otras áreas. El ingreso Bruto del \"HOGAR\" es el ingreso total recibidos de todas las personas que lo componen, incluidos sueldos, salarios o rentas antes de las reducciones por impuesto.",
-        text1:" Teniendo en cuenta lo anterior, ¿Cuál es el ingreso bruto total de su hogar?.",
+        text:" Un hogar es definido como una o más personas(no necesariamente familiares) que viven juntas. Y que comparten gastos como unidad respecto a alimentación y otras áreas. El ingreso Bruto del \"HOGAR\" es el ingreso total recibidos de todas las personas que lo componen, incluidos sueldos, salarios o rentas antes de las reducciones por impuesto.",
+        text1:" Teniendo en cuenta lo anterior, ¿Cuál su ingreso bruto total?.",
         opcion1:" Menos de 122.300 pesos al mes",
         opcion2:" Entre 122.300 y 160.300 pesos al mes",
         opcion3:" Entre 160.001 y 184.750 pesos al mes",
