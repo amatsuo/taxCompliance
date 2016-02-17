@@ -35,7 +35,7 @@ var autoplay = gameRoom.getClientType('autoplay');
 
 function init() {
     DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/' + counter + '/';
-    
+     node.game.module=1;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
 //     DUMP_DIR_CSV = DUMP_DIR + 'csv/';
 // 
@@ -73,23 +73,24 @@ function init() {
         // Update last stage reference.
         node.game.lastStage = currentStage;
 
-        for (p in node.game.lastBids) {
-            if (node.game.lastBids.hasOwnProperty(p)) {
-
-                // Respondent payoff.
-                code = channel.registry.getClient(p);
-                
-                gain = node.game.lastBids[p];
-                if (gain) {
-                    code.win = !code.win ? gain : code.win + gain;
-                    console.log('Added to ' + p + ' ' + gain + ' ECU');
-                }
-            }
-        }
 
         db = node.game.memory.stage[currentStage];
+        var datadb=db.select('done').and('module').fetch();
+        if(datadb.length) {
+            console.log('--------------------');
+            console.log('WRITE');
+            console.log(datadb);
+            prefix = DUMP_DIR + 'memory_' + datadb[0].module;
+            db.save(prefix + '.csv', {flags: 'w'});
+            db.save(prefix + '.nddb', {flags: 'w'});
+            console.log(prefix);
+            console.log('--------------------');
 
-        if (db && db.size()) {
+
+        }
+
+
+        /*if (db && db.length) {
             // Saving results to FS.
             // node.fs.saveMemory('csv', DUMP_DIR + 'memory_' + currentStage +
             //                   '.csv', { flags: 'w' }, db);
@@ -104,7 +105,7 @@ function init() {
         }
 
         // Resets last bids;
-        node.game.lastBids = {};
+        node.game.lastBids = {};*/
     });
 
     // Add session name to data in DB.

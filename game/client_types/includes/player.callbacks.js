@@ -834,7 +834,7 @@ function resultModule1(){
                 value: msg.data.valueR,
                 role: msg.data.role,
                 other: msg.data.other,
-                module:'resultModule'
+                module:'resultModule1'
 
             };
         });
@@ -863,7 +863,7 @@ function resultModule2(){
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
             dataResult={
-                module:'resultModule',
+                module:'resultModule2',
                 round:msg.data.round,
                 preEarnings:msg.data.preEarnings,
                 totalEarnings:msg.data.totalEarnings,
@@ -903,7 +903,7 @@ function resultModule3(){
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
 
             dataResult={
-                module:'resultModule',
+                module:'resultModule3',
                 round:msg.data.round,
                 preEarnings:msg.data.preEarnings,
                 totalEarnings:msg.data.totalEarnings,
@@ -931,7 +931,7 @@ function resultModule4(){
             W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
             W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+' pesos';
             dataResult={
-                module:'resultModule',
+                module:'resultModule4',
                 choise:msg.data.choise,
                 select:msd.data.select,
                 value:msg.data.value
@@ -941,6 +941,7 @@ function resultModule4(){
         b.onclick = function() {
             node.done(dataResult);
         };
+
 
     });
 }
