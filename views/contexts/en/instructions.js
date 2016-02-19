@@ -4,10 +4,10 @@ module.exports = function(settings, headers) {
     return {
         title: "Instructions",
         instructions: "English version",
-        thisGame: "This game is played in rounds by two human players randomly paired.",
-        InstroModules: 'Este experimento consta de 5 módulos. Esperamos que participes hasta el final de esta sesión, que durará aproximadamente '+timeTotal+' minutos.',
-        finalLine: "Recibirás las instrucciones de cada módulo al principio de cada uno de ellos.",
-        ifYouUnderstood: "Si haz entendido las instruciones haz click en siguiente ",
-        proceed: "Siguiente"
+        thisGame: "This game is played in rounds by human players randomly paired.",
+        InstroModules: 'This experiment consists of 5 modules. We hope you participate until the end of this session, which will take about '+ timeTotal +' minutes.',
+        finalLine: "You will receive instructions for each module at the beginning of the module.",
+        ifYouUnderstood: "If you understand the instruction please click \"Proceed\".",
+        proceed: "Proceed"
     };
 };

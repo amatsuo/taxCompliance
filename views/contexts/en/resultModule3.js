@@ -4,14 +4,14 @@ module.exports = function(settings, headers) {
         title: "Resultado",
         Module: "Result Module 3",
         text1:"El round escogido es: ",
-        text2:"Número respuestas correctas: ",
-        text3:"Ganancias preliminares: ",
-        text4:"Sus ganancias declaradas: ",
-        text5:"Deduciones totales: ",
-        text6:"Cantidad recibida después de deduciones :",
-        text7:"Ganancias de esta ronda: ",
-        proceed:"Continuar"
-    };
+        text1:"Selected round for payment: ",
+        text2:"Number of correct answers: ",
+        text3:"Preliminary gains: ",
+        text4:"Declared earnings: ",
+        text5:"Total deductions: ",
+        text6:"Amount received from pooled deduction:",
+        text7:"Profit of this round: ",
+        proceed:"Continue"    };
 };
 /**
  * Created by joseorellana on 07-02-16.

@@ -3,10 +3,10 @@ module.exports = function(settings, headers) {
     return {
         title: "Resultado",
         Module: "Result Module 4",
-        text1:"Desición selecionada es la número: ",
-        text2:"Usted eligio la Opción ",
-        text3:"Su ganancia es de  ",
-        proceed:"Continuar"
+        text1:"Decision number selected for payment: ",
+        text2:"Your decision",
+        text3:"Profit of the module",
+        proceed:"Continue"
     };
 };
 /**

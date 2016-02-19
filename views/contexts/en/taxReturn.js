@@ -1,13 +1,13 @@
 module.exports = function(settings, headers) {
 
     return {
-        title: "Declaración",
-        Module: "Declaración",
-        text1:"Número respuestas correctas: ",
-        text2:"Ganancias Totales: ",
-        text3:"Cuanto desea declarar: ",
-        proceed:"Declarar",
-        error:"Ingrese un valor entre 0 y "
+        title: "Declaration",
+        Module: "Declaration",
+        text1:"Number of correct answers: ",
+        text2:"Total earnings: ",
+        text3:"Amount to declare: ",
+        proceed:"Declare",
+        error:"Enter a value between 0 and "
     };
 };
 
