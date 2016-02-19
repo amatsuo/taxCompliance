@@ -4,21 +4,22 @@ module.exports = function(settings, headers) {
     return {
         title: "InstructionsModule3",
         instructions: "Module 3",
-        a:  "Este módulo consta de 10 rondas. Al principio del módulo los participantes serán asignados aleatoriamente a grupos de 4 participantes. En ningún momento conocerás la identidad de los otros miembros de tu grupo. La composición de los grupos se mantendrá fija a lo largo del módulo. En cada grupo, dos miembros serán Tipo G y los otros dos serán Tipo K. Todo participante tiene la misma posibilidad de ser designado tipo G o K.",
-        b:  "Cada ronda durará un minuto, y en cada una se te pedirá que resuelvas sumas. Tus Ganancias Preliminares dependerán de cuántas de esas sumas seas capaz de resolver correctamente.  Si eres grupo Tipo G recibirás 200 ECUs por cada respuesta correcta, mientras que si eres tipo K recibirás 100 ECUs.",
-        c:  "Al final de cada ronda, una vez que seas informado de tus Ganancias Preliminares, se te pedirá que declares estas ganancias. En este módulo el 10% de las Ganancias Declaradas se deducirá de tus Ganancias Preliminares. ",
-        d:  "En cada ronda tus Ganancias Preliminares pueden ser comparadas con tus Ganancias Declaradas con una cierta probabilidad para comprobar que las dos cantidades corresponden. En este módulo esta probabilidad es 0%.",
-        e:  "Si existen discrepancias entre tus Ganancias Preliminares  y Ganancias Declaradas se deducirá una cantidad extra de tus Ganancias Preliminares. En este módulo esta cantidad es del 50% de la diferencia entre las Ganancias Preliminares  y las Declaradas. Además, la deducción normal del 10% se aplicará a las Ganancias Preliminares  y no a la cantidad declarada.",
-        f:  "Todas las deducciones aplicadas a los cuatro miembros del grupo se sumarán y serán distribuidas a partes iguales entre los miembros del grupo.",
-        g:  "Tus ganancias serán calculadas y mostradas al final de cada ronda de la siguiente forma:",
-        g1: "   Ganancia = Ganancias Preliminares – Deducciones de las Ganancias Declaradas – Deducciones por discrepancias en la declaración + Parte deducciones del grupo",
-        h:  "Al final del módulo una ronda se seleccionará de manera aleatoria y tus ganancias en este módulo serán las de esa ronda con la tasa de cambio 300ECU = $500.-",
-        i:  "Se te informará de tus ganancias en este módulo al final del experimento.",
-        ifYouUnderstood: "Si haz entendido las instruciones haz click en Start Module 3 ",
+        a:  "This module consists of 10 rounds. At the beginning of the module participants are randomly assigned to groups of four. You won’t know the identity of the other group members. The composition of each group will remain unchanged. In each group, two members will be type G and the other two are type K. Each participant has an equal chance of being designated type G or K.",
+        b:  "In each one-minute stage you will be asked to compute a series of additions. Your Preliminary Gains depend on how many correct answers you provide. If you are type G, you will get 200 ECUs for each correct answer, while if you are type K you will get 100 ECUs for each correct answer.",
+        c:  "At the end of each round, once you have received information concerning your Preliminary Gains, you will be asked to declare these gains. In this module 10% of these Declared Gains will then be deducted from your Preliminary Gains. ",
+        d:  "In each round there is a certain probability that your Declared Gains will be compared with your actual Preliminary Gains in order to verify these two amounts correspond. In this module this probability is ***%.",
+        e:  "If this verification finds a discrepancy between the Preliminary and Declared gains an extra amount will be deducted from your Preliminary Gains. In this module this amount will correspond to 50% of the observed discrepancy. In addition, the regular deduction of 10% will apply to the Preliminary Gains and not to the declared amount.",
+        f:  "Deductions applying to the four group members will then be pooled and equally distributed amongst those members.",
+        g:  "Your profits are calculated and displayed at the end of each round in the following manner:",
+        g1: "   Profit = Preliminary Gains – Deduction from the Declared Gains – Potential deductions due to discrepancy + Group amount",
+        h:  "At the end of the module one round will be chosen at random, and your earnings will be based on your profit of that round at the exchange rate 300ECUs = $1",
+        i:  "You will be informed of your earnings for this module at the end of the experiment.",
+        ifYouUnderstood: "If you understand the instructions, click \"Start Module 3\" ",
         proceed: "Start Module 3"
     };
 };
 
 /**
  * Created by joseorellana on 02-12-15.
+ * Back translated by amatz on 15-02-16.
  */
