@@ -620,12 +620,18 @@ function result(){
         node.on.data('PART',function(msg){
             value=msg.data;
             W.getElementById("totalEarnings").innerHTML=finalEarnings+value+"ECUs.";
+            W.getElementById("redistribution").innerHTML=value+"ECUs.";
         });
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
         W.getElementById("declareEarnings").innerHTML=node.game.declareTax+" ECUs.";
-        if(estado) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
-        else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+        if(node.player.lang.path == 'es/'){
+            if(estado) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+            else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+        } else {
+            if(estado) W.getElementById("revision").innerHTML="You are audited";
+            else  W.getElementById("revision").innerHTML="You are not audited";        
+        }
         W.getElementById("taxPaid").innerHTML=taxPaid+" ECUs.";
         W.getElementById("finalEarnings").innerHTML=finalEarnings+" ECUs.";
 

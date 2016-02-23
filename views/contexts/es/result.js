@@ -8,7 +8,8 @@ module.exports = function(settings, headers) {
         text3:"Sus ganancias declaradas:",
         text4:"Deduciones totales:",
         text5:"Cantidad recibida después de deduciones:",
-        text6:"Ganancias de esta ronda:",
+        text6:"Amount received from pooled deduction:",
+        text7:"Ganancias de esta ronda:",
         proceed:"Continuar"
     };
 };
