@@ -4,12 +4,12 @@ module.exports = function(settings, headers) {
     return {
         title: "Modulo4",
         Module: "Module 4",
-        valorA1:"% 2000 pesos,",
-        valorA2:"% 1600 pesos.",
-        valorB1:"% 3850 pesos,",
-        valorB2:"% 100 pesos.",
+        valorA1:"% $1.00,",
+        valorA2:"% $0.80.",
+        valorB1:"% $1.97,",
+        valorB2:"% $0.05.",
         proceed:"Next",
-        error:"Debe responder todas las preguntas antes de continuar."
+        error:"Please answer all questions before proceeding."
 
     };
 };

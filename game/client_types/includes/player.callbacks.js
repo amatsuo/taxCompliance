@@ -504,11 +504,14 @@ function game() {
         node.on.data('Group K!', function(msg) {
             node.game.group="K";
             node.set({role:"K"});
+            title.innerHTML=title.innerHTML+": You are Group K";
+
             console.log('I\'m Group K!');
         });
         node.on.data('Group G!', function(msg) {
             node.game.group="G";
             node.set({role:"G"});
+            title.innerHTML=title.innerHTML+": You are Group G";
             console.log('I\'m Group G! ');
         });
 
