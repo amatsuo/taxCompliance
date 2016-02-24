@@ -951,7 +951,7 @@ function resultModule4(){
             dataResult={
                 module:'resultModule4',
                 choise:msg.data.choise,
-                select:msd.data.select,
+                select:msg.data.select,
                 value:msg.data.value
             };
         });
