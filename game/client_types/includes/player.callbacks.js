@@ -476,6 +476,9 @@ function game() {
         var round;
         var title=W.getElementById('titleGame');
         title.innerHTML=title.innerHTML+node.game.module;
+        if(node.game.group == "K"|node.game.group == "G"){
+            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+        }
         round = node.player.stage.round;
         if (round === 1) {
             node.game.timer.init({
@@ -522,6 +525,7 @@ function game() {
             var num2 = parseInt($(W.getElementById('num2')).text());
             var resultint = W.getElementById('result').value;
             var result = JSUS.isInt(resultint,0,200);
+            
             if(result === false){
                 console.log("validación Modal error");
             }
