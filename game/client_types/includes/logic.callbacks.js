@@ -75,6 +75,12 @@ function init() {
 
 
         db = node.game.memory.stage[currentStage];
+
+        if (!db) {
+            console.log('warn: no db found on stepping. Was it a reconnect?');
+            return;
+        }
+
         var datadb=db.select('done').and('module').fetch();
         if(datadb.length) {
             console.log('--------------------');
