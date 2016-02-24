@@ -1,24 +1,25 @@
 module.exports = function(settings, headers) {
 
     return {
-        title: "Cuestionario",
+        title: "Questionnaire",
         Module: "Result Module",
-        text1:"Responda las siguientes preguntas, y presione continuar:",
-        text2:"Edad:",
-        text3:"Sexo:",
-        text4:"Femenino",
-        text5:"Masculino",
-        text6:"En política se habla normalmente de \"izquierda\" y \"derecha\". En una escala donde \"0\" es la \"izquierda\"   y \"10\" es la \"derecha\", ¿Dónde se ubicaría usted? ",
-        text7:"Izquierda   ",
-        text8:"   Derecha",
-        text9:"En general, ¿Diría que se puede confiar en la mayoría de las personas o uno nunca es lo suficientemente cuidadoso en el trato con los demás? ",
-        text10:"Se puede confiar en la mayoría de las personas",
-        text11: "uno nunca es lo suficientemente cuidadoso en el trato con los demás",
-        proceed:"Continuar",
-        error:"Debe ingresar los datos solicitados antes de continuar."
+        text1:"Please answer the following questions and press continue:",
+        text2:"Age:",
+        text3:"Gender:",
+        text4:"Female",
+        text5:"Male",
+        text6:"In politics, people sometimes talk about parties and politicians as being on the \"left\" or \"right\". Using the 0 to 10 scale, where the 0 means left and 10 means right, where would you place yourself on this scale?",
+        text7:"Left   ",
+        text8:"   Right",
+        text9:"Generally speaking, would you say that most people can be trusted, or that you can't be too careful in dealing with people?",
+        text10:"You can trust most people.",
+        text11: "You can never be too careful with others",
+        proceed:"Continue",
+        error:"Please answer all questions before proceeding."
     };
 };
 
 /**
  * Created by joseorellana on 04-02-16.
+ * Back translated by amatz on 15-02-16.
  */
