@@ -28,6 +28,9 @@ module.exports = function(settings, stages) {
     setup.window = {
         promptOnleave: !setup.debug
     }
+    
+    setup.window.promptOnLeave = false;
+    setup.window.disableRightClick = false;
 
     // Metadata. Taken from package.json. Can be overwritten.
     // setup.metadata = {
