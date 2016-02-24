@@ -35,8 +35,10 @@ module.exports = function(stager, settings) {
     //stager.skip('taxReturn2');
     stager.next('result2');
     //stager.skip('result2');
-    stager.next('instructionsModule3');
-    //stager.skip('instructionsModule3');
+    
+    
+//    stager.next('instructionsModule3');
+//    stager.skip('instructionsModule3');
 
     // Add as many repetitions as needed.
 
@@ -46,33 +48,20 @@ module.exports = function(stager, settings) {
 
     //console.log(len);
 
-    j=0;
-
-    for(;++j<2;){
-        i=0;
-        for ( ; ++i < len ; ) {
+	for( j = 0; ++j <= 2 ; ) {
+        for ( i = 0; ++i <= len ; ) {
+        	if(i === 1 & j === 2) {
+        		stager.next('instructionsModule3');
+        	}
             //console.log("VOY EN: "+i+" , "+j);
-            stager.loop('game2 AS game2' + i + ' ' + j, checkLoop);
+            console.log("%s - %s", j, i);
+            stager.doLoop('game2 AS game2' + i + ' ' + j, checkLoop);
             //stager.skip('game2 AS game2' + i + ' ' + j);
             stager.next('taxReturn2 AS taxReturn2' + i + ' ' + j);
             //stager.skip('taxReturn2 AS taxReturn2' + i + ' ' + j);
             stager.next('result2 AS result2' + i + ' ' + j);
-            //stager.skip('result2 AS result2' + i + ' ' + j);
-
-            //      Need to skip all of them manually if not commented.
-
-            if ((i == len - 1) && (j == 0)) {
-                //MODULE 3
-                stager.next('instructionsModule3 AS instructionsModule3_' + i);
-                //stager.skip('instructionsModule3 AS instructionsModule3_' + i);
-            }
-    //      stager.next('instructionsModule4 AS instructionsModule4_' + i);
         }
-
     }
-
-
-
 
     // Continue experiment.
 
