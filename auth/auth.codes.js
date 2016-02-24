@@ -54,7 +54,17 @@ module.exports = function(settings, done) {
         }
         return codes;
     }
-    
+    else if (settings.mode === 'file') {
+        return [
+            { id: 'XXX' },
+            { id: 'YYY' },
+            { id: 'ASD' },
+            { id: 'QWE' },
+            { id: 'RTY' }
+        ];
+    }
+
+
     // Example: load codes asynchronously
 
     // loadCodesFromDatabase(function(err, codes) {
