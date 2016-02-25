@@ -436,6 +436,7 @@ function instructionsModule3(){
     W.loadFrame('instructionsModule3.html', function() {
 
         var b = W.getElementById('read');
+        node.game.round = 0;
         b.onclick = function() {
             node.game.rounds=-1;
             node.game.module++;

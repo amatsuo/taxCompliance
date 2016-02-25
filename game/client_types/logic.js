@@ -32,6 +32,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Reference to channel added by default.
     }, nocache);
 
+    
+    stager.setOnGameOver(cbs.gameover);
+    
     stager.setOnInit(cbs.init);
 
 

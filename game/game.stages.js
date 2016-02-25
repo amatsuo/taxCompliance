@@ -54,7 +54,7 @@ module.exports = function(stager, settings) {
         		stager.next('instructionsModule3');
         	}
             //console.log("VOY EN: "+i+" , "+j);
-            console.log("%s - %s", j, i);
+            //console.log("%s - %s", j, i);
             stager.doLoop('game2 AS game2' + i + ' ' + j, checkLoop);
             //stager.skip('game2 AS game2' + i + ' ' + j);
             stager.next('taxReturn2 AS taxReturn2' + i + ' ' + j);
@@ -84,13 +84,9 @@ module.exports = function(stager, settings) {
     stager.step('resultModule2');
     stager.step('resultModule3');
     stager.step('resultModule4');
-/*
-    stager.step('end');
 
-    */
-
-
-
+    //stager.step('end');
+    stager.gameover();
 
 
     // Modify the stager to skip one stage.

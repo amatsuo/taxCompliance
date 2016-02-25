@@ -86,7 +86,7 @@ function init() {
             console.log('--------------------');
             console.log('WRITE');
             console.log(datadb);
-            prefix = DUMP_DIR + 'memory_' + datadb[0].module;
+            prefix = DUMP_DIR + 'memory_' + datadb[0].module + currentStage;
             db.save(prefix + '.csv', {flags: 'w'});
             db.save(prefix + '.nddb', {flags: 'w'});
             console.log(prefix);

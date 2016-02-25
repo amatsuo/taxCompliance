@@ -194,21 +194,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
-        stepRule: stepRules.SOLO
+        //stepRule: stepRules.SOLO
     });
     stager.extendStep('questionary2', {
         cb: cbs.questionary2,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
-        stepRule: stepRules.SOLO
+        //stepRule: stepRules.SOLO
     });
     stager.extendStep('questionary3', {
         cb: cbs.questionary3,
         minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
-        stepRule: stepRules.SOLO
+        //stepRule: stepRules.SOLO
     });
     stager.extendStage('game2', {
         init: function() {
