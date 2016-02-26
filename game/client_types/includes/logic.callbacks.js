@@ -27,14 +27,15 @@ var channel = module.parent.exports.channel;
 var gameRoom = module.parent.exports.gameRoom;
 var settings = module.parent.exports.settings;
 var counter = module.parent.exports.counter;
-
+var currentdate = new Date();
+var current_epoch = currentdate.getTime();
 
 var client = gameRoom.getClientType('player');
 var autoplay = gameRoom.getClientType('autoplay');
 
 
 function init() {
-    DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/' + counter + '/';
+    DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/room_' + current_epoch + '/';
      node.game.module=1;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
 //     DUMP_DIR_CSV = DUMP_DIR + 'csv/';
@@ -45,7 +46,7 @@ function init() {
 
     J.mkdirSyncRecursive(DUMP_DIR, 0777);
 
-    console.log('********************** taxCompliace room ' + counter++ +
+    console.log('********************** taxCompliace ' + gameRoom.name +
                 ' **********************');
 
     node.game.lastStage = node.game.getCurrentGameStage();
@@ -86,7 +87,7 @@ function init() {
             console.log('--------------------');
             console.log('WRITE');
             console.log(datadb);
-            prefix = DUMP_DIR + 'memory_' + datadb[0].module + currentStage;
+            prefix = DUMP_DIR + 'memory_' + datadb[0].module + '_' + currentStage;
             db.save(prefix + '.csv', {flags: 'w'});
             db.save(prefix + '.nddb', {flags: 'w'});
             console.log(prefix);

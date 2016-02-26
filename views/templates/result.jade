@@ -1,35 +1,36 @@
 extends iframe-layout
 block mainContent
+   style. 
+      .outcome {
+          margin-left: 10px;
+      }
    div(id='container')
       h1=Module
       div(id='results')
          br
          p=text1
-         span#numberCorrect
-         br
+          span#numberCorrect.outcome
          p=text2
-         span#preEarnings
-         br
+          span#preEarnings.outcome
          p=text3
-         span#declareEarnings
-         br
-         span#revision(style="font-weight:bold")
-         P=text4
-         span#taxPaid
-
-         br
-         P=text5
-         span#finalEarnings
-         br
-         P=text6
-         span#redistribution
-         br
+          span#declareEarnings.outcome
+         
+         p Audit:
+          span#revision(style="font-weight:bold").outcome
+         p=text4
+          span#taxPaid.outcome
+         p=text5
+          span#finalEarnings.outcome
+         p=text6
+          span#redistribution.outcome
          p=text7
-         span#totalEarnings
+          span#totalEarnings.outcome
 
          br
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
+      
+
 
 //
    Created by joseorellana on 08-01-16.
