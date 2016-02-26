@@ -790,7 +790,11 @@ function dataPlayer(){
                 anwser:anwser
 
             };
+<<<<<<< HEAD
             //node.game.dataPlayerValues.push(dataResult);
+=======
+            node.game.dataPlayerValues.push(dataResult);
+>>>>>>> 8c20acd28b91afa9b73714ef9020ff7218a48e6f
             node.done(dataResult);
 
         };
@@ -824,7 +828,11 @@ function questionary2(){
                     arrayAnsers:arrayAnswers
 
                 };
+<<<<<<< HEAD
                 //node.game.dataPlayerValues.push(dataResult);
+=======
+                node.game.dataPlayerValues.push(dataResult);
+>>>>>>> 8c20acd28b91afa9b73714ef9020ff7218a48e6f
                 node.done(dataResult);
                 //node.game.answersModule4 = arrayAnswers;
                 console.log(arrayAnswers);
@@ -855,7 +863,11 @@ function questionary3(){
                     arrayAnsers:socio
 
                 };
+<<<<<<< HEAD
                 //node.game.dataPlayerValues.push(dataResult);
+=======
+                node.game.dataPlayerValues.push(dataResult);
+>>>>>>> 8c20acd28b91afa9b73714ef9020ff7218a48e6f
                 node.done(dataResult);
                 node.done({
                     module:'INFO_USER',
