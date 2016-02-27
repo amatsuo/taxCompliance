@@ -27,15 +27,15 @@ var channel = module.parent.exports.channel;
 var gameRoom = module.parent.exports.gameRoom;
 var settings = module.parent.exports.settings;
 var counter = module.parent.exports.counter;
-var currentdate = new Date();
-var current_epoch = currentdate.getTime();
+//var currentdate = new Date();
+//var current_epoch = currentdate.getTime();
 
 var client = gameRoom.getClientType('player');
 var autoplay = gameRoom.getClientType('autoplay');
 
 
 function init() {
-    DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/room_' + current_epoch + '/';
+    DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/room_' + gameRoom.name + '/';
      node.game.module=1;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
 //     DUMP_DIR_CSV = DUMP_DIR + 'csv/';

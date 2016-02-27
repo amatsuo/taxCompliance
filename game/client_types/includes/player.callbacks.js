@@ -402,6 +402,7 @@ function instructionsModule2(){
     W.loadFrame('instructionsModule2.html', function() {
 
         var b = W.getElementById('read');
+        node.game.round=-1; // in order to include the practice round;
         b.onclick = function() {
             node.game.module++;
             node.done();
@@ -479,9 +480,6 @@ function game() {
         var round;
         var title=W.getElementById('titleGame');
         title.innerHTML=title.innerHTML+node.game.module;
-        if(node.game.group == "K"|node.game.group == "G"){
-            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
-        }
         round = node.player.stage.round;
         if (round === 1) {
             node.game.timer.init({
@@ -508,24 +506,25 @@ function game() {
             }
         }
         node.on.data('Group K!', function(msg) {
-        	if(!node.game.group =="K"){
-        	    title.innerHTML=title.innerHTML+": You are Group K";
-        	}
             node.game.group="K";
             node.set({role:"K"});
 
             console.log('I\'m Group K!');
+            if(!title.innerHTML.match(/Group/)){
+                title.innerHTML=title.innerHTML+": You are Group K";
+            }
         });
         node.on.data('Group G!', function(msg) {
-        	if(!node.game.group =="G"){
-        	    title.innerHTML=title.innerHTML+": You are Group K";
-        	}
             node.game.group="G";
             node.set({role:"G"});
-            title.innerHTML=title.innerHTML+": You are Group G";
+            if(!title.innerHTML.match(/Group/)){
+                title.innerHTML=title.innerHTML+": You are Group G";
+            }
             console.log('I\'m Group G! ');
         });
-
+        if(node.game.group){
+            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+        }
         var b = W.getElementById('read');
 
         b.onclick = function() {

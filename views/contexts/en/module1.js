@@ -6,6 +6,7 @@ module.exports = function(settings, headers) {
         Module: "Module 1",
         text1:"You have the endowment of ",
         text2:" "+unidad+" to share with another person ",
+        text2b: "group B",
         text3:" How many unit of "+unidad+ " do you want to share?",
         value: value,
         text4:" "+ unidad+".",

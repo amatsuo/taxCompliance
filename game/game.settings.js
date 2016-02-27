@@ -28,13 +28,13 @@ module.exports = {
     //Timer instructions
     TIMER_INSTRUCTIONS: 200000,
     //Timer instructions
-    TIMER_GAME:5000,
+    TIMER_GAME:10000,
     //
-    CANTIDAD:1000,
-    CANTIDAD_ESU_x_PCH:300,
-    CANTIDAD_DE_PCH:500,
-    CANTIDAD_DE_ESUx_POUNDS:300,
-    CANTIDAD_DE_POUNS:500,
+    CANTIDAD:1000, //endowmnet for dictator game
+    CANTIDAD_ESU_x_PCH:1000, //exhange rate
+    CANTIDAD_DE_PCH:1,
+//    CANTIDAD_DE_ESUx_POUNDS:300,
+//    CANTIDAD_DE_POUNS:500,
     //
     SALARY_G:200,
     SALARY_K:100,
