@@ -480,6 +480,14 @@ function game() {
         var round;
         var title=W.getElementById('titleGame');
         title.innerHTML=title.innerHTML+node.game.module;
+        var roundInfo=W.getElementById('round');
+        var c_round = node.game.round + 1; 
+        if(c_round > 0){ 
+            roundInfo.innerHTML= "Round " + c_round + " of " + node.game.settings.REPEAT;
+        } else {
+            1;
+            roundInfo.innerHTML = "Practice round";
+        }
         round = node.player.stage.round;
         if (round === 1) {
             node.game.timer.init({
@@ -563,6 +571,15 @@ function taxReturn(){
         node.game.lastResult=null;
         node.game.earnings=0;
         node.game.declareTax=0;
+        var roundInfo=W.getElementById('round');
+        var c_round = node.game.round + 1; 
+        if(c_round > 0){ 
+            roundInfo.innerHTML= "Round " + c_round + " of " + node.game.settings.REPEAT;
+        } else {
+            1;
+            roundInfo.innerHTML = "Practice round";
+        }
+
 
         if(node.game.group=="K"){
 
@@ -607,6 +624,16 @@ function result(){
         var estado=false;
         var probability=0;
         var tax=0;
+
+        var roundInfo=W.getElementById('round');
+        var c_round = node.game.round + 1; 
+        if(c_round > 0){ 
+            roundInfo.innerHTML= "Round " + c_round + " of " + node.game.settings.REPEAT;
+        } else {
+            1;
+            roundInfo.innerHTML = "Practice round";
+        }
+
         if(node.game.module==2){
             tax=node.game.settings.TAX_MODULE_2;
             probability=node.game.settings.PROBABILITY_MODULE_2;
