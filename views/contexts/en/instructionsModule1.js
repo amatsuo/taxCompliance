@@ -1,6 +1,9 @@
 module.exports = function(settings, headers) {
 
-var avalible=settings.standard.CANTIDAD,unit=settings.standard.UNIDAD_ESTANDAR, cantidadESUxPCH=settings.standard.CANTIDAD_ESU_x_PCH,cantidadPCH=settings.standard.CANTIDAD_DE_PCH;
+var avalible = settings.standard.CANTIDAD,
+    unit = settings.standard.UNIDAD_ESTANDAR, 
+    cantidadESUxPCH = settings.standard.CANTIDAD_ESU_x_PCH,
+    cantidadPCH = settings.standard.CANTIDAD_DE_PCH;
     return {
         title: "InstructionsModule1",
         instructions: "Module 1",

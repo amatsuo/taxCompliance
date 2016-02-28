@@ -28,7 +28,7 @@ module.exports = {
     //Timer instructions
     TIMER_INSTRUCTIONS: 200000,
     //Timer instructions
-    TIMER_GAME:10000,
+    TIMER_GAME:15000,
     //
     CANTIDAD:1000, //endowmnet for dictator game
     CANTIDAD_ESU_x_PCH:1000, //exhange rate
@@ -38,15 +38,21 @@ module.exports = {
     //
     SALARY_G:200,
     SALARY_K:100,
-    TIMER_TOTAL:90,
+    TIMER_TOTAL:30,
     TAX_MODULE_2:0.1,
     PROBABILITY_MODULE_2:0.0,
     TAX_MODULE_3:0.1,
-    PROBABILITY_MODULE_3:0.0,
+    PROBABILITY_MODULE_3:0.8,
 
     UNIDAD_ESTANDAR:"ECUs",
 
     MIN_PLAYERS: 1,
+
+    
+    RISK_SAFE_HIGH: "1.00",
+    RISK_SAFE_LOW: "0.80",
+    RISK_GABL_HIGH: "1.95",
+    RISK_GABL_LOW: "0.05",
 
     // Treatments definition.
 

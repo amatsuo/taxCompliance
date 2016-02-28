@@ -9,7 +9,7 @@ module.exports = function(settings, headers) {
         text4:"Total deduction:",
         text5:"Earnings after deduction:",
         text6:"Amount received from pooled deduction:",
-        text7:"Profit of this round:",
+        text7:"Profit of this round: ",
         proceed:"Continue"
     };
 };/**

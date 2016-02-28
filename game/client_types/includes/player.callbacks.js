@@ -310,6 +310,7 @@ function instructionsModule1(){
             node.game.module++;
             node.done();
         };
+        //console.log("my object: %o", node.player);
 
         ////////////////////////////////////////////////
         // nodeGame hint:
@@ -642,16 +643,13 @@ function result(){
             probability=node.game.settings.PROBABILITY_MODULE_3;
         }
         if(diceValue<probability){
-
-
+            estado = true;
             if(node.game.earnings!=node.game.declareTax){
-                taxPaid=tax*node.game.earnings;
-                finalEarnings=node.game.earnings-(tax+0.5)*node.game.earnings;
+                taxPaid=tax*node.game.earnings + (node.game.earnings - node.game.declareTax) * 0.5 ;
             }else{
                 taxPaid=tax*node.game.earnings;
-                finalEarnings=node.game.earnings-taxPaid;
             }
-
+            finalEarnings = node.game.earnings - taxPaid;
         }else{
 
             taxPaid=node.game.declareTax*tax;
@@ -666,7 +664,7 @@ function result(){
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
         W.getElementById("declareEarnings").innerHTML=node.game.declareTax+" ECUs.";
-        if(node.player.lang.path == 'es/'){
+        if(node.player.lang.shortName == 'es'){
             if(estado) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
             else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
         } else {
@@ -899,11 +897,19 @@ function resultModule1(){
         node.on.data('Result',function(msg){
             if(msg.data.role=='A'){
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" envío a otros participantes "+(1000-msg.data.value)+" ECUs.";
+                var pretext = (node.player.lang.shortName === "es")?
+                    " envío a otros participantes ":
+                    " Amount sent to the other participant ";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
+                    pretext + (1000-msg.data.value)+" ECUs.";
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
-            }else{
+            } else {
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" recibío de otros participantes "+msg.data.value+" ECUs.";
+                var pretext = (node.player.lang.shortName === "es")?
+                    " recibío de otros participantes ":
+                    " Amount received from the other participant ";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
+                    pretext + msg.data.value+" ECUs.";
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
 
             }
@@ -933,10 +939,17 @@ function resultModule2(){
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
             W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
             W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
-            if(msg.data.statusDeclare)
-                W.getElementById("revision").innerHTML="Tú declaración fue revisada";
-            else
-                W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            if(node.player.lang.shortName === "es"){
+                if(msg.data.statusDeclare)
+                    W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+                else
+                    W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            } else {
+                if(msg.data.statusDeclare) 
+                    W.getElementById("revision").innerHTML="You are audited";
+                else  
+                    W.getElementById("revision").innerHTML="You are not audited"; 
+            }
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
             dataResult={
@@ -972,10 +985,17 @@ function resultModule3(){
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
             W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
             W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
-            if(msg.data.statusDeclare)
-                W.getElementById("revision").innerHTML="Tú declaración fue revisada";
-            else
-                W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            if(node.player.lang.shortName === "es"){
+                if(msg.data.statusDeclare)
+                    W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+                else
+                    W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            } else {
+                if(msg.data.statusDeclare) 
+                    W.getElementById("revision").innerHTML="You are audited";
+                else  
+                    W.getElementById("revision").innerHTML="You are not audited"; 
+            }
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
 
@@ -1006,7 +1026,7 @@ function resultModule4(){
 
             W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
             W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
-            W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+' pesos';
+            W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+'';
             dataResult={
                 module:'resultModule4',
                 choise:msg.data.choise,

@@ -4,9 +4,9 @@ module.exports = function(settings, headers) {
         title: "Resultado",
         module: "Result Module 1",
         text1:"You are in group ",
-        text2:"Lo que ",
-        text3:"Sus ganancias son: ",
-        proceed:"Continuar"
+        text2:"Amount",
+        text3:"Total profit: ",
+        proceed:"Continue"
     };
 };
 /**
