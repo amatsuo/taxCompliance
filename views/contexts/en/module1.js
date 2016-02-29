@@ -11,7 +11,8 @@ module.exports = function(settings, headers) {
         value: value,
         text4:" "+ unidad+".",
         proceed: "Submit",
-        error:"Enter a value between 0 and "+ value
+        error:"Enter a value between 0 and "+ value,
+        errorClose: "Close",
     };
 };
 

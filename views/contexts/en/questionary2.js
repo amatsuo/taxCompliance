@@ -18,9 +18,9 @@ module.exports = function(settings, headers) {
         opcion2:"Rarely justified",
         opcion3:"Sometimes justified",
         opcion4:"Always justified",
-        proceed:"Continuar",
-        error:"Debe responder todas las preguntas antes de continuar."
-
+        proceed:"Continue",
+        error:"Please answer all questions before proceeding.",
+        errorClose: "Close",
     };
 };
 /**

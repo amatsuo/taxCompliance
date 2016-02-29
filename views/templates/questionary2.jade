@@ -188,6 +188,16 @@ block mainContent
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
+         .modal(id='ERROR')
+            .modal-dialog.modal-lg
+               .modal-content(style=".modal-content")
+                  .modal-header
+                     button(type="button", class="close", data-dismiss="modal",aria-label="Close")
+                     span(aria-hidden="true") &times;
+                  .modal-body(style=".modal-body")
+                     =error
+                  .modal-footer
+                  button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
 //
    Created by joseorellana on 04-02-16.
 

@@ -19,8 +19,8 @@ module.exports = function(settings, headers) {
         opcion3:"Aveces se justifica",
         opcion4:"Siempre se justifica",
         proceed:"Continuar",
-        error:"Debe responder todas las preguntas antes de continuar."
-
+        error:"Debe responder todas las preguntas antes de continuar.",
+        errorClose: "Cerrar",
     };
 };
 /**

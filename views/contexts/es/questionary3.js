@@ -25,8 +25,8 @@ module.exports = function(settings, headers) {
         opcion17:" Prefiero no responder",
         opcion18:" No lo sé",
         proceed:"Continuar",
-        error:"Debe responder todas las preguntas antes de continuar."
-
+        error:"Debe responder todas las preguntas antes de continuar.",
+        errorClose: "Cerrar",
     };
 };
 /**

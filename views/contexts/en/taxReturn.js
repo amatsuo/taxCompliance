@@ -7,7 +7,8 @@ module.exports = function(settings, headers) {
         text2:"Total earnings: ",
         text3:"Amount to declare: ",
         proceed:"Declare",
-        error:"Enter a value between 0 and "
+        error:"Enter a value between 0 and ",
+        errorClose: "Close",
     };
 };
 

@@ -782,12 +782,13 @@ function questionary1(){
 function dataPlayer(){
     W.loadFrame('dataPlayer.html',function(){
         var b = W.getElementById('read');
-        var gender,politics,anwser,age;
+        var gender, politics, trust, age;
+        gender = politics = trust = age = null;
+        var valid = false;
         b.onclick = function() {
 
             if(W.getElementById("genderF").checked) gender="F";
-            else gender="M";
-
+            else if(W.getElementById("genderM").checked) gender="M";
             for(var i=0; i<=10;i++){
                 if(W.getElementById("politics"+i).checked){
                     politics=i;
@@ -795,28 +796,36 @@ function dataPlayer(){
                 }
             }
 
-            if(W.getElementById("confA").checked) anwser="A";
-            else anwser="B";
+            if(W.getElementById("confA").checked) trust="A";
+            else if(W.getElementById("confB").checked) trust="B";
 
             var value= W.getElementById('age').value;
 
-            value = JSUS.isInt(value, 0, 150);
+            value = JSUS.isInt(value, 17, 150);
 
             age=value;
-            console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+anwser);
-            var dataResult;
+            console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+trust);
+            if(!(!age | !gender | politics != null | !trust)) valid = true;
+            if(!valid){
+                console.log("validar");
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
+                console.log(arrayAnswers);
+            } else {
+                var dataResult;
 
-            dataResult={
-                module:"dataResult",
-                age:age,
-                gender:gender,
-                politics:politics,
-                anwser:anwser
+                dataResult={
+                    module:"dataResult",
+                    age:age,
+                    gender:gender,
+                    politics:politics,
+                    trust:trust
 
-            };
-            //node.game.dataPlayerValues.push(dataResult);
-            node.done(dataResult);
-
+                };
+                //node.game.dataPlayerValues.push(dataResult);
+                node.done(dataResult);
+            }
         };
 
     });
@@ -838,9 +847,12 @@ function questionary2(){
 
             if (arrayAnswers.length < 10) {
                 console.log("validar");
-
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
                 console.log(arrayAnswers);
-                node.done();
+//                console.log(arrayAnswers);
+//                node.done();
             } else {
                 var dataResult;
                 dataResult={
@@ -871,7 +883,11 @@ function questionary3(){
             }
 
             if(flag){
-                console.log('validar')
+                console.log('validar');
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
+                console.log(arrayAnswers);
             }else{
                 var dataResult;
                 dataResult={
@@ -899,7 +915,7 @@ function resultModule1(){
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
                 var pretext = (node.player.lang.shortName === "es")?
                     " envío a otros participantes ":
-                    " Amount sent to the other participant ";
+                    " sent to the other participant ";
                 W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
                     pretext + (1000-msg.data.value)+" ECUs.";
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
@@ -907,7 +923,7 @@ function resultModule1(){
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
                 var pretext = (node.player.lang.shortName === "es")?
                     " recibío de otros participantes ":
-                    " Amount received from the other participant ";
+                    " received from the other participant ";
                 W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
                     pretext + msg.data.value+" ECUs.";
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";

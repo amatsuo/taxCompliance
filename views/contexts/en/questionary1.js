@@ -9,7 +9,8 @@ module.exports = function(settings, headers) {
         valorB1:"% $" + settings.standard.RISK_GABL_HIGH + ",",
         valorB2:"% $" + settings.standard.RISK_GABL_LOW + ".",
         proceed:"Next",
-        error:"Please answer all questions before proceeding."
+        error:"Please answer all questions before proceeding.",
+        errorClose: "Close",
 
     };
 };

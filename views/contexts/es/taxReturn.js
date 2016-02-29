@@ -7,7 +7,8 @@ module.exports = function(settings, headers) {
         text2:"Ganancias Totales: ",
         text3:"Cuanto desea declarar: ",
         proceed:"Declarar",
-        error:"Ingrese un valor entre 0 y "
+        error:"Ingrese un valor entre 0 y ",
+        errorClose: "Cerrar",
     };
 };
 

@@ -36,8 +36,6 @@ block mainContent
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
-
-
          .modal(id='ERROR')
             .modal-dialog.modal-lg
                .modal-content(style=".modal-content")
@@ -50,7 +48,7 @@ block mainContent
                         =error
 
                   .modal-footer
-                     button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar
+                     button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
 
 
 //Created by joseorellana on 24-11-15.

@@ -11,7 +11,8 @@ module.exports = function(settings, headers) {
         value: value,
         text4:" "+ unidad+".",
         proceed: "Compartir",
-        error:"Ingrese un valor entre 0 y "+ value
+        error:"Ingrese un valor entre 0 y "+ value,
+        errorClose: "Cerrar",
     };
 };
 

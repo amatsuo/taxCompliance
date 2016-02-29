@@ -25,8 +25,8 @@ module.exports = function(settings, headers) {
         opcion17:" Prefer not to answer",
         opcion18:" Don't know",
         proceed:"Next",
-        error:"Please answer the question before proceed."
-
+        error:"Please answer the question before proceeding.",
+        errorClose: "Close",
     };
 };
 /**
