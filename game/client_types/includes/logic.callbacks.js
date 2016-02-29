@@ -274,7 +274,7 @@ function endgame() {
     var filename, bonusFile, bonus;
     var EXCHANGE_RATE;
 
-    EXCHANGE_RATE = settings.EXCHANGE_RATE_INSTRUCTIONS / settings.COINS;;
+    EXCHANGE_RATE = settings.CANTIDAD_ESU_x_PCH;
 
     console.log('FINAL PAYOFF PER PLAYER');
     console.log('***********************');
@@ -298,7 +298,6 @@ function endgame() {
             code.win = parseFloat(code.win, 10);
         }
         channel.registry.checkOut(p.id);
-
         node.say('WIN', p.id, {
             win: code.win,
             exitcode: code.ExitCode

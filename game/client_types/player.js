@@ -276,6 +276,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
+    
+    stager.extendStep('endgame', {
+        cb: cbs.endgame
+    });
    /*
     stager.extendStep('end', {
         // frame: 'end.htm',

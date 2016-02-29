@@ -405,6 +405,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         }
     });
+    
+    stager.extendStep('endgame', {
+        cb: cbs.endgame,
+        minPlayers: undefined,
+        steprule: stepRules.SOLO
+    });
    /* stager.extendStep('game', {
         cb: function() {
             console.log('Game round: ' + node.player.stage.round);

@@ -32,7 +32,7 @@ module.exports = {
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
-    //endgame: endgame,
+    endgame: endgame,
     //clearFrame: clearFrame,
     notEnoughPlayers: notEnoughPlayers
 };
@@ -805,13 +805,16 @@ function dataPlayer(){
 
             age=value;
             console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+trust);
-            if(!(!age | !gender | politics != null | !trust)) valid = true;
+            console.log("age: %s, gender: %s, politics: %s, trust: %s", !age, !gender,
+                        politics !== null, !trust);
+            //console.log((!age | !gender | !(politics !== null) | !trust));
+            if(!(!age | !gender | (politics === null) | !trust)) valid = true;
             if(!valid){
                 console.log("validar");
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
                 $('.modal-backdrop').remove();
-                console.log(arrayAnswers);
+                //console.log(arrayAnswers);
             } else {
                 var dataResult;
 
@@ -1060,6 +1063,30 @@ function resultModule4(){
 }
 
 
+function endgame() {
+    W.loadFrame('ended.html', function() {
+
+        node.game.timer.switchActiveBoxTo(node.game.timer.mainBox);
+        node.game.timer.waitBox.hideBox();
+        node.game.timer.setToZero();        
+    
+        node.on.data('WIN', function(msg) {
+            var win, exitcode, codeErr;
+            var root;
+            root = W.getElementById('container');
+            codeErr = 'ERROR (code not found)';
+            win = msg.data && msg.data.win || 0;
+            exitcode = msg.data && msg.data.exitcode || codeErr;
+            W.getElementById("win").innerHTML = 'Your bonus in this game is: ' + win;
+            W.getElementById("exitcode").innerHTML = 'Your exitcode is: ' + exitcode;
+        });
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done();
+        };
+    });
+    console.log('Game ended');
+}
 
 function quiz() {
     var that = this;
@@ -1090,26 +1117,6 @@ function postgame() {
     console.log('Postgame');
 }
 
-function endgame() {
-    W.loadFrame('ended.html', function() {
-
-        node.game.timer.switchActiveBoxTo(node.game.timer.mainBox);
-        node.game.timer.waitBox.hideBox();
-        node.game.timer.setToZero();
-        node.on.data('WIN', function(msg) {
-            var win, exitcode, codeErr;
-            var root;
-            root = W.getElementById('container');
-            codeErr = 'ERROR (code not found)';
-            win = msg.data && msg.data.win || 0;
-            exitcode = msg.data && msg.data.exitcode || codeErr;
-            W.writeln('Your bonus in this game is: ' + win, root);
-            W.writeln('Your exitcode is: ' + exitcode, root);
-        });
-    });
-
-    console.log('Game ended');
-}
 
 function clearFrame() {
     node.emit('INPUT_DISABLE');
