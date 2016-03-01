@@ -263,7 +263,6 @@ function doMatch() {
 
 function getReconStep(id) {
     var curStepId, playerCheck;
-debugger
     // Get the name of current step.
     curStepId = node.game.getCurrentStep().id;
     // If it is not a game|taxReturn step we can reload current logic step.
@@ -273,7 +272,13 @@ debugger
     playerCheck = node.game.pl.first();
     // Make sure we don't look at the one just reconnecting.
     if (playerCheck.id === id) playerCheck = node.game.pl.next();
-    return playerCheck.stage;
+    if (playerCheck) {
+        return playerCheck.stage;
+    }
+    else {
+        console.log('Err: no next player.');
+        return node.player.stage;
+    }
 }
 
 function notEnoughPlayers() {
