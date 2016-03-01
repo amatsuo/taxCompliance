@@ -17,6 +17,7 @@ module.exports = function(stager, settings) {
 
 
     stager.next('selectLanguage');
+    stager.skip('selectLanguage');
     
     stager
         .next('instructions')
@@ -87,5 +88,7 @@ module.exports = function(stager, settings) {
     }
     //stager.step('end');
     stager.next("endgame");
+    stager.gameover();
     return stager.getState();
+    
 };

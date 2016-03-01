@@ -323,9 +323,10 @@ function endgame() {
     });
     bonusFile.end();
 
+    node.game.memory.save(DUMP_DIR + 'memory_all.json');
     // node.fs.writeCsv(bonusFile, bonus, {
     //     headers: ["access", "exit", "bonus", "terminated"]
     // });
 
-    node.done();
+    //node.done();
 }

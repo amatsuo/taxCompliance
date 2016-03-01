@@ -671,6 +671,8 @@ function result(){
             if(estado) W.getElementById("revision").innerHTML="You are audited";
             else  W.getElementById("revision").innerHTML="You are not audited";        
         }
+        taxPaid = Math.round(taxPaid*10)/10;
+        finalEarnings = Math.round(finalEarnings*10)/10;
         W.getElementById("taxPaid").innerHTML=taxPaid+" ECUs.";
         W.getElementById("finalEarnings").innerHTML=finalEarnings+" ECUs.";
 
