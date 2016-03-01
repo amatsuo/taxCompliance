@@ -149,61 +149,51 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('selectLanguage', {
         cb: cbs.selectLanguage,
-        timer: settings.TIMER_SELEC_LANG,
-        minPlayers: MIN_PLAYERS
+        timer: settings.TIMER_SELEC_LANG
     });
 
     stager.extendStep('instructions', {
         cb: cbs.instructions,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule1', {
         cb: cbs.instructionsModule1,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('module1', {
         cb: cbs.module1,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule2', {
         cb: cbs.instructionsModule2,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule3', {
         cb: cbs.instructionsModule3,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('instructionsModule4', {
         cb: cbs.instructionsModule4,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('questionary1', {
         cb: cbs.questionary1,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('questionary2', {
         cb: cbs.questionary2,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('questionary3', {
         cb: cbs.questionary3,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
@@ -220,7 +210,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('game2', {
         cb: cbs.game,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_GAME,
         stepRule: stepRules.SOLO
@@ -228,7 +217,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('taxReturn2', {
         cb: cbs.taxReturn,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
 
         timer: settings.TIMER_INSTRUCTIONS,
@@ -239,37 +227,31 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
     stager.extendStep('result2', {
         cb: cbs.result,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('dataPlayer', {
         cb: cbs.dataPlayer,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     })
     stager.extendStep('resultModule1', {
         cb: cbs.resultModule1,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('resultModule2', {
         cb: cbs.resultModule2,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('resultModule3', {
         cb: cbs.resultModule3,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
     stager.extendStep('resultModule4', {
         cb: cbs.resultModule4,
-        minPlayers: MIN_PLAYERS,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });

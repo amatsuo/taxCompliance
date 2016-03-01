@@ -46,7 +46,7 @@ module.exports = {
 
     UNIDAD_ESTANDAR:"ECUs",
 
-    MIN_PLAYERS: 1,
+    MIN_PLAYERS: 2,
 
     // Treatments definition.
 

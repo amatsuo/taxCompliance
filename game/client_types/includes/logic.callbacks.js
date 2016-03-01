@@ -257,14 +257,14 @@ function doMatch() {
 function notEnoughPlayers() {
     if (this.countdown) return;
     console.log('Warning: not enough players!!');
+    // Could decide not to pause players (players won't notice disconnection).
+    node.remoteCommand('pause', 'ROOM');
     this.countdown = setTimeout(function() {
-        console.log('Countdown fired. Going to Step: questionnaire.');
+        console.log('Countdown fired. Going to Step: resultStage');
         node.remoteCommand('erase_buffer', 'ROOM');
         node.remoteCommand('resume', 'ROOM');
         node.game.gameTerminated = true;
-        // if syncStepping = false
-        //node.remoteCommand('goto_step', 5);
-        node.game.gotoStep('questionnaire');
+        node.game.gotoStep('resultStage');
     }, 30000);
 }
 
