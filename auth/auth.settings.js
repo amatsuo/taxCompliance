@@ -14,7 +14,7 @@ module.exports = {
     enabled: true, //  [true, false] Default: TRUE.
 
     // Option specifying how to load the codes.
-    mode: 'file', // ['auto'] Default: 'auto'
+    mode: 'auto', // ['auto'] Default: 'auto'
 
     // Codes file. Must export a function that returns an array of codes
     // synchronously or asynchronously. Default file: 'auth.codes.js'

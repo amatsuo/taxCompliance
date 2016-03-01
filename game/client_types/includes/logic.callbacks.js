@@ -259,7 +259,9 @@ function notEnoughPlayers() {
     if (this.countdown) return;
     console.log('Warning: not enough players!!');
     // Could decide not to pause players (players won't notice disconnection).
-    node.remoteCommand('pause', 'ROOM');
+    var discTxt = 'One or more players disconnected. Waiting to see if they ' +
+        'reconnect, otherwise the game will be terminated.';
+    node.remoteCommand('pause', 'ROOM', discTxt);
     this.countdown = setTimeout(function() {
         console.log('Countdown fired. Going to Step: resultStage');
         node.remoteCommand('erase_buffer', 'ROOM');
