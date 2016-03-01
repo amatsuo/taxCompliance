@@ -32,6 +32,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Reference to channel added by default.
     }, nocache);
 
+    
+    stager.setOnGameOver(cbs.gameover);
+    
     stager.setOnInit(cbs.init);
 
 
@@ -195,6 +198,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     nmsg++;
                     if(nmsg==node.game.pl.size()){
                         var value= total/node.game.pl.size();
+                        value = Math.round(value * 10)/10;
                         //console.log('parte: '+value);
                         node.game.pl.each(function(p) {
                            node.say('PART', p.id,value);
@@ -273,6 +277,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var player=players.db[j].id;
                 var resultsArray=node.game.memory.select('done')
                     .and('module','==','Module2')
+                    .and('round', '>', 0)
                     .and('player','==',player+'')
                     .fetch();
                 console.log('IdPlayer: '+player +'\nArrayResults: ');
@@ -310,7 +315,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             for(var j=0;j<node.game.pl.size();j++){
                 var player=players.db[j].id;
                 var resultsArray=node.game.memory.select('done')
-                    .and('module','==','Module2')
+                    .and('module','==','Module3')
+                    .and('round', '>', 0)
                     .and('player','==',player+'')
                     .fetch();
                 console.log(resultsArray);
@@ -352,24 +358,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var choise=Math.abs(Math.floor(Math.random()*(dataUser.arrayAnswers.length-1)));
                 var probability1,probability2;
                 probability1=(10*(choise+1))/100;
-                probability2=(100-probability1)/100;
+                probability2= 1 - probability1;
                 console.log(dataUser);
                 var valueDice=Math.random();
-                var opcion,value;
+                var high_opcion,value;
 
-                if(valueDice<probability2){
-                        opcion=false;
+                if(valueDice < probability2){
+                        high_opcion = false;
                 }else{
-                        opcion=true;
+                        high_opcion=true;
                 }
                 if(dataUser.arrayAnswers[choise]=='A'){
-                    if(opcion) value=2000;
-                    else value=1600;
+                    if(high_opcion) value = settings.RISK_SAFE_HIGH;
+                    else value = settings.RISK_SAFE_LOW;
 
 
                 }else{
-                    if(opcion) value=3850;
-                    else value=100
+                    if(high_opcion) value = settings.RISK_GABL_HIGH;
+                    else value = settings.RISK_GABL_LOW;
                 }
 
                 dataResult={
@@ -398,6 +404,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('resultModule4');
 
         }
+    });
+    
+    stager.extendStep('endgame', {
+        cb: cbs.endgame,
+        minPlayers: undefined,
+        steprule: stepRules.SOLO
     });
    /* stager.extendStep('game', {
         cb: function() {

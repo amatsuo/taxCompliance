@@ -15,7 +15,8 @@ module.exports = function(settings, headers) {
         text10:"You can trust most people.",
         text11: "You can never be too careful with others",
         proceed:"Continue",
-        error:"Please answer all questions before proceeding."
+        error:"Please answer all questions before proceeding.",
+        errorClose: "Close",
     };
 };
 

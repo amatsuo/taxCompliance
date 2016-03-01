@@ -22,31 +22,37 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 2,
+    REPEAT: 1,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 100000,
     //Timer instructions
     TIMER_INSTRUCTIONS: 200000,
     //Timer instructions
-    TIMER_GAME:20000,
+    TIMER_GAME:15000,
     //
-    CANTIDAD:1000,
-    CANTIDAD_ESU_x_PCH:300,
-    CANTIDAD_DE_PCH:500,
-    CANTIDAD_DE_ESUx_POUNDS:300,
-    CANTIDAD_DE_POUNS:500,
+    CANTIDAD:1000, //endowmnet for dictator game
+    CANTIDAD_ESU_x_PCH:1000, //exhange rate
+    CANTIDAD_DE_PCH:1,
+//    CANTIDAD_DE_ESUx_POUNDS:300,
+//    CANTIDAD_DE_POUNS:500,
     //
     SALARY_G:200,
     SALARY_K:100,
-    TIMER_TOTAL:90,
+    TIMER_TOTAL:30,
     TAX_MODULE_2:0.1,
     PROBABILITY_MODULE_2:0.0,
     TAX_MODULE_3:0.1,
-    PROBABILITY_MODULE_3:0.0,
+    PROBABILITY_MODULE_3:0.8,
 
     UNIDAD_ESTANDAR:"ECUs",
 
     MIN_PLAYERS: 2,
+
+    
+    RISK_SAFE_HIGH: "1.00",
+    RISK_SAFE_LOW: "0.80",
+    RISK_GABL_HIGH: "1.95",
+    RISK_GABL_LOW: "0.05",
 
     // Treatments definition.
 

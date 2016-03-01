@@ -2,6 +2,8 @@ extends iframe-layout
 block mainContent
    div(id='container')
       h1=Module
+      div(id='round')
+
       div(id='taxReturn')
          br
          p=text1
@@ -30,7 +32,7 @@ block mainContent
                   span#maxEarnings
 
                .modal-footer
-                  button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar
+                  button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
 
 //
    Created by joseorellana on 06-01-16.

@@ -1,0 +1,18 @@
+extends iframe-layout
+
+block mainContent
+    div(id='container')
+        h1=thankYou
+        !=pleaseGo
+        br
+        !=weUsually
+        ul
+            li!=yourTurker
+            li!=theHIT +'<em>nodeGame</em>'
+            li!=yourExitCode
+            li!=yourBrowser
+        br
+        p#win 
+        p#exitcode 
+        p=notice
+        input(type='button', id='read', value="Click to finish", class='btn btn-lg btn-primary')

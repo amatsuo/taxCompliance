@@ -2,13 +2,15 @@ extends iframe-layout
 block mainContent
    div(id='container')
       h1=Module
+      style.
+         .risktab { padding: 10px; width: 50%;}
       div(id='module4')
          br
          br
          br
          table(border='3px solid', width="120%", font-size="40%")
             tr
-               td
+               td.risktab
                   strong A.
                   =a
                   div(style="margin-left: 10%")
@@ -25,7 +27,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='4',name='Question1' )#answer4-1
                            =opcion4   
-               td
+               td.risktab
                   strong F.
                   =f
                   div(style="margin-left: 10%")
@@ -43,7 +45,7 @@ block mainContent
                            input(type="radio", value='4',name='Question6' )#answer4-6
                            =opcion4   
             tr
-               td
+               td.risktab
                   strong B.
                   =b
                   div(style="margin-left: 10%")#fQuestion2
@@ -60,7 +62,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='4',name='Question2' )#answer4-2
                            =opcion4   
-               td
+               td.risktab
                   strong G.
                   =g
                   div(style="margin-left: 10%")
@@ -78,7 +80,7 @@ block mainContent
                            input(type="radio", value='4',name='Question7' )#answer4-7
                            =opcion4   
             tr
-               td
+               td.risktab
                   strong C.
                   =c
                   div(style="margin-left: 10%")
@@ -95,7 +97,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='4',name='Question3' )#answer4-3
                            =opcion4   
-               td
+               td.risktab
                   strong H.
                   =h
                   div(style="margin-left: 10%")
@@ -113,7 +115,7 @@ block mainContent
                            input(type="radio", value='4',name='Question8' )#answer4-8
                            =opcion4   
             tr
-               td
+               td.risktab
                   strong D.
                   =d
                   div(style="margin-left: 10%")
@@ -130,7 +132,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='4',name='Question4' )#answer4-4
                            =opcion4   
-               td
+               td.risktab
                   strong I.
                   =i
                   div(style="margin-left: 10%")
@@ -148,7 +150,7 @@ block mainContent
                            input(type="radio", value='4',name='Question9' )#answer4-9
                            =opcion4
             tr
-               td
+               td.risktab
                   strong E.
                   =e
                   div(style="margin-left: 10%")
@@ -165,7 +167,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='4',name='Question5' )#answer4-5
                            =opcion4
-               td
+               td.risktab
                   strong J.
                   =j
                   div(style="margin-left: 10%")
@@ -186,6 +188,16 @@ block mainContent
          br
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
 
+         .modal(id='ERROR')
+            .modal-dialog.modal-lg
+               .modal-content(style=".modal-content")
+                  .modal-header
+                     button(type="button", class="close", data-dismiss="modal",aria-label="Close")
+                     span(aria-hidden="true") &times;
+                  .modal-body(style=".modal-body")
+                     =error
+                  .modal-footer
+                  button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
 //
    Created by joseorellana on 04-02-16.
 

@@ -16,19 +16,20 @@ module.exports = function(stager, settings) {
     }
 
 
+    stager.next('selectLanguage');
+    stager.skip('selectLanguage');
+    
     stager
-
-        .next('selectLanguage')
         .next('instructions')
+
 //MODULE 1
         .next('instructionsModule1')
         .next('module1')
 //MODULE 2
         .next('instructionsModule2');
 
-
     // First practice stage.
-
+    
     stager.doLoop('game2', checkLoop);
     //stager.skip('game2');
     stager.next('taxReturn2');
@@ -54,7 +55,7 @@ module.exports = function(stager, settings) {
         		stager.next('instructionsModule3');
         	}
             //console.log("VOY EN: "+i+" , "+j);
-            console.log("%s - %s", j, i);
+            //console.log("%s - %s", j, i);
             stager.doLoop('game2 AS game2' + i + ' ' + j, checkLoop);
             //stager.skip('game2 AS game2' + i + ' ' + j);
             stager.next('taxReturn2 AS taxReturn2' + i + ' ' + j);
@@ -64,7 +65,7 @@ module.exports = function(stager, settings) {
     }
 
     // Continue experiment.
-
+    {
     //MODULE 4
     stager.stage('modulo4Stage');
     stager.step('instructionsModule4');
@@ -84,31 +85,10 @@ module.exports = function(stager, settings) {
     stager.step('resultModule2');
     stager.step('resultModule3');
     stager.step('resultModule4');
-/*
-    stager.step('end');
-
-    */
-
-
-
-
-
-    // Modify the stager to skip one stage.
-    /*stager.skip('instructions');
-    stager.skip('modulo4Stage');
-    stager.skip('module5Stage');
-    //stager.skip('results');
-    stager.skip('instructionsModule1');
-    stager.skip('instructionsModule2');
-    //stager.skip('module4');
-    //stager.skip('instructionsModule3');
-   // stager.skip('instructionsModule4');
-    stager.skip('resultModule1');
-    stager.skip('resultModule2');
-    stager.skip('resultModule3');
-   // stager.skip('resultModule3');
-    stager.skip('module1');
-    stager.skip('selectLanguage');
-*/
+    }
+    //stager.step('end');
+    stager.next("endgame");
+    stager.gameover();
     return stager.getState();
+    
 };

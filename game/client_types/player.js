@@ -185,17 +185,20 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('questionary1', {
         cb: cbs.questionary1,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_INSTRUCTIONS,
+        //stepRule: stepRules.SOLO
     });
     stager.extendStep('questionary2', {
         cb: cbs.questionary2,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_INSTRUCTIONS,
+        //stepRule: stepRules.SOLO
     });
     stager.extendStep('questionary3', {
         cb: cbs.questionary3,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_INSTRUCTIONS,
+        //stepRule: stepRules.SOLO
     });
     stager.extendStage('game2', {
         init: function() {
@@ -254,6 +257,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: cbs.resultModule4,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
+    });
+    
+    stager.extendStep('endgame', {
+        cb: cbs.endgame
     });
    /*
     stager.extendStep('end', {

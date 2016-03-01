@@ -4,12 +4,13 @@ module.exports = function(settings, headers) {
     return {
         title: "Modulo4",
         Module: "Module 4",
-        valorA1:"% $1.00,",
-        valorA2:"% $0.80.",
-        valorB1:"% $1.97,",
-        valorB2:"% $0.05.",
+        valorA1:"% $" + settings.standard.RISK_SAFE_HIGH + ",",
+        valorA2:"% $" + settings.standard.RISK_SAFE_LOW + ".",
+        valorB1:"% $" + settings.standard.RISK_GABL_HIGH + ",",
+        valorB2:"% $" + settings.standard.RISK_GABL_LOW + ".",
         proceed:"Next",
-        error:"Please answer all questions before proceeding."
+        error:"Please answer all questions before proceeding.",
+        errorClose: "Close",
 
     };
 };

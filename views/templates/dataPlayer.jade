@@ -93,7 +93,7 @@ block mainContent
                label
                   input(type="radio", value='A',name='conf' )#confA
                   =text10
-            div(class="radio")
+            div(class="radio",style="font-size:85%")
                label
                   input(type="radio", value='B',name='conf' )#confB
                   =text11
@@ -104,7 +104,16 @@ block mainContent
 
 
          input(type='button', id='read', value=proceed, class='btn btn-lg btn-primary')
-
+         .modal(id='ERROR')
+            .modal-dialog.modal-lg
+               .modal-content(style=".modal-content")
+                  .modal-header
+                     button(type="button", class="close", data-dismiss="modal",aria-label="Close")
+                     span(aria-hidden="true") &times;
+                  .modal-body(style=".modal-body")
+                     =error
+                  .modal-footer
+                  button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
 //
    Created by joseorellana on 29-01-16.
 

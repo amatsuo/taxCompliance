@@ -2,13 +2,15 @@ extends iframe-layout
 block mainContent
    div(id='container')
       h1=Module
+      style.
+         .risktab { padding: 10px;}
       div(id='module4')
          br
          br
          br
          table(border='3px solid', width="120%", font-size="40%")
             tr
-               td
+               td.risktab
                   strong A:
                   span#percentA1
                   =valorA1
@@ -31,7 +33,7 @@ block mainContent
 
 
 
-               td
+               td.risktab
                   strong A:
                   span#percentA11
                   =valorA1
@@ -55,7 +57,7 @@ block mainContent
 
 
             tr
-               td
+               td.risktab
                   strong A:
                   span#percentA3
                   =valorA1
@@ -76,7 +78,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='B',name='Question2' )#answerB2
                            label B
-               td
+               td.risktab
                   strong A:
                   span#percentA13
                   =valorA1
@@ -98,7 +100,7 @@ block mainContent
                            input(type="radio", value='B',name='Question7' )#answerB7
                            label B
             tr
-               td
+               td.risktab
                   strong A:
                   span#percentA5
                   =valorA1
@@ -120,7 +122,7 @@ block mainContent
                            input(type="radio", value='B',name='Question3' )#answerB3
                            label B
 
-               td
+               td.risktab
                   strong A:
                   span#percentA15
                   =valorA1
@@ -144,7 +146,7 @@ block mainContent
 
 
             tr
-               td
+               td.risktab
                   strong A:
                   span#percentA7
                   =valorA1
@@ -165,7 +167,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='B',name='Question4' )#answerB4
                            label B
-               td
+               td.risktab
                   strong A:
                   span#percentA17
                   =valorA1
@@ -187,7 +189,7 @@ block mainContent
                            input(type="radio", value='B',name='Question9' )#answerB9
                            label B
             tr
-               td
+               td.risktab
                   strong A:
                   span#percentA9
                   =valorA1
@@ -208,7 +210,7 @@ block mainContent
                         div(class="radio")
                            input(type="radio", value='B',name='Question5' )#answerB5
                            label B
-               td
+               td.risktab
                   strong A:
                   span#percentA19
                   =valorA1
@@ -242,6 +244,6 @@ block mainContent
                   .modal-body(style=".modal-body")
                      =error
                   .modal-footer
-                  button(type="button", class="btn btn-primary", data-dismiss="modal") Cerrar
+                  button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
 //Created by joseorellana on 27-01-16.
 

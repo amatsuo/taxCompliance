@@ -32,7 +32,7 @@ module.exports = {
     //quiz: quiz,
     //ultimatum: ultimatum,
     //postgame: postgame,
-    //endgame: endgame,
+    endgame: endgame,
     //clearFrame: clearFrame,
     notEnoughPlayers: notEnoughPlayers
 };
@@ -310,6 +310,7 @@ function instructionsModule1(){
             node.game.module++;
             node.done();
         };
+        //console.log("my object: %o", node.player);
 
         ////////////////////////////////////////////////
         // nodeGame hint:
@@ -375,6 +376,7 @@ function module1(){
 
                         node.done({
                             value: 1000 - value,
+                            input_value: value,
                             role: role,
                             other: other,
                             module:'Module1'
@@ -384,6 +386,7 @@ function module1(){
                     }else{
                         node.done({
                             value: valueR,
+                            input_value: value,
                             role: role,
                             other: other,
                             module:'Module1'
@@ -400,6 +403,7 @@ function instructionsModule2(){
     W.loadFrame('instructionsModule2.html', function() {
 
         var b = W.getElementById('read');
+        node.game.round=-1; // in order to include the practice round;
         b.onclick = function() {
             node.game.module++;
             node.done();
@@ -436,6 +440,7 @@ function instructionsModule3(){
     W.loadFrame('instructionsModule3.html', function() {
 
         var b = W.getElementById('read');
+        node.game.round = 0;
         b.onclick = function() {
             node.game.rounds=-1;
             node.game.module++;
@@ -476,8 +481,13 @@ function game() {
         var round;
         var title=W.getElementById('titleGame');
         title.innerHTML=title.innerHTML+node.game.module;
-        if(node.game.group == "K"|node.game.group == "G"){
-            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+        var roundInfo=W.getElementById('round');
+        var c_round = node.game.round + 1; 
+        if(c_round > 0){ 
+            roundInfo.innerHTML= "Round " + c_round + " of " + node.game.settings.REPEAT;
+        } else {
+            1;
+            roundInfo.innerHTML = "Practice round";
         }
         round = node.player.stage.round;
         if (round === 1) {
@@ -507,17 +517,23 @@ function game() {
         node.on.data('Group K!', function(msg) {
             node.game.group="K";
             node.set({role:"K"});
-            title.innerHTML=title.innerHTML+": You are Group K";
 
             console.log('I\'m Group K!');
+            if(!title.innerHTML.match(/Group/)){
+                title.innerHTML=title.innerHTML+": You are Group K";
+            }
         });
         node.on.data('Group G!', function(msg) {
             node.game.group="G";
             node.set({role:"G"});
-            title.innerHTML=title.innerHTML+": You are Group G";
+            if(!title.innerHTML.match(/Group/)){
+                title.innerHTML=title.innerHTML+": You are Group G";
+            }
             console.log('I\'m Group G! ');
         });
-
+        if(node.game.group){
+            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+        }
         var b = W.getElementById('read');
 
         b.onclick = function() {
@@ -556,6 +572,15 @@ function taxReturn(){
         node.game.lastResult=null;
         node.game.earnings=0;
         node.game.declareTax=0;
+        var roundInfo=W.getElementById('round');
+        var c_round = node.game.round + 1; 
+        if(c_round > 0){ 
+            roundInfo.innerHTML= "Round " + c_round + " of " + node.game.settings.REPEAT;
+        } else {
+            1;
+            roundInfo.innerHTML = "Practice round";
+        }
+
 
         if(node.game.group=="K"){
 
@@ -600,6 +625,16 @@ function result(){
         var estado=false;
         var probability=0;
         var tax=0;
+
+        var roundInfo=W.getElementById('round');
+        var c_round = node.game.round + 1; 
+        if(c_round > 0){ 
+            roundInfo.innerHTML= "Round " + c_round + " of " + node.game.settings.REPEAT;
+        } else {
+            1;
+            roundInfo.innerHTML = "Practice round";
+        }
+
         if(node.game.module==2){
             tax=node.game.settings.TAX_MODULE_2;
             probability=node.game.settings.PROBABILITY_MODULE_2;
@@ -608,16 +643,13 @@ function result(){
             probability=node.game.settings.PROBABILITY_MODULE_3;
         }
         if(diceValue<probability){
-
-
+            estado = true;
             if(node.game.earnings!=node.game.declareTax){
-                taxPaid=tax*node.game.earnings;
-                finalEarnings=node.game.earnings-(tax+0.5)*node.game.earnings;
+                taxPaid=tax*node.game.earnings + (node.game.earnings - node.game.declareTax) * 0.5 ;
             }else{
                 taxPaid=tax*node.game.earnings;
-                finalEarnings=node.game.earnings-taxPaid;
             }
-
+            finalEarnings = node.game.earnings - taxPaid;
         }else{
 
             taxPaid=node.game.declareTax*tax;
@@ -632,13 +664,15 @@ function result(){
         W.getElementById("numberCorrect").innerHTML=node.game.correct;
         W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
         W.getElementById("declareEarnings").innerHTML=node.game.declareTax+" ECUs.";
-        if(node.player.lang.path == 'es/'){
+        if(node.player.lang.shortName == 'es'){
             if(estado) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
             else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
         } else {
             if(estado) W.getElementById("revision").innerHTML="You are audited";
             else  W.getElementById("revision").innerHTML="You are not audited";        
         }
+        taxPaid = Math.round(taxPaid*10)/10;
+        finalEarnings = Math.round(finalEarnings*10)/10;
         W.getElementById("taxPaid").innerHTML=taxPaid+" ECUs.";
         W.getElementById("finalEarnings").innerHTML=finalEarnings+" ECUs.";
 
@@ -750,12 +784,13 @@ function questionary1(){
 function dataPlayer(){
     W.loadFrame('dataPlayer.html',function(){
         var b = W.getElementById('read');
-        var gender,politics,anwser,age;
+        var gender, politics, trust, age;
+        gender = politics = trust = age = null;
+        var valid = false;
         b.onclick = function() {
 
             if(W.getElementById("genderF").checked) gender="F";
-            else gender="M";
-
+            else if(W.getElementById("genderM").checked) gender="M";
             for(var i=0; i<=10;i++){
                 if(W.getElementById("politics"+i).checked){
                     politics=i;
@@ -763,17 +798,39 @@ function dataPlayer(){
                 }
             }
 
-            if(W.getElementById("confA").checked) anwser="A";
-            else anwser="B";
+            if(W.getElementById("confA").checked) trust="A";
+            else if(W.getElementById("confB").checked) trust="B";
 
             var value= W.getElementById('age').value;
 
-            value = JSUS.isInt(value, 0, 150);
+            value = JSUS.isInt(value, 17, 150);
 
             age=value;
-            console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+anwser);
-            node.done();
+            console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+trust);
+            console.log("age: %s, gender: %s, politics: %s, trust: %s", !age, !gender,
+                        politics !== null, !trust);
+            //console.log((!age | !gender | !(politics !== null) | !trust));
+            if(!(!age | !gender | (politics === null) | !trust)) valid = true;
+            if(!valid){
+                console.log("validar");
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
+                //console.log(arrayAnswers);
+            } else {
+                var dataResult;
 
+                dataResult={
+                    module:"dataResult",
+                    age:age,
+                    gender:gender,
+                    politics:politics,
+                    trust:trust
+
+                };
+                //node.game.dataPlayerValues.push(dataResult);
+                node.done(dataResult);
+            }
         };
 
     });
@@ -795,13 +852,24 @@ function questionary2(){
 
             if (arrayAnswers.length < 10) {
                 console.log("validar");
-
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
                 console.log(arrayAnswers);
-                node.done();
+//                console.log(arrayAnswers);
+//                node.done();
             } else {
-                node.done();
+                var dataResult;
+                dataResult={
+                    module:"questionary2",
+                    arrayAnsers:arrayAnswers
+
+                };
+                //node.game.dataPlayerValues.push(dataResult);
+                node.done(dataResult);
                 //node.game.answersModule4 = arrayAnswers;
                 console.log(arrayAnswers);
+
             }
         }
     });
@@ -820,9 +888,24 @@ function questionary3(){
             }
 
             if(flag){
-                console.log('validar')
+                console.log('validar');
+                var modal = W.getElementById("ERROR");
+                $(modal).modal();
+                $('.modal-backdrop').remove();
+                console.log(arrayAnswers);
             }else{
-                node.done();
+                var dataResult;
+                dataResult={
+                    module:"questionary3",
+                    arrayAnsers:socio
+
+                };
+                //node.game.dataPlayerValues.push(dataResult);
+                node.done(dataResult);
+                node.done({
+                    module:'INFO_USER',
+                    dataPlayerValues:node.game.dataPlayerValues
+                })
             }
         }
 
@@ -835,11 +918,19 @@ function resultModule1(){
         node.on.data('Result',function(msg){
             if(msg.data.role=='A'){
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" envío a otros participantes "+(1000-msg.data.value)+" ECUs.";
+                var pretext = (node.player.lang.shortName === "es")?
+                    " envío a otros participantes ":
+                    " sent to the other participant ";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
+                    pretext + (1000-msg.data.value)+" ECUs.";
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
-            }else{
+            } else {
                 W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML+" recibío de otros participantes "+msg.data.value+" ECUs.";
+                var pretext = (node.player.lang.shortName === "es")?
+                    " recibío de otros participantes ":
+                    " received from the other participant ";
+                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
+                    pretext + msg.data.value+" ECUs.";
                 W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
 
             }
@@ -869,10 +960,17 @@ function resultModule2(){
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
             W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
             W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
-            if(msg.data.statusDeclare)
-                W.getElementById("revision").innerHTML="Tú declaración fue revisada";
-            else
-                W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            if(node.player.lang.shortName === "es"){
+                if(msg.data.statusDeclare)
+                    W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+                else
+                    W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            } else {
+                if(msg.data.statusDeclare) 
+                    W.getElementById("revision").innerHTML="You are audited";
+                else  
+                    W.getElementById("revision").innerHTML="You are not audited"; 
+            }
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
             dataResult={
@@ -908,10 +1006,17 @@ function resultModule3(){
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
             W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
             W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
-            if(msg.data.statusDeclare)
-                W.getElementById("revision").innerHTML="Tú declaración fue revisada";
-            else
-                W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            if(node.player.lang.shortName === "es"){
+                if(msg.data.statusDeclare)
+                    W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+                else
+                    W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            } else {
+                if(msg.data.statusDeclare) 
+                    W.getElementById("revision").innerHTML="You are audited";
+                else  
+                    W.getElementById("revision").innerHTML="You are not audited"; 
+            }
             W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
             W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
 
@@ -942,11 +1047,11 @@ function resultModule4(){
 
             W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
             W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
-            W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+' pesos';
+            W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+'';
             dataResult={
                 module:'resultModule4',
                 choise:msg.data.choise,
-                select:msd.data.select,
+                select:msg.data.select,
                 value:msg.data.value
             };
         });
@@ -960,6 +1065,30 @@ function resultModule4(){
 }
 
 
+function endgame() {
+    W.loadFrame('ended.html', function() {
+
+        node.game.timer.switchActiveBoxTo(node.game.timer.mainBox);
+        node.game.timer.waitBox.hideBox();
+        node.game.timer.setToZero();        
+    
+        node.on.data('WIN', function(msg) {
+            var win, exitcode, codeErr;
+            var root;
+            root = W.getElementById('container');
+            codeErr = 'ERROR (code not found)';
+            win = msg.data && msg.data.win || 0;
+            exitcode = msg.data && msg.data.exitcode || codeErr;
+            W.getElementById("win").innerHTML = 'Your bonus in this game is: ' + win;
+            W.getElementById("exitcode").innerHTML = 'Your exitcode is: ' + exitcode;
+        });
+        var b = W.getElementById('read');
+        b.onclick = function() {
+            node.done();
+        };
+    });
+    console.log('Game ended');
+}
 
 function quiz() {
     var that = this;
@@ -990,26 +1119,6 @@ function postgame() {
     console.log('Postgame');
 }
 
-function endgame() {
-    W.loadFrame('ended.html', function() {
-
-        node.game.timer.switchActiveBoxTo(node.game.timer.mainBox);
-        node.game.timer.waitBox.hideBox();
-        node.game.timer.setToZero();
-        node.on.data('WIN', function(msg) {
-            var win, exitcode, codeErr;
-            var root;
-            root = W.getElementById('container');
-            codeErr = 'ERROR (code not found)';
-            win = msg.data && msg.data.win || 0;
-            exitcode = msg.data && msg.data.exitcode || codeErr;
-            W.writeln('Your bonus in this game is: ' + win, root);
-            W.writeln('Your exitcode is: ' + exitcode, root);
-        });
-    });
-
-    console.log('Game ended');
-}
 
 function clearFrame() {
     node.emit('INPUT_DISABLE');
