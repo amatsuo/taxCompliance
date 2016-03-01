@@ -128,7 +128,7 @@ function init() {
     // Player reconnecting.
     // Reconnections must be handled by the game developer.
     node.on.preconnect(function(p) {
-        var code;
+        var code, reconStep;
 
         console.log('Oh...somebody reconnected!', p);
         code = channel.registry.getClient(p.id);
@@ -163,9 +163,15 @@ function init() {
         // both in the alias and the real event handler.
         node.game.pl.add(p);
 
+        // We must determine the reconnection step because the logic is
+        // not aligned to clients in the multiplication/feedback stage.
+        reconStep = getReconStep(p.id);
+
+        console.log('Recon step is: ', reconStep);
+        
         // Will send all the players to current stage
         // (also those who were there already).
-        node.game.gotoStep(node.player.stage);
+        node.game.gotoStep(reconStep);
 
         setTimeout(function() {
             // Pause the game on the reconnecting client, will be resumed later.
@@ -253,6 +259,21 @@ function doMatch() {
         node.say('RESPONDENT', respondent.id, data_r);
     }
     console.log('Matching completed.');
+}
+
+function getReconStep(id) {
+    var curStepId, playerCheck;
+debugger
+    // Get the name of current step.
+    curStepId = node.game.getCurrentStep().id;
+    // If it is not a game|taxReturn step we can reload current logic step.
+    if (curStepId.indexOf('taxReturn') === -1) return node.player.stage;
+    // If it is a game step we need to check where we are actually:
+    // multiplication or feedback? So we look at other players.
+    playerCheck = node.game.pl.first();
+    // Make sure we don't look at the one just reconnecting.
+    if (playerCheck.id === id) playerCheck = node.game.pl.next();
+    return playerCheck.stage;
 }
 
 function notEnoughPlayers() {
