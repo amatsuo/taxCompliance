@@ -30,26 +30,34 @@ module.exports = function(stager, settings) {
 
     // First practice stage.
     
-    stager.doLoop('game2', checkLoop);
+    stager.stage("Module2Practice");
+    stager.step('game2');
     //stager.skip('game2');
-    stager.next('taxReturn2');
+    stager.step('taxReturn2');
     //stager.skip('taxReturn2');
-    stager.next('result2');
+    stager.step('result2');
     //stager.skip('result2');
     
+    stager.stage("Module2");
+    stager.step('game2');
+    //stager.skip('game2');
+    stager.step('taxReturn2');
+    //stager.skip('taxReturn2');
+    stager.step('result2');
     
+    stager.next('instructionsModule3');
 //    stager.next('instructionsModule3');
 //    stager.skip('instructionsModule3');
 
     // Add as many repetitions as needed.
 
-    var i, j, len;
+/*    var i, j, len;
     len = settings.REPEAT; // Change as needed.
     //len=-1;
 
     //console.log(len);
 
-	for( j = 0; ++j <= 2 ; ) {
+/*	for( j = 0; ++j <= 2 ; ) {
         for ( i = 0; ++i <= len ; ) {
         	if(i === 1 & j === 2) {
         		stager.next('instructionsModule3');
@@ -62,7 +70,7 @@ module.exports = function(stager, settings) {
             //stager.skip('taxReturn2 AS taxReturn2' + i + ' ' + j);
             stager.next('result2 AS result2' + i + ' ' + j);
         }
-    }
+    }*/
 
     // Continue experiment.
     {

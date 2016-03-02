@@ -502,7 +502,12 @@ function game() {
         node.game.displayRoundInfo();
 
         round = node.player.stage.round;
-        if (round === 1) {
+        var num1, num2;
+        num1 = Math.floor(Math.random()*(99-10)+10);
+        num2 = Math.floor(Math.random()*(99-10)+10);
+        W.getElementById('num1').innerHTML = num1;
+        W.getElementById('num2').innerHTML = num2;
+        /*if (round === 1) {
             node.game.timer.init({
                 milliseconds: node.game.settings.TIMER_GAME,
                 timeup: function() {
@@ -524,7 +529,7 @@ function game() {
             {
                 W.getElementById('alertDanger').style.display = 'block';
             }
-        }
+        }*/
         node.on.data('Group K!', function(msg) {
             node.game.group="K";
             node.set({role:"K"});
@@ -548,31 +553,42 @@ function game() {
         var b = W.getElementById('read');
 
         b.onclick = function() {
-            var num1 = parseInt($(W.getElementById('num1')).text());
-            var num2 = parseInt($(W.getElementById('num2')).text());
+            /*var num1 = parseInt($(W.getElementById('num1')).text());
+            var num2 = parseInt($(W.getElementById('num2')).text());*/
             var resultint = W.getElementById('result').value;
             var result = JSUS.isInt(resultint,0,200);
+            var success = (resultint == num1+num2);
+            
+            W.getElementById('result').value = "";
+            num1 = Math.floor(Math.random()*(99-10)+10);
+            num2 = Math.floor(Math.random()*(99-10)+10);
+
+            W.getElementById('num1').innerHTML = num1;
+            W.getElementById('num2').innerHTML = num2;
             
             if(result === false){
                 console.log("validación Modal error");
             }
             else{
-                if(resultint == num1+num2){
-                    node.game.lastResult="succes";
+                if(success){
+                    W.getElementById('alertSucces').style.display = 'block';
+                    W.getElementById('alertDanger').style.display = 'none';
                     node.game.correct++;
 
                 }
                 else{
-                    node.game.lastResult="danger";
+                    W.getElementById('alertDanger').style.display = 'block';
+                    W.getElementById('alertSucces').style.display = 'none';
                 }
 
-                node.done();
+                //node.done();
 
             }
         };
 
     });
 }
+
 function taxReturn(){
     W.loadFrame('taxReturn.html',function() {
 

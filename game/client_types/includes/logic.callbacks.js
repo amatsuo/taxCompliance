@@ -128,7 +128,8 @@ function init() {
     // Player reconnecting.
     // Reconnections must be handled by the game developer.
     node.on.preconnect(function(p) {
-        var code, reconStep;
+        //var code, reconStep;
+        var code;
 
         console.log('Oh...somebody reconnected!', p);
         code = channel.registry.getClient(p.id);
@@ -163,7 +164,7 @@ function init() {
         // both in the alias and the real event handler.
         node.game.pl.add(p);
 
-        // We must determine the reconnection step because the logic is
+/*        // We must determine the reconnection step because the logic is
         // not aligned to clients in the multiplication/feedback stage.
         reconStep = getReconStep(p.id);
 
@@ -171,7 +172,8 @@ function init() {
         
         // Will send all the players to current stage
         // (also those who were there already).
-        node.game.gotoStep(reconStep);
+        node.game.gotoStep(reconStep);*/
+        node.game.gotoStep(node.player.stage);
 
         setTimeout(function() {
             // Pause the game on the reconnecting client, will be resumed later.

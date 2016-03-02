@@ -123,10 +123,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('instructionsModule4');
         }
     });
-    stager.extendStage('game2', {
+    stager.extendStep('game2', {
         init: function() {
             var g,i;
-            node.game.loopFinished = false;
+//            node.game.loopFinished = false;
             node.game.nConectP=0;
             var orden=true;
             g=node.game.pl.shuffle();
@@ -152,7 +152,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             });
 
-            node.on('in.set.DATA', function(msg) {
+        /*    node.on('in.set.DATA', function(msg) {
                 var done;
                 //console.log('received in.set.DATA');
                 //console.log(msg.data.done, msg.stage.step);
@@ -180,16 +180,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                   stage: stage.stage + 1,
                   step: stage.step,
                   round: stage.round
-             }, 'S');
+             }, 'S');*/
+        },
+        cb: function() {
+            1;
         }
     });
 
-    stager.extendStep('game2', {
+/*    stager.extendStep('game2', {
         cb: function() {
             console.log('game ', node.player.stage.round);
             //node.events.printAll('stage');
         }
-    });
+    });*/
     stager.extendStep('result2', {
         cb: function() {
             var total=0;

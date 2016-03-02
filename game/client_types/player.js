@@ -200,7 +200,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         timer: settings.TIMER_INSTRUCTIONS,
         //stepRule: stepRules.SOLO
     });
-    stager.extendStage('game2', {
+/*    stager.extendStage('game2', {
         init: function() {
             this.loopFinished = false;
         },
@@ -210,23 +210,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 stepOnDone: true
             });
         }
-    });
+    });*/
     stager.extendStep('game2', {
         cb: cbs.game,
         // syncOnLoaded: true,
         timer: settings.TIMER_GAME,
-        stepRule: stepRules.SOLO
+        //stepRule: stepRules.SOLO
     });
 
     stager.extendStep('taxReturn2', {
         cb: cbs.taxReturn,
         // syncOnLoaded: true,
-
-        timer: settings.TIMER_DECLARE,
-        done: function() {            
-            node.set({loopFinished: true});
-            return true;
-        }
+        timer: settings.TIMER_DECLARE
     });
     stager.extendStep('result2', {
         cb: cbs.result,
