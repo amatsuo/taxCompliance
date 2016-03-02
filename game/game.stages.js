@@ -32,20 +32,21 @@ module.exports = function(stager, settings) {
     
     stager.stage("Module2Practice");
     stager.step('game2');
-    //stager.skip('game2');
     stager.step('taxReturn2');
-    //stager.skip('taxReturn2');
     stager.step('result2');
-    //stager.skip('result2');
     
-    stager.stage("Module2");
+    stager.repeatStage("Module2", settings.REPEAT);
     stager.step('game2');
-    //stager.skip('game2');
     stager.step('taxReturn2');
-    //stager.skip('taxReturn2');
     stager.step('result2');
     
+    //Module 3
     stager.next('instructionsModule3');
+
+    stager.repeatStage("Module3", settings.REPEAT);
+    stager.step('game2');
+    stager.step('taxReturn2');
+    stager.step('result2');
 //    stager.next('instructionsModule3');
 //    stager.skip('instructionsModule3');
 
