@@ -17,18 +17,25 @@
 module.exports = {
 
     // Variables shared by all treatments.
-
+    GAMENAME: "CESS_TC",
+    
     // Session counter.
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
     REPEAT: 1,
     //Timer selec_Lang
-    TIMER_SELEC_LANG: 100000,
+    TIMER_SELEC_LANG: 60000,
     //Timer instructions
-    TIMER_INSTRUCTIONS: 200000,
-    //Timer instructions
+    TIMER_INSTRUCTIONS: 180000,
+    //Timer Dictator Game
+    TIMER_DG: 30000,
+    //Timer for RET
     TIMER_GAME:15000,
+    //Timer for Declaration
+    TIMER_DECLARE: 30000,
+    //Timer for Declaration
+    TIMER_TAX_RES: 30000,
     //
     CANTIDAD:1000, //endowmnet for dictator game
     CANTIDAD_ESU_x_PCH:1000, //exhange rate

@@ -165,7 +165,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('module1', {
         cb: cbs.module1,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_DG
     });
     stager.extendStep('instructionsModule2', {
         cb: cbs.instructionsModule2,
@@ -222,7 +222,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: cbs.taxReturn,
         // syncOnLoaded: true,
 
-        timer: settings.TIMER_INSTRUCTIONS,
+        timer: settings.TIMER_DECLARE,
         done: function() {            
             node.set({loopFinished: true});
             return true;
@@ -231,7 +231,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('result2', {
         cb: cbs.result,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_TAX_RES
     });
     stager.extendStep('dataPlayer', {
         cb: cbs.dataPlayer,

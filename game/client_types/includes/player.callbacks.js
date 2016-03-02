@@ -52,6 +52,7 @@ function init() {
     node.game.module=0;
     node.game.answersModule4=[];
     node.game.round=0;
+    node.game.totalECUs = 0;
 
     // Setup the header (by default on the left side).
     if (!W.getHeader()) {
@@ -60,10 +61,10 @@ function init() {
         // Uncomment to visualize the name of the stages.
         //node.game.visualStage = node.widgets.append('VisualStage', header);
 
-        node.game.rounds = node.widgets.append('VisualRound', header, {
+       /* node.game.rounds = node.widgets.append('VisualRound', header, {
             displayModeNames: ['COUNT_UP_STAGES_TO_TOTAL'],
             stageOffset: 1
-        });
+        });*/
 
         node.game.timer = node.widgets.append('VisualTimer', header);
     }
@@ -186,8 +187,11 @@ function init() {
     this.displayRoundInfo = function() {
         var roundInfo = W.getElementById('round');
         
-        var c_round = node.player.stage.round; 
-        if (c_round > 1) { 
+//        var c_round = node.player.stage.round;
+        console.log(node.player.stage.round);
+        console.log("%o", node.player.stage);
+        var c_round = node.game.round + 1;
+        if (c_round > 0) { 
             roundInfo.innerHTML= "Round " + c_round + " of " 
                 + node.game.settings.REPEAT;
         }
@@ -515,7 +519,6 @@ function game() {
 
         if( node.game.lastResult!=null){
             if(node.game.lastResult === "succes"){
-
                 W.getElementById('alertSucces').style.display = 'block';
             }else
             {
@@ -566,9 +569,6 @@ function game() {
                 node.done();
 
             }
-            console.log("los numeros son " + num1 + " y " + num2);
-
-            console.log("module2");
         };
 
     });
@@ -584,10 +584,7 @@ function taxReturn(){
         node.game.displayRoundInfo();
 
         if(node.game.group=="K"){
-
             node.game.earnings= node.game.settings.SALARY_K*node.game.correct;
-
-
         }else{
             node.game.earnings= node.game.settings.SALARY_G*node.game.correct;
         }
@@ -665,10 +662,10 @@ function result(){
             if(estado) W.getElementById("revision").innerHTML="You are audited";
             else  W.getElementById("revision").innerHTML="You are not audited";        
         }
-        taxPaid = Math.round(taxPaid*10)/10;
-        finalEarnings = Math.round(finalEarnings*10)/10;
-        W.getElementById("taxPaid").innerHTML=taxPaid+" ECUs.";
-        W.getElementById("finalEarnings").innerHTML=finalEarnings+" ECUs.";
+//        taxPaidF = taxPaid.toFixed(1);
+//        finalEarningsF = finalEarnings.toFixed(1);
+        W.getElementById("taxPaid").innerHTML=taxPaid.toFixed(1) + " ECUs.";
+        W.getElementById("finalEarnings").innerHTML=finalEarnings.toFixed(1) + " ECUs.";
 
         var b = W.getElementById('read');
         b.onclick = function() {
@@ -929,15 +926,15 @@ function resultModule1(){
 
             }
             dataResult={
-                value: msg.data.valueR,
+                value: msg.data.value,
                 role: msg.data.role,
                 other: msg.data.other,
                 module:'resultModule1'
-
             };
         });
         var b = W.getElementById('read');
-        b.onclick = function() {
+            b.onclick = function() {
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.value);
             node.done(dataResult);
 
         };
@@ -983,6 +980,7 @@ function resultModule2(){
         });
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings);
             node.done(dataResult);
         };
     });
@@ -1029,6 +1027,7 @@ function resultModule3(){
         });
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings);
             node.done(dataResult);
         };
 
@@ -1046,11 +1045,13 @@ function resultModule4(){
                 module:'resultModule4',
                 choise:msg.data.choise,
                 select:msg.data.select,
-                value:msg.data.value
+                value:msg.data.value,
             };
         });
         var b = W.getElementById('read');
         b.onclick = function() {
+            node.game.totalECUs = node.game.totalECUs + parseFloat(dataResult.value)*node.game.settings.CANTIDAD_ESU_x_PCH;
+            dataResult.totalECUs = node.game.totalECUs;
             node.done(dataResult);
         };
 
@@ -1073,7 +1074,7 @@ function endgame() {
             codeErr = 'ERROR (code not found)';
             win = msg.data && msg.data.win || 0;
             exitcode = msg.data && msg.data.exitcode || codeErr;
-            W.getElementById("win").innerHTML = 'Your bonus in this game is: ' + win;
+            W.getElementById("win").innerHTML = 'Your bonus in this game is: $' + win.toFixed(2);
             W.getElementById("exitcode").innerHTML = 'Your exitcode is: ' + exitcode;
         });
         var b = W.getElementById('read');

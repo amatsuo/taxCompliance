@@ -1,9 +1,10 @@
 module.exports = function(settings, headers) {
 
-    var value=settings.standard.CANTIDAD,unidad=settings.standard.UNIDAD_ESTANDAR;
+    var value=settings.standard.CANTIDAD,
+        unidad=settings.standard.UNIDAD_ESTANDAR;
     return {
         title: "Modulo4",
-        Module: "Cuestionario",
+        Module: "Questions",
         a:" Avoiding paying the fare on public transport:",
         b:" Cheating on taxes if you have a chance:",
         c:" Driving faster than the speed limit:",

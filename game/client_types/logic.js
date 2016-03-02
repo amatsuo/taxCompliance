@@ -201,7 +201,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     nmsg++;
                     if(nmsg==node.game.pl.size()){
                         var value= total/node.game.pl.size();
-                        value = Math.round(value * 10)/10;
+                        value = Math.round(value*10)/10;
                         //console.log('parte: '+value);
                         node.game.pl.each(function(p) {
                            node.say('PART', p.id,value);

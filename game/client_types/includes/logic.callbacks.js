@@ -317,14 +317,21 @@ function endgame() {
 
         accesscode = code.AccessCode;
         exitcode = code.ExitCode;
-
-        if (node.env('treatment') === 'pp' && node.game.gameTerminated) {
+        
+        var resultsArray=node.game.memory.select('done')
+                    .and('module','==','resultModule4')
+                    .and('player','==',p.id+'')
+                    .fetch();
+        var winamount = resultsArray[0].totalECUs || 0;
+        winamount = winamount / settings.CANTIDAD_ESU_x_PCH;
+        code.win = winamount;
+/*        if (node.env('treatment') === 'pp' && node.game.gameTerminated) {
             code.win = 0;
         }
         else {
             code.win = Number((code.win || 0) * (EXCHANGE_RATE)).toFixed(2);
             code.win = parseFloat(code.win, 10);
-        }
+        }*/
         channel.registry.checkOut(p.id);
         node.say('WIN', p.id, {
             win: code.win,
