@@ -236,22 +236,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('resultModule1', {
         cb: cbs.resultModule1,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_RESULT
     });
     stager.extendStep('resultModule2', {
         cb: cbs.resultModule2,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_RESULT
     });
     stager.extendStep('resultModule3', {
         cb: cbs.resultModule3,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_RESULT
     });
     stager.extendStep('resultModule4', {
         cb: cbs.resultModule4,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_RESULT
     });
     
     stager.extendStep('endgame', {
