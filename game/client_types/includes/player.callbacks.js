@@ -184,20 +184,20 @@ function init() {
         return n >= 0 && n <= 100;
     };
 
-    this.displayRoundInfo = function() {
+    this.displayRoundInfo = function(round_info) {
         var roundInfo = W.getElementById('round');
-        
+        roundInfo.innerHTML = round_info;
 //        var c_round = node.player.stage.round;
-        console.log(node.player.stage.round);
-        console.log("%o", node.player.stage);
-        var c_round = node.game.round + 1;
-        if (c_round > 0) { 
+        //console.log(node.player.stage.round);
+        //console.log("%o", node.player.stage);
+        
+/*        if (c_round > 0) { 
             roundInfo.innerHTML= "Round " + c_round + " of " 
                 + node.game.settings.REPEAT;
         }
         else {
             roundInfo.innerHTML = "Practice round";
-        }
+        }*/
     };
 
     treatment = node.env('treatment');
@@ -422,7 +422,6 @@ function instructionsModule2(){
         var b = W.getElementById('read');
         node.game.round=-1; // in order to include the practice round;
         b.onclick = function() {
-            node.game.module++;
             node.done();
         };
 
@@ -460,7 +459,6 @@ function instructionsModule3(){
         node.game.round = 0;
         b.onclick = function() {
             node.game.rounds=-1;
-            node.game.module++;
             node.done();
         };
 
@@ -497,11 +495,11 @@ function game() {
         //node.game.lastResult="succes";
         var round;
         var title=W.getElementById('titleGame');
-        title.innerHTML=title.innerHTML+node.game.module;
-
-        node.game.displayRoundInfo();
+        
+        node.say('correct', 'SERVER', node.game.correct);
 
         round = node.player.stage.round;
+        node.game.correct = 0;
         var num1, num2;
         num1 = Math.floor(Math.random()*(99-10)+10);
         num2 = Math.floor(Math.random()*(99-10)+10);
@@ -530,13 +528,20 @@ function game() {
                 W.getElementById('alertDanger').style.display = 'block';
             }
         }*/
-        node.on.data('Group K!', function(msg) {
+        
+        node.on.data("stage_info", function(msg) {
+            node.game.displayRoundInfo(msg.data.round_info);
+            node.game.module = msg.data.module;
+            title.innerHTML = title.innerHTML+msg.data.module;
+            node.game.group = msg.data.group;
+            node.set({role: msg.data.group });
+            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+        });
+/*        node.on.data('Group K!', function(msg) {
             node.game.group="K";
-            node.set({role:"K"});
 
             console.log('I\'m Group K!');
             if(!title.innerHTML.match(/Group/)){
-                title.innerHTML=title.innerHTML+": You are Group K";
             }
         });
         node.on.data('Group G!', function(msg) {
@@ -546,10 +551,10 @@ function game() {
                 title.innerHTML=title.innerHTML+": You are Group G";
             }
             console.log('I\'m Group G! ');
-        });
-        if(node.game.group){
+        });*/
+/*        if(node.game.group){
             title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
-        }
+        }*/
         var b = W.getElementById('read');
 
         b.onclick = function() {
@@ -575,6 +580,7 @@ function game() {
                     W.getElementById('alertSucces').style.display = 'block';
                     W.getElementById('alertDanger').style.display = 'none';
                     node.game.correct++;
+                    node.say('correct', 'SERVER', node.game.correct);
 
                 }
                 else{
@@ -597,19 +603,30 @@ function game() {
 function taxReturn(){
     W.loadFrame('taxReturn.html',function() {
 
-        W.getElementById("numberCorrect").innerHTML=node.game.correct;
         node.game.lastResult=null;
         node.game.earnings=0;
         node.game.declareTax=0;
 
-        node.game.displayRoundInfo();
+        node.on.data("stage_info", function(msg) {
+            node.game.displayRoundInfo(msg.data.round_info);      
+            node.game.module = msg.data.module;
+            node.game.group = msg.data.group;
+            if(msg.data.correct) node.game.correct = msg.data.correct;
+            W.getElementById("numberCorrect").innerHTML=node.game.correct;
+            if(node.game.group=="K"){
+                node.game.earnings = node.game.settings.SALARY_K * node.game.correct;
+            } else {
+                node.game.earnings = node.game.settings.SALARY_G * node.game.correct;
+            }
+            W.getElementById("totalEarnings").innerHTML=node.game.earnings+" ECUs.";
+            //this is the declaration for non-renspondents;
+            node.say("declare", "SERVER", {
+                   prelimGain: node.game.earnings,
+                    declaredEarnings: 0
+            });
+        });
 
-        if(node.game.group=="K"){
-            node.game.earnings= node.game.settings.SALARY_K*node.game.correct;
-        }else{
-            node.game.earnings= node.game.settings.SALARY_G*node.game.correct;
-        }
-        W.getElementById("totalEarnings").innerHTML=node.game.earnings+" ECUs.";
+        
         //W.getElementById("taxreturn").setAttribute('max',earnings)
         var b = W.getElementById('read');
         b.onclick = function() {
@@ -628,79 +645,56 @@ function taxReturn(){
 
             }
             else {
-
+                node.say("declare", "SERVER", {
+                   prelimGain: node.game.earnings,
+                    declaredEarnings: node.game.declareTax
+                });
                 node.done();
             }
         };
     });
 }
+
 function result(){
     W.loadFrame('result.html',function(){
 
         var finalEarnings=0;
-        var taxPaid=0;
-        var diceValue= Math.random();
-        var value=0;
-        var estado=false;
-        var probability=0;
-        var tax=0;
+        var roundData = {};
 
-        node.game.displayRoundInfo();
-
-        if(node.game.module==2){
-            tax=node.game.settings.TAX_MODULE_2;
-            probability=node.game.settings.PROBABILITY_MODULE_2;
-        }else{
-            tax=node.game.settings.TAX_MODULE_3;
-            probability=node.game.settings.PROBABILITY_MODULE_3;
-        }
-        if(diceValue<probability){
-            estado = true;
-            if(node.game.earnings!=node.game.declareTax){
-                taxPaid=tax*node.game.earnings + (node.game.earnings - node.game.declareTax) * 0.5 ;
-            }else{
-                taxPaid=tax*node.game.earnings;
+        node.on.data("stage_info", function(msg) {
+            //console.log("I got this: %o",msg.data);
+            node.game.displayRoundInfo(msg.data.round_info);
+            node.game.module = msg.data.module;  
+            roundData = msg.data;
+            finalEarnings = roundData.prelimGain - roundData.deduction;
+            W.getElementById("totalEarnings").innerHTML= (finalEarnings + roundData.incomeFromPooled).toFixed(1) + "ECUs.";
+            W.getElementById("redistribution").innerHTML= roundData.incomeFromPooled.toFixed(1) +"ECUs.";
+        
+            W.getElementById("numberCorrect").innerHTML= roundData.correct;
+            W.getElementById("preEarnings").innerHTML= roundData.prelimGain + " ECUs.";
+            W.getElementById("declareEarnings").innerHTML= roundData.declaredEarnings + " ECUs.";
+            if(node.player.lang.shortName == 'es'){
+                if(roundData.audited) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
+                else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
+            } else {
+                if(roundData.audited) W.getElementById("revision").innerHTML="You are audited";
+                else  W.getElementById("revision").innerHTML="You are not audited";        
             }
-            finalEarnings = node.game.earnings - taxPaid;
-        }else{
-
-            taxPaid=node.game.declareTax*tax;
-            finalEarnings=node.game.earnings-taxPaid;
-        }
-        node.say('DECLARE','SERVER',taxPaid);
-        node.on.data('PART',function(msg){
-            value=msg.data;
-            W.getElementById("totalEarnings").innerHTML=finalEarnings+value+"ECUs.";
-            W.getElementById("redistribution").innerHTML=value+"ECUs.";
+            W.getElementById("taxPaid").innerHTML=roundData.deduction.toFixed(1) + " ECUs.";
+            W.getElementById("finalEarnings").innerHTML=finalEarnings.toFixed(1) + " ECUs.";
         });
-        W.getElementById("numberCorrect").innerHTML=node.game.correct;
-        W.getElementById("preEarnings").innerHTML=node.game.earnings+" ECUs.";
-        W.getElementById("declareEarnings").innerHTML=node.game.declareTax+" ECUs.";
-        if(node.player.lang.shortName == 'es'){
-            if(estado) W.getElementById("revision").innerHTML="Tú declaración fue revisada";
-            else  W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
-        } else {
-            if(estado) W.getElementById("revision").innerHTML="You are audited";
-            else  W.getElementById("revision").innerHTML="You are not audited";        
-        }
-//        taxPaidF = taxPaid.toFixed(1);
-//        finalEarningsF = finalEarnings.toFixed(1);
-        W.getElementById("taxPaid").innerHTML=taxPaid.toFixed(1) + " ECUs.";
-        W.getElementById("finalEarnings").innerHTML=finalEarnings.toFixed(1) + " ECUs.";
-
         var b = W.getElementById('read');
         b.onclick = function() {
-            var correct=node.game.correct;
             if(node.game<0) node.done();
             else node.done({
                     module:'Module'+node.game.module,
-                    round:node.game.round+1,
-                    preEarnings:node.game.earnings,
-                    totalEarnings:(finalEarnings+value),
-                    correct:correct,
-                    declareEarnings:node.game.declareTax,
-                    statusDeclare:estado,
-                    taxPaid:taxPaid,
+                    round: roundData.round,
+                    preEarnings: roundData.prelimGain,
+                    totalEarnings:(finalEarnings + roundData.incomeFromPooled),
+                    correct:roundData.correct,
+                    declareEarnings:roundData.declaredEarnings,
+                    statusDeclare:roundData.audited,
+                    taxPaid:roundData.deduction,
                     finalEarnings:finalEarnings
 
                 });

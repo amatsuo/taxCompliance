@@ -12,7 +12,7 @@ window.onload = function() {
         verbosity: 100,
         debug : true,
         window : {
-            promptOnleave : false
+            promptOnleave : true
         },
         env : {
             auto : false,

@@ -26,10 +26,10 @@ module.exports = function(settings, stages) {
     setup.verbosity = 1;
 
     setup.window = {
-        promptOnleave: !setup.debug
+        promptOnleave: false//!setup.debug
     }
     
-    setup.window.promptOnLeave = false;
+//    setup.window.promptOnLeave = false;
     setup.window.disableRightClick = false;
 
     // Metadata. Taken from package.json. Can be overwritten.

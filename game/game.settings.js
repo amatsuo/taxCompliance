@@ -23,7 +23,7 @@ module.exports = {
     SESSION_ID: 1,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 5,
+    REPEAT: 1,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 60000,
     //Timer instructions
@@ -31,7 +31,7 @@ module.exports = {
     //Timer Dictator Game
     TIMER_DG: 30000,
     //Timer for RET
-    TIMER_GAME:30000,
+    TIMER_GAME:15000,
     //Timer for Declaration
     TIMER_DECLARE: 30000,
     //Timer for Declaration

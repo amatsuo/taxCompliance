@@ -111,80 +111,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('instructionsModule2', {
         cb: function() {
             console.log('instructionsModule2');
+            node.game.module = 2;
         }
     });
     stager.extendStep('instructionsModule3', {
         cb: function() {
             console.log('instructionsModule3');
+            node.game.module = 3;
         }
     });
     stager.extendStep('instructionsModule4', {
         cb: function() {
             console.log('instructionsModule4');
+            node.game.module = 4;
         }
     });
     stager.extendStep('game2', {
-        init: function() {
-            var g,i;
-//            node.game.loopFinished = false;
-            node.game.nConectP=0;
-            var orden=true;
-            g=node.game.pl.shuffle();
-            //console.log(g);
-           /* for(i=0;i<node.game.pl.size();i=i+2);
-            {
-
-            }*/
-            node.game.pl.each(function(p) {
-
-                // Check this.
-                p.loopFinished = false;
-
-                if(orden){
-                    node.say('Group K!', p.id);
-                    orden=false;
-                }else{
-                    node.say('Group G!', p.id);
-                    orden=true;
-                }
-
-
-
-            });
-
-        /*    node.on('in.set.DATA', function(msg) {
-                var done;
-                //console.log('received in.set.DATA');
-                //console.log(msg.data.done, msg.stage.step);
-                if (msg.data.loopFinished) {
-                    done = true;
-                    node.game.pl.each(function(p) {
-                        if (p.id === msg.from) {
-                            p.loopFinished = true;
-                        }
-                        if (!p.loopFinished) done = false;
-                    });
-                    if (done) {
-                        node.game.loopFinished = true;
-                        console.log('DONE LOGIC');
-                        node.done();                       
-                    }
-                }
-            });
-
-            var stage;
-            stage = node.player.stage;
-            
-             // Trick engine.
-             node.game.setCurrentGameStage({
-                  stage: stage.stage + 1,
-                  step: stage.step,
-                  round: stage.round
-             }, 'S');*/
-        },
-        cb: function() {
-            1;
-        }
+        init: cbs.initRetGame,
+        cb: cbs.retGame
     });
 
 /*    stager.extendStep('game2', {
@@ -194,35 +138,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });*/
     stager.extendStep('result2', {
-        cb: function() {
-            var total=0;
-            var nmsg=0;
-
-            node.on.data('DECLARE',function(msg){
-                    //console.log('declare: '+ msg.data);
-                    total=total+msg.data;
-                    nmsg++;
-                    if(nmsg==node.game.pl.size()){
-                        var value= total/node.game.pl.size();
-                        value = Math.round(value*10)/10;
-                        //console.log('parte: '+value);
-                        node.game.pl.each(function(p) {
-                           node.say('PART', p.id,value);
-                        });
-
-                    }
-
-                }
-            );
-            //console.log('players: '+node.game.pl.size());
-            //console.log('result');
-        }
+        cb: cbs.result
     });
     stager.extendStep('taxReturn2', {
-        cb: function() {
-
-            console.log('taxReturn');
-        }
+        cb: cbs.taxReturn,
     });
     stager.extendStep('questionary1', {
         cb: function() {

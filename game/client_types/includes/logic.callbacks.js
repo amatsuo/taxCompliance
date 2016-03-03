@@ -19,6 +19,10 @@ module.exports = {
     gameover: gameover,
     doMatch: doMatch,
     endgame: endgame,
+    initRetGame: initRetGame,
+    retGame: retGame,
+    taxReturn: taxReturn,
+    result: result,
     notEnoughPlayers: notEnoughPlayers
 };
 
@@ -37,6 +41,12 @@ var autoplay = gameRoom.getClientType('autoplay');
 function init() {
     DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/room_' + current_epoch + '/';
     node.game.module=1;
+    node.game.correct = {};
+    node.game.declaredEarnings = {};
+    node.game.deduction = {};
+    node.game.audited = {};
+    
+    node.game.practiceStage = 0;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
 //     DUMP_DIR_CSV = DUMP_DIR + 'csv/';
 // 
@@ -62,7 +72,8 @@ function init() {
         var currentStage, db, p, gain, prefix;
 
         currentStage = node.game.getCurrentGameStage();
-
+        
+        //console.log("currentStepData: %o", node.game.getCurrentStep());
         // We do not save stage 0.0.0.
         // Morever, If the last stage is equal to the current one, we are
         // re-playing the same stage cause of a reconnection. In this
@@ -113,6 +124,7 @@ function init() {
 
         // Resets last bids;
         node.game.lastBids = {};*/
+        this.send
     });
 
     // Add session name to data in DB.
@@ -206,8 +218,144 @@ function init() {
             node.game.lastBids[response.from] = bidWin;
         }
     });*/
+    this.sendStageInfo = function(){
+        node.game.nConectP=0;
+        var orden=true;
+        var currentStage, round_info;
+        var group;
+        var messageData;
+        var round = 0;
+    //    g=node.game.pl.shuffle();
 
+        currentStage = node.game.getCurrentGameStage();
+        node.game.practiceStage = node.game.practiceStage ? node.game.practiceStage : currentStage.stage;
+        if(currentStage.stage == node.game.practiceStage){
+            round_info = "Practice Round";
+            round = 0;
+        } else {
+            round_info = "Round " + currentStage.round + " of " + 
+                settings.REPEAT;
+            round = currentStage.round;
+        }
+        node.game.pl.each(function(p) {
+
+
+      // Check this.
+    //                p.loopFinished = false;
+            if(orden){
+                //node.say('Group K!', p.id);
+                group = "K";
+                orden=false;
+            }else{
+                group = "G";
+    //            node.say('Group G!', p.id);
+                orden=true;
+            }
+            messageData = {module: node.game.module, 
+                           round_info: round_info,
+                           round: round,
+                           group: group};
+            
+            
+            messageData.correct = node.game.correct[p.id] ? node.game.correct[p.id] : 0 ;
+            messageData.declaredEarnings = node.game.declaredEarnings[p.id] ? node.game.declaredEarnings[p.id] : 0;
+            messageData.deduction = node.game.deduction[p.id] ? node.game.deduction[p.id] : 0;
+            messageData.audited = node.game.audited[p.id] ? node.game.audited[p.id]: false;
+            messageData.prelimGain = node.game.prelimGain[p.id] ? node.game.prelimGain[p.id] : 0 ;            
+            messageData.pooledDeduction = node.game.pooledDeduction;
+            messageData.incomeFromPooled = node.game.pooledDeduction / node.game.pl.size();
+
+            //console.log("round_info: %o", messageData);
+            node.say('stage_info', p.id, messageData);
+        });
+    };
+    
     console.log('init');
+}
+
+
+function initRetGame() {
+    node.game.correct = {};
+    node.game.declaredEarnings = {};
+    node.game.deduction = {};
+    node.game.audited = {};
+    node.game.prelimGain = {};
+    node.game.pooledDeduction = 0; 
+    
+    node.game.sendStageInfo();
+
+}
+
+function retGame() {
+    node.on.data('correct',function(msg){
+        node.game.correct[msg.from] = msg.data;
+        //console.log(node.game.correct[msg.from]);
+    });
+}
+
+function taxReturn() {
+    node.game.pooledDeduction = 0; 
+    node.game.sendStageInfo();
+    console.log('taxReturn');
+        
+    node.on.data('declare', function(msg){
+        var diceValue= Math.random();
+        var tax, probability, estado, prelimGain, taxPaid,
+            declaredEarnings, finalEarnings;
+        estado = false;
+        
+        prelimGain = msg.data.prelimGain;
+        declaredEarnings = msg.data.declaredEarnings;
+        if(node.game.module==2){
+            tax = settings.TAX_MODULE_2;
+            probability= settings.PROBABILITY_MODULE_2;
+        }else{
+            tax = settings.TAX_MODULE_3;
+            probability = settings.PROBABILITY_MODULE_3;
+        }
+        if(diceValue < probability){
+            estado = true;
+            if(prelimGain != declaredEarnings){
+                taxPaid = tax * prelimGain + (prelimGain - declaredEarnings) * 0.5 ;
+            }else{
+                taxPaid = tax * declaredEarnings;
+            }
+            finalEarnings = declaredEarnings - taxPaid;
+        }else{
+            taxPaid = tax * declaredEarnings;
+            finalEarnings = declaredEarnings - taxPaid;
+        }
+        node.game.declaredEarnings[msg.from] = declaredEarnings;
+        node.game.audited[msg.from] = estado;
+        node.game.deduction[msg.from] = taxPaid;
+        node.game.prelimGain[msg.from] = prelimGain;
+    });
+}
+
+function result() {
+    var total=0;
+    var nmsg=0;
+    for(var key in node.game.deduction){
+        node.game.pooledDeduction = node.game.pooledDeduction + node.game.deduction[key];        
+    }
+    node.game.sendStageInfo();
+
+   /* node.on.data('DECLARE',function(msg){
+            //console.log('declare: '+ msg.data);
+            total=total+msg.data;
+            nmsg++;
+            if(nmsg==node.game.pl.size()){
+                var value= total/node.game.pl.size();
+                value = Math.round(value*10)/10;
+                //console.log('parte: '+value);
+                node.game.pl.each(function(p) {
+                   node.say('PART', p.id,value);
+                });
+
+            }
+
+        }
+    );*/
 }
 
 function gameover() {
@@ -283,6 +431,7 @@ function getReconStep(id) {
     }
 }
 
+
 function notEnoughPlayers() {
     if (this.countdown) return;
     console.log('Warning: not enough players!!');
@@ -290,13 +439,13 @@ function notEnoughPlayers() {
     var discTxt = 'One or more players disconnected. Waiting to see if they ' +
         'reconnect, otherwise the game will be terminated.';
     node.remoteCommand('pause', 'ROOM', discTxt);
-    this.countdown = setTimeout(function() {
+/*    this.countdown = setTimeout(function() {
         console.log('Countdown fired. Going to Step: resultStage');
         node.remoteCommand('erase_buffer', 'ROOM');
         node.remoteCommand('resume', 'ROOM');
         node.game.gameTerminated = true;
         node.game.gotoStep('resultStage');
-    }, 30000);
+    }, 30000);*/
 }
 
 function endgame() {

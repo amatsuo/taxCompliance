@@ -19,14 +19,15 @@ module.exports = function(stager, settings) {
     stager.next('selectLanguage');
     stager.skip('selectLanguage');
     
-    stager
-        .next('instructions')
-
-//MODULE 1
-        .next('instructionsModule1')
-        .next('module1')
+    stager.next('instructions');
+    //stager.skip('instructions');
+    stager.next('instructionsModule1');
+    //stager.skip('instructionsModule1');
+    stager.next('module1');
+    //stager.skip('module1');
 //MODULE 2
-        .next('instructionsModule2');
+    stager.next('instructionsModule2');
+    
 
     // First practice stage.
     
