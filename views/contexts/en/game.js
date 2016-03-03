@@ -4,6 +4,7 @@ module.exports = function(settings, headers) {
     return {
         title: "Module",
         Module: "Module ",
+        correctAns: "Number of Correct Answers: ",
         num1: Math.floor(Math.random()*(99-10)+10),
         num2: Math.floor(Math.random()*(99-10)+10),
         linea:"__________",

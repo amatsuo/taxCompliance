@@ -555,6 +555,7 @@ function game() {
         b.onclick = function() {
             /*var num1 = parseInt($(W.getElementById('num1')).text());
             var num2 = parseInt($(W.getElementById('num2')).text());*/
+            W.getElementById('container').style.display = 'none';
             var resultint = W.getElementById('result').value;
             var result = JSUS.isInt(resultint,0,200);
             var success = (resultint == num1+num2);
@@ -580,10 +581,14 @@ function game() {
                     W.getElementById('alertDanger').style.display = 'block';
                     W.getElementById('alertSucces').style.display = 'none';
                 }
-
+                W.getElementById('numCorrect').innerHTML = node.game.correct;
                 //node.done();
 
             }
+            setTimeout(function() {
+                W.getElementById('container').style.display = 'block';
+            }, 100);
+            
         };
 
     });

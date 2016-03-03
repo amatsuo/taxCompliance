@@ -1,6 +1,6 @@
 /**
  * # Authorization codes
- * Copyright(c) {YEAR} {AUTHOR} <{AUTHOR_EMAIL}>
+ * Copyright(c) 2016 Akitaka Matsuo (akitaka.matsuo@nuffield.ox.ac.uk)
  * MIT Licensed
  *
  * Exports a function returning an array of client objects
