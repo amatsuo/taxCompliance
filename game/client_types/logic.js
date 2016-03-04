@@ -41,10 +41,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     // This sets that in every step there must be at least MIN_PLAYERS.
     // However, you might want to set it manually for the steps/stages
     // where it is needed.
-    stager.setDefaultProperty('minPlayers', [
-        settings.MIN_PLAYERS,
-        cbs.notEnoughPlayers
-    ]);
+//     stager.setDefaultProperty('minPlayers', [
+//         settings.MIN_PLAYERS,
+//         cbs.notEnoughPlayers
+//     ]);
 
     stager.setDefaultCallback(function() {});
     /*stager.extendStep('precache', {

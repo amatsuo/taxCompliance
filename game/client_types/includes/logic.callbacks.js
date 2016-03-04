@@ -37,19 +37,28 @@ var current_epoch = currentdate.getTime();
 var client = gameRoom.getClientType('player');
 var autoplay = gameRoom.getClientType('autoplay');
 
+var bot2 = require('./bot2');
+
 
 function init() {
+
+    // Saving players IDS.
+    node.game.ids = {};
+    node.game.pl.each(function(p) {
+        node.game.ids[p.id] = true;
+    });
+
     DUMP_DIR = path.resolve(channel.getGameDir(), 'data') + '/room_' + current_epoch + '/';
     node.game.module=1;
     node.game.correct = {};
     node.game.declaredEarnings = {};
     node.game.deduction = {};
     node.game.audited = {};
-    
+
     node.game.practiceStage = 0;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
 //     DUMP_DIR_CSV = DUMP_DIR + 'csv/';
-// 
+//
 //     // Recursively create directories, sub-trees and all.
 //     J.mkdirSyncRecursive(DUMP_DIR_JSON, 0777);
 //     J.mkdirSyncRecursive(DUMP_DIR_CSV, 0777);
@@ -72,7 +81,7 @@ function init() {
         var currentStage, db, p, gain, prefix;
 
         currentStage = node.game.getCurrentGameStage();
-        
+
         //console.log("currentStepData: %o", node.game.getCurrentStep());
         // We do not save stage 0.0.0.
         // Morever, If the last stage is equal to the current one, we are
@@ -116,8 +125,8 @@ function init() {
             //                   '.nddb', null, db);
 
             prefix = DUMP_DIR + 'memory_' + currentStage;
-            db.save(prefix + '.csv', { flags: 'w' }); 
-            db.save(prefix + '.nddb', { flags: 'w' }); 
+            db.save(prefix + '.csv', { flags: 'w' });
+            db.save(prefix + '.nddb', { flags: 'w' });
 
             console.log('Round data saved ', currentStage);
         }
@@ -162,7 +171,7 @@ function init() {
         clearTimeout(this.countdown);
 
         gameRoom.setupClient(p.id);
-        
+
         // Start the game on the reconnecting client.
         // Need to give step: false, because otherwise pre-caching will
         // call done() on reconnecting stage.
@@ -181,7 +190,7 @@ function init() {
         reconStep = getReconStep(p.id);
 
         console.log('Recon step is: ', reconStep);
-        
+
         // Will send all the players to current stage
         // (also those who were there already).
         node.game.gotoStep(reconStep);*/
@@ -233,7 +242,7 @@ function init() {
             round_info = "Practice Round";
             round = 0;
         } else {
-            round_info = "Round " + currentStage.round + " of " + 
+            round_info = "Round " + currentStage.round + " of " +
                 settings.REPEAT;
             round = currentStage.round;
         }
@@ -251,17 +260,17 @@ function init() {
     //            node.say('Group G!', p.id);
                 orden=true;
             }
-            messageData = {module: node.game.module, 
+            messageData = {module: node.game.module,
                            round_info: round_info,
                            round: round,
                            group: group};
-            
-            
+
+
             messageData.correct = node.game.correct[p.id] ? node.game.correct[p.id] : 0 ;
             messageData.declaredEarnings = node.game.declaredEarnings[p.id] ? node.game.declaredEarnings[p.id] : 0;
             messageData.deduction = node.game.deduction[p.id] ? node.game.deduction[p.id] : 0;
             messageData.audited = node.game.audited[p.id] ? node.game.audited[p.id]: false;
-            messageData.prelimGain = node.game.prelimGain[p.id] ? node.game.prelimGain[p.id] : 0 ;            
+            messageData.prelimGain = node.game.prelimGain[p.id] ? node.game.prelimGain[p.id] : 0 ;
             messageData.pooledDeduction = node.game.pooledDeduction;
             messageData.incomeFromPooled = node.game.pooledDeduction / node.game.pl.size();
 
@@ -269,7 +278,7 @@ function init() {
             node.say('stage_info', p.id, messageData);
         });
     };
-    
+
     console.log('init');
 }
 
@@ -280,8 +289,8 @@ function initRetGame() {
     node.game.deduction = {};
     node.game.audited = {};
     node.game.prelimGain = {};
-    node.game.pooledDeduction = 0; 
-    
+    node.game.pooledDeduction = 0;
+
     node.game.sendStageInfo();
 
 }
@@ -294,16 +303,16 @@ function retGame() {
 }
 
 function taxReturn() {
-    node.game.pooledDeduction = 0; 
+    node.game.pooledDeduction = 0;
     node.game.sendStageInfo();
     console.log('taxReturn');
-        
+
     node.on.data('declare', function(msg){
         var diceValue= Math.random();
         var tax, probability, estado, prelimGain, taxPaid,
             declaredEarnings, finalEarnings;
         estado = false;
-        
+
         prelimGain = msg.data.prelimGain;
         declaredEarnings = msg.data.declaredEarnings;
         if(node.game.module==2){
@@ -325,6 +334,7 @@ function taxReturn() {
             taxPaid = tax * declaredEarnings;
             finalEarnings = declaredEarnings - taxPaid;
         }
+
         node.game.declaredEarnings[msg.from] = declaredEarnings;
         node.game.audited[msg.from] = estado;
         node.game.deduction[msg.from] = taxPaid;
@@ -335,8 +345,21 @@ function taxReturn() {
 function result() {
     var total=0;
     var nmsg=0;
-    for(var key in node.game.deduction){
-        node.game.pooledDeduction = node.game.pooledDeduction + node.game.deduction[key];        
+    var key;
+debugger
+    for (key in this.ids) {
+        if (this.ids.hasOwnProperty(key)) {
+            // Connected in the previous step.
+            if (node.game.deduction.hasOwnProperty(key)) {
+                node.game.pooledDeduction = node.game.pooledDeduction +
+                    node.game.deduction[key];
+            }
+            else {
+                node.game.pooledDeduction = node.game.pooledDeduction +
+                    // Pass other params as needed.
+                    bot2(node, node.game.deduction);
+            }
+        }
     }
     node.game.sendStageInfo();
 
@@ -402,7 +425,7 @@ function doMatch() {
 
         // Send a message to each player with their role
         // and the id of the other player.
-        console.log('==================== LOGIC: BIDDER is', bidder.id, 
+        console.log('==================== LOGIC: BIDDER is', bidder.id,
                     '; RESPONDENT IS', respondent.id);
 
         node.say('BIDDER', bidder.id, data_b);
@@ -468,7 +491,7 @@ function endgame() {
 
         accesscode = code.AccessCode;
         exitcode = code.ExitCode;
-        
+
         var resultsArray=node.game.memory.select('done')
                     .and('module','==','resultModule4')
                     .and('player','==',p.id+'')
@@ -505,7 +528,7 @@ function endgame() {
     });
     bonusFile.write(["access", "exit", "bonus", "terminated"].join(', ') + '\n');
     bonus.forEach(function(v) {
-        bonusFile.write(v.join(', ') + '\n'); 
+        bonusFile.write(v.join(', ') + '\n');
     });
     bonusFile.end();
 
