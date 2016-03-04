@@ -374,7 +374,8 @@ function module1(){
 
         b.onclick = function() {
             var valueR=0;
-            var value= W.getElementById('Send').value;
+            var send = W.getElementById('Send');
+            var value= send.value;
             value = JSUS.isInt(value, 0, node.game.settings.CANTIDAD);
 
             if ( value===false ) {
@@ -385,32 +386,22 @@ function module1(){
 
             }
             else {
+                send.disabled = true;
+                b.disabled = true;
+                W.writeln(' Waiting for the decision of other players',
+                          W.getElementById('Module1'));
                 console.log('Role '+role );
                 node.say('send',other,value);
-                node.on.data('send',function(msg){
+                node.on.data('send', function(msg){
                     valueR=msg.data;
-                    if(role=='A') {
-
-                        node.done({
-                            value: 1000 - value,
-                            input_value: value,
-                            role: role,
-                            other: other,
-                            module:'Module1'
-                        });
-                        node.say('send',other,value);
-
-                    }else{
-                        node.done({
-                            value: valueR,
-                            input_value: value,
-                            role: role,
-                            other: other,
-                            module:'Module1'
-                        });
-                        node.say('send',other,value);
-
-                    }
+                    node.done({
+                        value: role === 'A' ? 1000 - value : valueR,
+                        input_value: value,
+                        role: role,
+                        other: other,
+                        module: 'Module1'
+                    });
+                    node.say('send',other,value);                 
                 });
             }
         };
