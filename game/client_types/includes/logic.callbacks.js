@@ -54,6 +54,7 @@ function init() {
     node.game.declaredEarnings = {};
     node.game.deduction = {};
     node.game.audited = {};
+    node.game.payRound = {};
 
     node.game.practiceStage = 0;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
@@ -251,7 +252,7 @@ function init() {
 
       // Check this.
     //                p.loopFinished = false;
-            if(orden){
+           /* if(orden){
                 //node.say('Group K!', p.id);
                 group = "K";
                 orden=false;
@@ -259,7 +260,8 @@ function init() {
                 group = "G";
     //            node.say('Group G!', p.id);
                 orden=true;
-            }
+            }*/
+            group = node.game.taxGroup[p.id];
             messageData = {module: node.game.module,
                            round_info: round_info,
                            round: round,
@@ -306,15 +308,16 @@ function taxReturn() {
     node.game.pooledDeduction = 0;
     node.game.sendStageInfo();
     console.log('taxReturn');
-
-    node.on.data('declare', function(msg){
+    var key;
+    
+    this.calcStageEarnings = function(prelimG, declaredE, id){
         var diceValue= Math.random();
         var tax, probability, estado, prelimGain, taxPaid,
             declaredEarnings, finalEarnings;
         estado = false;
 
-        prelimGain = msg.data.prelimGain;
-        declaredEarnings = msg.data.declaredEarnings;
+        prelimGain = prelimG;
+        declaredEarnings = declaredE;
         if(node.game.module==2){
             tax = settings.TAX_MODULE_2;
             probability= settings.PROBABILITY_MODULE_2;
@@ -335,18 +338,32 @@ function taxReturn() {
             finalEarnings = declaredEarnings - taxPaid;
         }
 
-        node.game.declaredEarnings[msg.from] = declaredEarnings;
-        node.game.audited[msg.from] = estado;
-        node.game.deduction[msg.from] = taxPaid;
-        node.game.prelimGain[msg.from] = prelimGain;
+        node.game.declaredEarnings[id] = declaredEarnings;
+        node.game.audited[id] = estado;
+        node.game.deduction[id] = taxPaid;
+        node.game.prelimGain[id] = prelimGain;
+    };
+    //calculate the default results, in case the client does not send results.
+    for(key in this.ids){
+        if(node.game.taxGroup[key]=="K") {
+            node.game.prelimGain[key] = node.game.settings.SALARY_K * node.game.correct;
+        } else {
+            node.game.prelimGain[key] = node.game.settings.SALARY_G * node.game.correct;
+        }
+        node.game.declaredEarnings[key] = 0;
+        node.game.calcStageEarnings(node.game.prelimGain[key], node.game.declaredEarnings[key], key);
+    }
+    
+    node.on.data('declare', function(msg){
+        node.game.calcStageEarnings(msg.data.prelimGain, msg.data.declaredEarnings, msg.from);
+        
     });
 }
 
 function result() {
     var total=0;
     var nmsg=0;
-    var key;
-debugger
+    var key, paidRound, round;
     for (key in this.ids) {
         if (this.ids.hasOwnProperty(key)) {
             // Connected in the previous step.
@@ -361,7 +378,27 @@ debugger
             }
         }
     }
+    currentStage = node.game.getCurrentGameStage();
+        
+    if(currentStage.stage == node.game.practiceStage){
+        round = 0;
+    } else {
+        round = currentStage.round;
+    }
     node.game.sendStageInfo();
+    paidRound = (node.game.payRound['Module' + node.game.module] == round)? 1 :0;
+    
+    node.game.memory.insert({
+        module: "Module" + node.game.module,
+        round: round,
+        paidRound: paidRound,
+        pooledDeduction: node.game.pooledDeduction, 
+        declaredEarnings: node.game.declaredEarnings,
+        audited: node.game.audited,
+        deduction: node.game.deduction,
+        prelimGain: node.game.prelimGain,
+        player: node.player.id,
+        stage: node.player.stage});
 
    /* node.on.data('DECLARE',function(msg){
             //console.log('declare: '+ msg.data);

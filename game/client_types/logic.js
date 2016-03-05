@@ -112,12 +112,21 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             console.log('instructionsModule2');
             node.game.module = 2;
+            var i, g;
+            g=node.game.pl.shuffle();
+            node.game.taxGroup = {};
+            for(i=0;i<node.game.pl.size();i=i+1){
+                node.game.taxGroup[g.db[i].id] = i % 2? "K": "G";
+            };
+            node.game.payRound["Module" + node.game.module ] = Math.abs(Math.floor(Math.random()*(settings.REPEAT))) + 1;
+            console.log("%o", node.game.taxGroup);
         }
     });
     stager.extendStep('instructionsModule3', {
         cb: function() {
             console.log('instructionsModule3');
             node.game.module = 3;
+            node.game.payRound["Module" + node.game.module ] = Math.abs(Math.floor(Math.random()*(settings.REPEAT))) + 1;
         }
     });
     stager.extendStep('instructionsModule4', {

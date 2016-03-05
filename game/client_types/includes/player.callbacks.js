@@ -480,8 +480,8 @@ function instructionsModule3(){
     });
     console.log('instructionsModule3');
 }
-function game() {
 
+function game() {
     W.loadFrame('game.html', function () {
         //node.game.lastResult="succes";
         var round;
