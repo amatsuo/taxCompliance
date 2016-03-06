@@ -953,36 +953,26 @@ function resultModule2(){
         var dataResult;
         node.on.data('Result',function(msg){
             W.getElementById("round").innerHTML=msg.data.round;
-            W.getElementById("totalEarnings").innerHTML=msg.data.totalEarnings+"ECUs.";
+            W.getElementById("totalEarnings").innerHTML=msg.data.roundIncome.toFixed(1) + "ECUs.";
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
-            W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
-            W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
+            W.getElementById("preEarnings").innerHTML=msg.data.prelimGain+" ECUs.";
+            W.getElementById("declareEarnings").innerHTML=msg.data.declaredEarnings+" ECUs.";
             if(node.player.lang.shortName === "es"){
-                if(msg.data.statusDeclare)
+                if(msg.data.audited)
                     W.getElementById("revision").innerHTML="Tú declaración fue revisada";
                 else
                     W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
             } else {
-                if(msg.data.statusDeclare) 
+                if(msg.data.audited) 
                     W.getElementById("revision").innerHTML="You are audited";
                 else  
                     W.getElementById("revision").innerHTML="You are not audited"; 
             }
-            W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
-            W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
-            dataResult={
-                module:'resultModule2',
-                round:msg.data.round,
-                preEarnings:msg.data.preEarnings,
-                totalEarnings:msg.data.totalEarnings,
-                correct:msg.data.correct,
-                declareEarnings:msg.data.declareTax,
-                statusDeclare:msg.data.statusDeclare,
-                taxPaid:msg.data.taxPaid,
-                finalEarnings:msg.data.finalEarnings
-
-            };
-
+            W.getElementById("taxPaid").innerHTML=msg.data.deduction.toFixed(1)+" ECUs.";
+            W.getElementById("finalEarnings").innerHTML=(msg.data.prelimGain - msg.data.deduction).toFixed(1)+" ECUs.";
+            dataResult= msg.data;
+            
+            dataResult.module = 'resultModule2';
         });
         var b = W.getElementById('read');
         b.onclick = function() {
@@ -990,46 +980,34 @@ function resultModule2(){
             node.done(dataResult);
         };
     });
-
-
-
 }
+
 function resultModule3(){
     W.loadFrame('resultModule3.html',function(){
         var dataResult;
+        var dataResult;
         node.on.data('Result',function(msg){
-
             W.getElementById("round").innerHTML=msg.data.round;
-            W.getElementById("totalEarnings").innerHTML=msg.data.totalEarnings+"ECUs.";
+            W.getElementById("totalEarnings").innerHTML=msg.data.roundIncome.toFixed(1) + "ECUs.";
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
-            W.getElementById("preEarnings").innerHTML=msg.data.preEarnings+" ECUs.";
-            W.getElementById("declareEarnings").innerHTML=msg.data.declareEarnings+" ECUs.";
+            W.getElementById("preEarnings").innerHTML=msg.data.prelimGain+" ECUs.";
+            W.getElementById("declareEarnings").innerHTML=msg.data.declaredEarnings+" ECUs.";
             if(node.player.lang.shortName === "es"){
-                if(msg.data.statusDeclare)
+                if(msg.data.audited)
                     W.getElementById("revision").innerHTML="Tú declaración fue revisada";
                 else
                     W.getElementById("revision").innerHTML="Tú declaración no fue revisada";
             } else {
-                if(msg.data.statusDeclare) 
+                if(msg.data.audited) 
                     W.getElementById("revision").innerHTML="You are audited";
                 else  
                     W.getElementById("revision").innerHTML="You are not audited"; 
             }
-            W.getElementById("taxPaid").innerHTML=msg.data.taxPaid+" ECUs.";
-            W.getElementById("finalEarnings").innerHTML=msg.data.finalEarnings+" ECUs.";
-
-            dataResult={
-                module:'resultModule3',
-                round:msg.data.round,
-                preEarnings:msg.data.preEarnings,
-                totalEarnings:msg.data.totalEarnings,
-                correct:msg.data.correct,
-                declareEarnings:msg.data.declareTax,
-                statusDeclare:msg.data.statusDeclare,
-                taxPaid:msg.data.taxPaid,
-                finalEarnings:msg.data.finalEarnings
-
-            };
+            W.getElementById("taxPaid").innerHTML=msg.data.deduction.toFixed(1)+" ECUs.";
+            W.getElementById("finalEarnings").innerHTML=(msg.data.prelimGain - msg.data.deduction).toFixed(1)+" ECUs.";
+            dataResult= msg.data;
+            
+            dataResult.module = 'resultModule3';
         });
         var b = W.getElementById('read');
         b.onclick = function() {
@@ -1039,6 +1017,7 @@ function resultModule3(){
 
     });
 }
+
 function resultModule4(){
     W.loadFrame('resultModule4.html',function(){
         var dataResult;

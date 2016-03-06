@@ -23,6 +23,10 @@ module.exports = {
     retGame: retGame,
     taxReturn: taxReturn,
     result: result,
+    resultModule1: resultModule1,
+    resultModule2: resultModule2,
+    resultModule3: resultModule3,
+    resultModule4: resultModule4,
     notEnoughPlayers: notEnoughPlayers
 };
 
@@ -55,6 +59,9 @@ function init() {
     node.game.deduction = {};
     node.game.audited = {};
     node.game.payRound = {};
+    node.game.roundIncome = {};
+    node.game.pooledDeduction = 0;
+
 
     node.game.practiceStage = 0;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
@@ -292,7 +299,8 @@ function initRetGame() {
     node.game.audited = {};
     node.game.prelimGain = {};
     node.game.pooledDeduction = 0;
-
+    node.game.roundIncome = {};
+    
     node.game.sendStageInfo();
 
 }
@@ -345,25 +353,25 @@ function taxReturn() {
     };
     //calculate the default results, in case the client does not send results.
     for(key in this.ids){
+        node.game.correct[key] = node.game.correct[key] ? node.game.correct[key] : 0;
         if(node.game.taxGroup[key]=="K") {
-            node.game.prelimGain[key] = node.game.settings.SALARY_K * node.game.correct;
+            node.game.prelimGain[key] = node.game.settings.SALARY_K * node.game.correct[key];
         } else {
-            node.game.prelimGain[key] = node.game.settings.SALARY_G * node.game.correct;
+            node.game.prelimGain[key] = node.game.settings.SALARY_G * node.game.correct[key];
         }
         node.game.declaredEarnings[key] = 0;
         node.game.calcStageEarnings(node.game.prelimGain[key], node.game.declaredEarnings[key], key);
     }
-    
+    //update declaired gain with message.
     node.on.data('declare', function(msg){
-        node.game.calcStageEarnings(msg.data.prelimGain, msg.data.declaredEarnings, msg.from);
-        
+        node.game.calcStageEarnings(msg.data.prelimGain, msg.data.declaredEarnings, msg.from);        
     });
 }
 
 function result() {
     var total=0;
     var nmsg=0;
-    var key, paidRound, round;
+    var key, paidRound, round, incomeFromPooled, roundResult = {};
     for (key in this.ids) {
         if (this.ids.hasOwnProperty(key)) {
             // Connected in the previous step.
@@ -379,7 +387,11 @@ function result() {
         }
     }
     currentStage = node.game.getCurrentGameStage();
-        
+    incomeFromPooled = node.game.pooledDeduction / node.game.pl.size();
+    for (key in this.ids) { 
+        node.game.roundIncome[key] = node.game.prelimGain[key] -
+            node.game.deduction[key] + incomeFromPooled;
+    }
     if(currentStage.stage == node.game.practiceStage){
         round = 0;
     } else {
@@ -388,15 +400,29 @@ function result() {
     node.game.sendStageInfo();
     paidRound = (node.game.payRound['Module' + node.game.module] == round)? 1 :0;
     
+    
+    for (key in this.ids) { 
+        roundResult[key] = {
+            declaredEarnings: node.game.declaredEarnings[key],
+            audited: node.game.audited[key],
+            deduction: node.game.deduction[key],
+            prelimGain: node.game.prelimGain[key],
+            roundIncome: node.game.roundIncome[key],
+            correct: node.game.correct[key],
+            group: node.game.taxGroup[key]
+        }
+    }
     node.game.memory.insert({
         module: "Module" + node.game.module,
         round: round,
         paidRound: paidRound,
         pooledDeduction: node.game.pooledDeduction, 
-        declaredEarnings: node.game.declaredEarnings,
+        roundResult: roundResult, 
+/*        declaredEarnings: node.game.declaredEarnings,
         audited: node.game.audited,
         deduction: node.game.deduction,
         prelimGain: node.game.prelimGain,
+        roundIncome: node.game.roundIncome,*/
         player: node.player.id,
         stage: node.player.stage});
 
@@ -418,19 +444,134 @@ function result() {
     );*/
 }
 
-function gameover() {
-    console.log('************** GAMEOVER ' + gameRoom.name + ' ****************');
+function resultModule1() {
+    node.game.moduleIncomes = {};
+    node.game.pl.each(function(p){
+        node.game.moduleIncomes[p.id] = [];
+    });
 
-    // Saving all indexes.
-    // node.fs.saveMemoryIndexes('csv', DUMP_DIR_CSV);
-    // node.fs.saveMemoryIndexes('json', DUMP_DIR_JSON);
+    var results= node.game.memory.select('done')
+        .and('module','==','Module1')
+        .fetch();
+    for(var i=0;i<results.length;i++){
 
-    // Dump all memory.
-    // node.fs.saveMemory('json', DUMP_DIR + 'memory_all.json');
-    node.game.memory.save(DUMP_DIR + 'memory_all.json');
+        var dataResult= {
+            id: results[i].player,
+            role: results[i].role,
+            value: results[i].value,
+            other: results[i].other
+        };
+        node.game.moduleIncomes[results[i].player][0] = results[i].value;
+        console.log('--------------------------');
+        console.log('Player '+dataResult.id);
+        console.log('Role: '+dataResult.role);
+        console.log('Value: '+dataResult.value);
+        console.log('Other: '+dataResult.other);
 
-    // TODO: fix this.
-    // channel.destroyGameRoom(gameRoom.name);
+        node.say('Result',dataResult.id,dataResult);
+
+
+
+    }
+    console.log('--------------------------');
+    console.log('resultModule1');
+
+}
+
+
+function resultModule2() {
+    //var players=node.game.pl;
+    var id;
+    resultsArray=node.game.memory.select('module','==','Module2')
+            .and('paidRound', '==', 1)
+            .fetch();
+    console.log("%o", resultsArray[0].roundResult);
+    for (id in resultsArray[0].roundResult) {
+        if (resultsArray[0].roundResult.hasOwnProperty(id)) {
+            var results = resultsArray[0].roundResult[id];
+            console.log("%o", results);
+            node.say('Result',id,results);
+            if(!node.game.moduleIncomes.hasOwnProperty(id)){
+                node.game.moduleIncomes[id] = [];
+            }
+            node.game.moduleIncomes[id][1] = results.roundIncome;
+        }
+    }    
+}
+
+function resultModule3() {
+    //var players=node.game.pl;
+    var id;
+    resultsArray=node.game.memory.select('module','==','Module3')
+            .and('paidRound', '==', 1)
+            .fetch();
+    console.log("%o", resultsArray[0].roundResult);
+    for (id in resultsArray[0].roundResult) {
+        if (resultsArray[0].roundResult.hasOwnProperty(id)) {
+            var results = resultsArray[0].roundResult[id];
+            console.log("%o", results);
+            node.say('Result',id,results);
+            if(!node.game.moduleIncomes.hasOwnProperty(id)){
+                node.game.moduleIncomes[id] = [];
+            }
+            node.game.moduleIncomes[id][2] = results.roundIncome;
+        }
+    }    
+}
+
+function resultModule4() {
+    var  results= node.game.memory.select('done')
+        .and('module','==','Module4')
+        .fetch();
+    var dataResult, dataUser;
+    for(var i=0;i<results.length ;i++){
+
+        var dataUser=results[i];
+        var choise=Math.abs(Math.floor(Math.random()*(dataUser.arrayAnswers.length-1)));
+        var probability1,probability2;
+        probability1=(10*(choise+1))/100;
+        probability2= 1 - probability1;
+        console.log(dataUser);
+        var valueDice=Math.random();
+        var high_opcion,value;
+
+        if(valueDice < probability2){
+                high_opcion = false;
+        }else{
+                high_opcion=true;
+        }
+        if(dataUser.arrayAnswers[choise]=='A'){
+            if(high_opcion) value = settings.RISK_SAFE_HIGH;
+            else value = settings.RISK_SAFE_LOW;
+
+
+        }else{
+            if(high_opcion) value = settings.RISK_GABL_HIGH;
+            else value = settings.RISK_GABL_LOW;
+        }
+
+        dataResult={
+            id:dataUser.player,
+            choise:choise+1,
+            select:dataUser.arrayAnswers[choise],
+            value:value
+        };
+        console.log('--------------------------');
+        console.log('Player '+dataResult.id);
+        console.log('choise: '+dataResult.choise);
+        console.log('select: '+dataResult.select);
+        console.log('Value: '+dataResult.value);
+
+        node.say('Result',dataResult.id,dataResult);
+        if(!node.game.moduleIncomes.hasOwnProperty(dataResult.id)){
+            node.game.moduleIncomes[dataResult.id] = [];
+        }
+        node.game.moduleIncomes[dataResult.id][3] = Number(value) * settings.CANTIDAD_ESU_x_PCH;
+
+    }
+    console.log('--------------------------');
+    console.log('resultModule4');
+
 }
 
 function doMatch() {
@@ -529,11 +670,15 @@ function endgame() {
         accesscode = code.AccessCode;
         exitcode = code.ExitCode;
 
-        var resultsArray=node.game.memory.select('done')
+/*        var resultsArray=node.game.memory.select('done')
                     .and('module','==','resultModule4')
                     .and('player','==',p.id+'')
                     .fetch();
-        var winamount = resultsArray[0].totalECUs || 0;
+        var winamount = resultsArray[0].totalECUs || 0;*/
+        console.log(node.game.moduleIncomes[p.id]);
+        var winamount = node.game.moduleIncomes[p.id].reduce(function(a, b) {
+            return a + b;
+        });
         winamount = winamount / settings.CANTIDAD_ESU_x_PCH;
         code.win = winamount;
 /*        if (node.env('treatment') === 'pp' && node.game.gameTerminated) {
@@ -575,4 +720,19 @@ function endgame() {
     // });
 
     //node.done();
+}
+
+function gameover() {
+    console.log('************** GAMEOVER ' + gameRoom.name + ' ****************');
+
+    // Saving all indexes.
+    // node.fs.saveMemoryIndexes('csv', DUMP_DIR_CSV);
+    // node.fs.saveMemoryIndexes('json', DUMP_DIR_JSON);
+
+    // Dump all memory.
+    // node.fs.saveMemory('json', DUMP_DIR + 'memory_all.json');
+    node.game.memory.save(DUMP_DIR + 'memory_all.json');
+
+    // TODO: fix this.
+    // channel.destroyGameRoom(gameRoom.name);
 }
