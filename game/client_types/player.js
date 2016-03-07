@@ -192,13 +192,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: cbs.questionary2,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
-        //stepRule: stepRules.SOLO
     });
     stager.extendStep('questionary3', {
         cb: cbs.questionary3,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
-        //stepRule: stepRules.SOLO
     });
 /*    stager.extendStage('game2', {
         init: function() {
@@ -228,34 +226,45 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_TAX_RES
     });
+    
+   /* stager.extendStep('calcResult', {
+        cb: cbs.calcResult
+    })*;*/
+
     stager.extendStep('dataPlayer', {
         cb: cbs.dataPlayer,
         // syncOnLoaded: true,
-        timer: settings.TIMER_INSTRUCTIONS
+        timer: settings.TIMER_INSTRUCTIONS,
+        //stepRule: stepRules.SOLO
     })
     stager.extendStep('resultModule1', {
         cb: cbs.resultModule1,
         // syncOnLoaded: true,
-        timer: settings.TIMER_RESULT
+        timer: settings.TIMER_RESULT,
+        stepRule: stepRules.SOLO
     });
     stager.extendStep('resultModule2', {
         cb: cbs.resultModule2,
         // syncOnLoaded: true,
-        timer: settings.TIMER_RESULT
+        timer: settings.TIMER_RESULT,
+        stepRule: stepRules.SOLO
     });
     stager.extendStep('resultModule3', {
         cb: cbs.resultModule3,
         // syncOnLoaded: true,
-        timer: settings.TIMER_RESULT
+        timer: settings.TIMER_RESULT,
+        stepRule: stepRules.SOLO
     });
     stager.extendStep('resultModule4', {
         cb: cbs.resultModule4,
         // syncOnLoaded: true,
-        timer: settings.TIMER_RESULT
+        timer: settings.TIMER_RESULT,
+        stepRule: stepRules.SOLO
     });
     
     stager.extendStep('endgame', {
-        cb: cbs.endgame
+        cb: cbs.endgame,
+        stepRule: stepRules.SOLO
     });
    /*
     stager.extendStep('end', {

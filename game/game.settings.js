@@ -33,7 +33,7 @@ module.exports = {
     //Timer Dictator Game
     TIMER_DG: 30000,
     //Timer for RET
-    TIMER_GAME:15000,
+    TIMER_GAME:5000,
     //Timer for Declaration
     TIMER_DECLARE: 30000,
     //Timer for Declaration

@@ -23,6 +23,8 @@ module.exports = {
     retGame: retGame,
     taxReturn: taxReturn,
     result: result,
+    calcResult: calcResult,
+    dataPlayer: dataPlayer,
     resultModule1: resultModule1,
     resultModule2: resultModule2,
     resultModule3: resultModule3,
@@ -85,6 +87,13 @@ function init() {
     node.game.lastBids = {};
 
     // "STEPPING" is the last event emitted before the stage is updated.
+    node.on.data("RequestResults", function(msg){
+        var id = msg.from;
+        if (node.game.moduleOutcomes.hasOwnProperty(id)) {
+            console.log("%o", node.game.moduleOutcomes);
+            node.say('AllResults', id, node.game.moduleOutcomes[id]);
+        }
+    });
     node.on('STEPPING', function() {
         var currentStage, db, p, gain, prefix;
 
@@ -444,8 +453,158 @@ function result() {
     );*/
 }
 
-function resultModule1() {
+function calcResult() {
+    //Module results are calculated at this point
+    console.log("dataPlayer");
     node.game.moduleIncomes = {};
+    node.game.moduleOutcomes = {};
+    node.game.pl.each(function(p){
+        node.game.moduleIncomes[p.id] = [];
+    });
+
+    node.game.moduleOutcomes = {};
+    
+
+    
+    var results= node.game.memory.select('done')
+        .and('module','==','Module1')
+        .fetch();
+    for(var i=0;i<results.length;i++){
+
+        var dataResult= {
+            id: results[i].player,
+            role: results[i].role,
+            value: results[i].value,
+            other: results[i].other
+        };
+        node.game.moduleIncomes[results[i].player][0] = results[i].value;
+        console.log('--------------------------');
+        console.log('Player '+dataResult.id);
+        console.log('Role: '+dataResult.role);
+        console.log('Value: '+dataResult.value);
+        console.log('Other: '+dataResult.other);
+        node.game.moduleOutcomes[results[i].player] ={};
+        node.game.moduleOutcomes[results[i].player]['Module1'] = dataResult;
+        //node.say('Result',dataResult.id,dataResult);
+
+
+
+    }
+    //results module 2 and 3
+    for(var i = 2; i <= 3; i++) {
+        var id;
+        resultsArray=node.game.memory.select('module','==','Module' + i)
+                .and('paidRound', '==', 1)
+                .fetch();
+        console.log("%o", resultsArray[0].roundResult);
+        for (id in resultsArray[0].roundResult) {
+            if (resultsArray[0].roundResult.hasOwnProperty(id)) {
+                var results = resultsArray[0].roundResult[id];
+                results.round = resultsArray[0].round;
+                
+                console.log("%o", results);
+                if(!node.game.moduleOutcomes.hasOwnProperty(id)){
+                    node.game.moduleOutcomes[id] = {};
+                }
+                node.game.moduleOutcomes[id]['Module' + i] = results;
+
+                //node.say('Result',id,results);
+                if(!node.game.moduleIncomes.hasOwnProperty(id)){
+                    node.game.moduleIncomes[id] = [];
+                }
+                node.game.moduleIncomes[id][i - 1] = results.roundIncome;
+            }
+        } 
+    }
+    //results module 4
+    
+    var  results= node.game.memory.select('done')
+        .and('module','==','Module4')
+        .fetch();
+    var dataResult, dataUser;
+    for(var i=0;i<results.length ;i++){
+
+        var dataUser=results[i];
+        var choise=Math.abs(Math.floor(Math.random()*(dataUser.arrayAnswers.length-1)));
+        var probability1,probability2;
+        probability1=(10*(choise+1))/100;
+        probability2= 1 - probability1;
+        console.log(dataUser);
+        var valueDice=Math.random();
+        var high_opcion,value;
+
+        if(valueDice < probability2){
+                high_opcion = false;
+        }else{
+                high_opcion=true;
+        }
+        if(dataUser.arrayAnswers[choise]=='A'){
+            if(high_opcion) value = settings.RISK_SAFE_HIGH;
+            else value = settings.RISK_SAFE_LOW;
+
+
+        }else{
+            if(high_opcion) value = settings.RISK_GABL_HIGH;
+            else value = settings.RISK_GABL_LOW;
+        }
+
+        dataResult={
+            id:dataUser.player,
+            choise:choise+1,
+            select:dataUser.arrayAnswers[choise],
+            value:value
+        };
+        console.log('--------------------------');
+        console.log('Player '+dataResult.id);
+        console.log('choise: '+dataResult.choise);
+        console.log('select: '+dataResult.select);
+        console.log('Value: '+dataResult.value);
+
+        //node.say('Result',dataResult.id,dataResult);
+        if(!node.game.moduleOutcomes.hasOwnProperty(dataResult.id)){
+            node.game.moduleOutcomes[dataResult.id] = {};
+        }
+        node.game.moduleOutcomes[dataResult.id]['Module4'] = dataResult;
+
+        
+        if(!node.game.moduleIncomes.hasOwnProperty(dataResult.id)){
+            node.game.moduleIncomes[dataResult.id] = [];
+        }
+        node.game.moduleIncomes[dataResult.id][3] = Number(value) * settings.CANTIDAD_ESU_x_PCH;
+    }
+    var id;
+    for (id in node.game.moduleOutcomes) {
+        if (node.game.moduleOutcomes.hasOwnProperty(id)) {
+            var totalIncomes, code;
+            
+            console.log(node.game.moduleIncomes[id]);
+            console.log("%o", node.game.moduleOutcomes);
+            node.say('AllResults', id, node.game.moduleOutcomes[id]);
+        }
+    }
+    
+}
+
+function dataPlayer() {
+    console.log('--------------------------');
+    console.log('dataPlayer');
+    calcResult();
+    endgame();
+}
+
+function resultModule1() {
+    console.log('--------------------------');
+    console.log('resultModule1');
+    node.game.memory.save(DUMP_DIR + 'memory_all.json');
+    
+    /*
+    node.on.data('RequestResult1', function(msg){
+        console.log("%o", msg);
+        var dataResult = node.game.moduleOutcomes[msg.from]['Module1'];
+        node.say('Result',dataResult.id,dataResult);
+        
+    });
+/*    node.game.moduleIncomes = {};
     node.game.pl.each(function(p){
         node.game.moduleIncomes[p.id] = [];
     });
@@ -475,13 +634,13 @@ function resultModule1() {
     }
     console.log('--------------------------');
     console.log('resultModule1');
-
+*/
 }
 
 
 function resultModule2() {
     //var players=node.game.pl;
-    var id;
+ /*   var id;
     resultsArray=node.game.memory.select('module','==','Module2')
             .and('paidRound', '==', 1)
             .fetch();
@@ -496,11 +655,15 @@ function resultModule2() {
             }
             node.game.moduleIncomes[id][1] = results.roundIncome;
         }
-    }    
+    }
+    */
+    console.log('--------------------------');
+    console.log('resultModule4');
+
 }
 
 function resultModule3() {
-    //var players=node.game.pl;
+    /*var players=node.game.pl;
     var id;
     resultsArray=node.game.memory.select('module','==','Module3')
             .and('paidRound', '==', 1)
@@ -516,11 +679,14 @@ function resultModule3() {
             }
             node.game.moduleIncomes[id][2] = results.roundIncome;
         }
-    }    
+    }    */
+    console.log('--------------------------');
+    console.log('resultModule3');
+    node.done();
 }
 
 function resultModule4() {
-    var  results= node.game.memory.select('done')
+/*    var  results= node.game.memory.select('done')
         .and('module','==','Module4')
         .fetch();
     var dataResult, dataUser;
@@ -569,6 +735,7 @@ function resultModule4() {
         node.game.moduleIncomes[dataResult.id][3] = Number(value) * settings.CANTIDAD_ESU_x_PCH;
 
     }
+*/
     console.log('--------------------------');
     console.log('resultModule4');
 
@@ -719,7 +886,7 @@ function endgame() {
     //     headers: ["access", "exit", "bonus", "terminated"]
     // });
 
-    //node.done();
+//    node.done();
 }
 
 function gameover() {

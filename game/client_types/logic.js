@@ -157,10 +157,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('questionary1');
         }
     });
+/*    stager.extendStep('calcResult', {
+        cb: cbs.calcResult
+    });*/
     stager.extendStep('dataPlayer', {
-        cb: function() {
-            console.log('dataPlayer');
-        }
+        cb: cbs.dataPlayer
     });
     stager.extendStep('questionary2', {
         cb: function() {

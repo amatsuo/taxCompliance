@@ -20,6 +20,7 @@ module.exports = {
     instructionsModule3:instructionsModule3,
     instructionsModule4:instructionsModule4,
     questionary1:questionary1,
+    calcResult: calcResult,
     dataPlayer:dataPlayer,
     questionary2:questionary2,
     questionary3:questionary3,
@@ -199,6 +200,19 @@ function init() {
             roundInfo.innerHTML = "Practice round";
         }*/
     };
+
+    this.requestResult = function(){
+        if(!node.game.hasOwnProperty('moduleOutcomes')){
+            console.log("--------Date Requested--------");
+            node.say("RequestResults","SERVER");
+        }
+        node.on.data("AllResults", function(msg){
+            console.log("--------Requested Data Received--------");
+            console.log("%o", msg.data);
+            node.game.moduleOutcomes = msg.data;        
+        });
+    };
+
 
     treatment = node.env('treatment');
 
@@ -767,25 +781,45 @@ function questionary1(){
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
                 $('.modal-backdrop').remove();
-                console.log(arrayAnswers);
+                //console.log(arrayAnswers);
             }else{
                 node.done({
                     module:'Module4',
                     arrayAnswers:arrayAnswers
                 });
                 node.game.answersModule4=arrayAnswers;
-                console.log(arrayAnswers);
+                //console.log(arrayAnswers);
             }
 
         }
     });
 }
+
+function calcResult(){ //not used now.
+    W.loadFrame('dataPlayer.html',function(){
+        node.on.data("AllResults", function(msg){
+            node.game.moduleOutcomes = msg.data;
+            node.done();
+        });
+    });
+}
+
 function dataPlayer(){
     W.loadFrame('dataPlayer.html',function(){
         var b = W.getElementById('read');
         var gender, politics, trust, age;
         gender = politics = trust = age = null;
         var valid = false;
+        
+        node.on.data("AllResults", function(msg){
+            //console.log("%o", msg.data);
+            node.game.moduleOutcomes = msg.data;
+        });
+        node.on.data("WIN", function(msg){
+            //console.log("%o", msg.data);
+            node.game.endgame = msg.data;
+        });
+
         b.onclick = function() {
 
             if(W.getElementById("genderF").checked) gender="F";
@@ -805,9 +839,9 @@ function dataPlayer(){
             value = JSUS.isInt(value, 17, 150);
 
             age=value;
-            console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+trust);
-            console.log("age: %s, gender: %s, politics: %s, trust: %s", !age, !gender,
-                        politics !== null, !trust);
+            //console.log("edad:"+age+ ", genero: "+gender+", politica: "+politics+", respuesta : "+trust);
+            //console.log("age: %s, gender: %s, politics: %s, trust: %s", !age, !gender,
+              //          politics !== null, !trust);
             //console.log((!age | !gender | !(politics !== null) | !trust));
             if(!(!age | !gender | (politics === null) | !trust)) valid = true;
             if(!valid){
@@ -835,6 +869,7 @@ function dataPlayer(){
     });
 
 }
+
 function questionary2(){
     W.loadFrame('questionary2.html',function() {
         var b = W.getElementById('read');
@@ -854,7 +889,7 @@ function questionary2(){
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
                 $('.modal-backdrop').remove();
-                console.log(arrayAnswers);
+                //console.log(arrayAnswers);
 //                console.log(arrayAnswers);
 //                node.done();
             } else {
@@ -867,7 +902,7 @@ function questionary2(){
                 //node.game.dataPlayerValues.push(dataResult);
                 node.done(dataResult);
                 //node.game.answersModule4 = arrayAnswers;
-                console.log(arrayAnswers);
+                //console.log(arrayAnswers);
 
             }
         }
@@ -891,7 +926,7 @@ function questionary3(){
                 var modal = W.getElementById("ERROR");
                 $(modal).modal();
                 $('.modal-backdrop').remove();
-                console.log(arrayAnswers);
+                //console.log(arrayAnswers);
             }else{
                 var dataResult;
                 dataResult={
@@ -911,38 +946,55 @@ function questionary3(){
     });
 
 }
+
 function resultModule1(){
     W.loadFrame('resultModule1.html',function(){
         var dataResult;
-        node.on.data('Result',function(msg){
+        //node.say('RequestResult1', 'SERVER');
+        //node.on.data('Result',function(msg){
+        this.requestResult();
+        
+        // console.log("%o", node.game.moduleOutcomes);
+        if(node.game.moduleOutcomes.hasOwnProperty('Module1')){
+            var msg = {};
+            msg.data = node.game.moduleOutcomes['Module1'];
+            
+        
             if(msg.data.role=='A'){
-                W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
+                W.getElementById('groupLetter').innerHTML =
+                    W.getElementById('groupLetter').innerHTML+msg.data.role+".";
                 var pretext = (node.player.lang.shortName === "es")?
                     " envío a otros participantes ":
                     " sent to the other participant ";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
+                W.getElementById('groupText').innerHTML =
+                    W.getElementById('groupText').innerHTML + 
                     pretext + (1000-msg.data.value)+" ECUs.";
-                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
+                W.getElementById('earnings').innerHTML=
+                    W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
             } else {
-                W.getElementById('groupLetter').innerHTML= W.getElementById('groupLetter').innerHTML+msg.data.role+".";
+                W.getElementById('groupLetter').innerHTML =
+                    W.getElementById('groupLetter').innerHTML+msg.data.role+".";
                 var pretext = (node.player.lang.shortName === "es")?
                     " recibío de otros participantes ":
                     " received from the other participant ";
-                W.getElementById('groupText').innerHTML= W.getElementById('groupText').innerHTML + 
+                W.getElementById('groupText').innerHTML =
+                    W.getElementById('groupText').innerHTML + 
                     pretext + msg.data.value+" ECUs.";
-                W.getElementById('earnings').innerHTML= W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
+                W.getElementById('earnings').innerHTML =
+                    W.getElementById('earnings').innerHTML+msg.data.value+" ECUs.";
 
             }
-            dataResult={
+            dataResult = {
                 value: msg.data.value,
                 role: msg.data.role,
                 other: msg.data.other,
                 module:'resultModule1'
             };
-        });
+        }
+        //});
         var b = W.getElementById('read');
             b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + Number(dataResult.value);
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.value||0);
             node.done(dataResult);
 
         };
@@ -953,7 +1005,10 @@ function resultModule1(){
 function resultModule2(){
     W.loadFrame('resultModule2.html',function(){
         var dataResult;
-        node.on.data('Result',function(msg){
+        this.requestResult();
+        if(node.game.moduleOutcomes.hasOwnProperty('Module2')){
+            var msg = {};
+            msg.data = node.game.moduleOutcomes['Module2'];
             W.getElementById("round").innerHTML=msg.data.round;
             W.getElementById("totalEarnings").innerHTML=msg.data.roundIncome.toFixed(1) + "ECUs.";
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
@@ -975,10 +1030,10 @@ function resultModule2(){
             dataResult= msg.data;
             
             dataResult.module = 'resultModule2';
-        });
+        }
         var b = W.getElementById('read');
         b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings);
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings||0);
             node.done(dataResult);
         };
     });
@@ -987,8 +1042,10 @@ function resultModule2(){
 function resultModule3(){
     W.loadFrame('resultModule3.html',function(){
         var dataResult;
-        var dataResult;
-        node.on.data('Result',function(msg){
+        this.requestResult();
+        if(node.game.moduleOutcomes.hasOwnProperty('Module3')){
+            var msg = {};
+            msg.data = node.game.moduleOutcomes['Module3'];
             W.getElementById("round").innerHTML=msg.data.round;
             W.getElementById("totalEarnings").innerHTML=msg.data.roundIncome.toFixed(1) + "ECUs.";
             W.getElementById("numberCorrect").innerHTML=msg.data.correct;
@@ -1010,10 +1067,11 @@ function resultModule3(){
             dataResult= msg.data;
             
             dataResult.module = 'resultModule3';
-        });
+        }
+        
         var b = W.getElementById('read');
         b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings);
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings||0);
             node.done(dataResult);
         };
 
@@ -1023,9 +1081,10 @@ function resultModule3(){
 function resultModule4(){
     W.loadFrame('resultModule4.html',function(){
         var dataResult;
-        node.on.data('Result',function(msg){
-
-            W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
+        this.requestResult();
+        if(node.game.moduleOutcomes.hasOwnProperty('Module4')){
+            var msg = {};
+            msg.data = node.game.moduleOutcomes['Module4'];            W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
             W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
             W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+'';
             dataResult={
@@ -1034,10 +1093,11 @@ function resultModule4(){
                 select:msg.data.select,
                 value:msg.data.value,
             };
-        });
+        }
+        
         var b = W.getElementById('read');
         b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + parseFloat(dataResult.value)*node.game.settings.CANTIDAD_ESU_x_PCH;
+            node.game.totalECUs = node.game.totalECUs + parseFloat(dataResult.value||0)*node.game.settings.CANTIDAD_ESU_x_PCH;
             dataResult.totalECUs = node.game.totalECUs;
             node.done(dataResult);
         };
@@ -1053,17 +1113,21 @@ function endgame() {
         node.game.timer.switchActiveBoxTo(node.game.timer.mainBox);
         node.game.timer.waitBox.hideBox();
         node.game.timer.setToZero();        
-    
-        node.on.data('WIN', function(msg) {
+        
+        if(node.game.hasOwnProperty('endgame')) {
+        //node.on.data('WIN', function(msg) {
             var win, exitcode, codeErr;
-            var root;
+            var root, data;
             root = W.getElementById('container');
             codeErr = 'ERROR (code not found)';
-            win = msg.data && msg.data.win || 0;
-            exitcode = msg.data && msg.data.exitcode || codeErr;
+            data = node.game.endgame;
+            
+            win = data && data.win || 0;
+            exitcode = data && data.exitcode || codeErr;
             W.getElementById("win").innerHTML = 'Your bonus in this game is: $' + win.toFixed(2);
             W.getElementById("exitcode").innerHTML = 'Your exitcode is: ' + exitcode;
-        });
+        //});
+        }
         var b = W.getElementById('read');
         b.onclick = function() {
             node.done();
