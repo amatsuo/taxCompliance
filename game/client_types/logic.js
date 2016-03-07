@@ -166,11 +166,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('questionary2', {
         cb: function() {
             console.log('questionary2');
+            setTimeout(function() { node.done()}, 10000);
         }
     });
     stager.extendStep('questionary3', {
         cb: function() {
             console.log('questionary3');
+            setTimeout(function() { node.done()}, 10000);
         }
     });
     stager.extendStep('resultModule1', {

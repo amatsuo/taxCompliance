@@ -10,6 +10,7 @@ module.exports = function(settings, headers) {
         finalLine: "Recibirás las instrucciones de cada módulo al principio de cada uno de ellos.",
         important: "Important. If one of the players disconnects for more than 60 seconds the game will be terminated.",
         inSuchACase: "In such a case the player who disconnected will not be paid at all, and the remaining ones will be paid only the show up fee.",
+        toGetPaid: "In order to get approval for this assginment, you need to participate at least a half of the experiment. If technical difficulties prevent you from participating some part of the experiment, please contact us.",        
         ifYouUnderstood: "Si haz entendido las instruciones haz click en Siguiente ",
         proceed: "Siguiente"
     };

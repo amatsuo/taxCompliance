@@ -192,11 +192,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: cbs.questionary2,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
+        //stepRule: stepRules.SOLO
     });
     stager.extendStep('questionary3', {
         cb: cbs.questionary3,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS,
+        //stepRule: stepRules.SOLO
     });
 /*    stager.extendStage('game2', {
         init: function() {

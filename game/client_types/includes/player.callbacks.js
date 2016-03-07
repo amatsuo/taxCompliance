@@ -211,6 +211,9 @@ function init() {
             console.log("%o", msg.data);
             node.game.moduleOutcomes = msg.data;        
         });
+        node.on.data("WIN", function(msg){
+            node.game.endgame = msg.data;
+        });
     };
 
 
@@ -851,7 +854,7 @@ function dataPlayer(){
                 $('.modal-backdrop').remove();
                 //console.log(arrayAnswers);
             } else {
-                var dataResult;
+                var dataResult = {};
 
                 dataResult={
                     module:"dataResult",
@@ -893,7 +896,7 @@ function questionary2(){
 //                console.log(arrayAnswers);
 //                node.done();
             } else {
-                var dataResult;
+                var dataResult = {};
                 dataResult={
                     module:"questionary2",
                     arrayAnsers:arrayAnswers
@@ -928,7 +931,7 @@ function questionary3(){
                 $('.modal-backdrop').remove();
                 //console.log(arrayAnswers);
             }else{
-                var dataResult;
+                var dataResult = {};
                 dataResult={
                     module:"questionary3",
                     arrayAnsers:socio
@@ -949,16 +952,17 @@ function questionary3(){
 
 function resultModule1(){
     W.loadFrame('resultModule1.html',function(){
-        var dataResult;
+        var dataResult = {};
+        dataResult.value = 0;
         //node.say('RequestResult1', 'SERVER');
         //node.on.data('Result',function(msg){
         this.requestResult();
         
         // console.log("%o", node.game.moduleOutcomes);
-        if(node.game.moduleOutcomes.hasOwnProperty('Module1')){
-            var msg = {};
+        if(node.game.hasOwnProperty('moduleOutcomes') &&  
+           node.game.moduleOutcomes.hasOwnProperty('Module1')){
+            var msg = {};    
             msg.data = node.game.moduleOutcomes['Module1'];
-            
         
             if(msg.data.role=='A'){
                 W.getElementById('groupLetter').innerHTML =
@@ -994,7 +998,7 @@ function resultModule1(){
         //});
         var b = W.getElementById('read');
             b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + Number(dataResult.value||0);
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.value);
             node.done(dataResult);
 
         };
@@ -1004,9 +1008,11 @@ function resultModule1(){
 }
 function resultModule2(){
     W.loadFrame('resultModule2.html',function(){
-        var dataResult;
+        var dataResult = {};
+        dataResult.finalEarnings = 0;
         this.requestResult();
-        if(node.game.moduleOutcomes.hasOwnProperty('Module2')){
+        if(node.game.hasOwnProperty('moduleOutcomes') &&  
+           node.game.moduleOutcomes.hasOwnProperty('Module2')){
             var msg = {};
             msg.data = node.game.moduleOutcomes['Module2'];
             W.getElementById("round").innerHTML=msg.data.round;
@@ -1033,7 +1039,7 @@ function resultModule2(){
         }
         var b = W.getElementById('read');
         b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings||0);
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings);
             node.done(dataResult);
         };
     });
@@ -1041,10 +1047,12 @@ function resultModule2(){
 
 function resultModule3(){
     W.loadFrame('resultModule3.html',function(){
-        var dataResult;
+        var dataResult = {};
+        dataResult.finalEarnings;
         this.requestResult();
-        if(node.game.moduleOutcomes.hasOwnProperty('Module3')){
-            var msg = {};
+        if(node.game.hasOwnProperty('moduleOutcomes') &&  
+           node.game.moduleOutcomes.hasOwnProperty('Module3')){
+                    var msg = {};
             msg.data = node.game.moduleOutcomes['Module3'];
             W.getElementById("round").innerHTML=msg.data.round;
             W.getElementById("totalEarnings").innerHTML=msg.data.roundIncome.toFixed(1) + "ECUs.";
@@ -1071,8 +1079,9 @@ function resultModule3(){
         
         var b = W.getElementById('read');
         b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings||0);
+            node.game.totalECUs = node.game.totalECUs + Number(dataResult.finalEarnings);
             node.done(dataResult);
+            
         };
 
     });
@@ -1080,10 +1089,12 @@ function resultModule3(){
 
 function resultModule4(){
     W.loadFrame('resultModule4.html',function(){
-        var dataResult;
+        var dataResult = {};
+        dataResult.value = 0;
         this.requestResult();
-        if(node.game.moduleOutcomes.hasOwnProperty('Module4')){
-            var msg = {};
+        if(node.game.hasOwnProperty('moduleOutcomes') &&  
+           node.game.moduleOutcomes.hasOwnProperty('Module4')){
+                    var msg = {};
             msg.data = node.game.moduleOutcomes['Module4'];            W.getElementById("choise").innerHTML=  W.getElementById("choise").innerHTML+msg.data.choise+'.';
             W.getElementById("selection").innerHTML=W.getElementById("selection").innerHTML+msg.data.select+'.';
             W.getElementById("earnings").innerHTML=W.getElementById("earnings").innerHTML+msg.data.value+'';
@@ -1097,7 +1108,7 @@ function resultModule4(){
         
         var b = W.getElementById('read');
         b.onclick = function() {
-            node.game.totalECUs = node.game.totalECUs + parseFloat(dataResult.value||0)*node.game.settings.CANTIDAD_ESU_x_PCH;
+            node.game.totalECUs = node.game.totalECUs + parseFloat(dataResult.value)*node.game.settings.CANTIDAD_ESU_x_PCH;
             dataResult.totalECUs = node.game.totalECUs;
             node.done(dataResult);
         };

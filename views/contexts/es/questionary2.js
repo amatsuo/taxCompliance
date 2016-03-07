@@ -4,6 +4,7 @@ module.exports = function(settings, headers) {
     return {
         title: "Modulo4",
         Module: "Cuestionario",
+        qtext: "please consider the following and indicate if you think they are justified or not.",
         a:" Evadir pago transporte público:",
         b:" Mentir en las declaraciones de impuesto si se tiene la oportunidad:",
         c:" Conducir más rápido que el limite de velocidad permitido:",

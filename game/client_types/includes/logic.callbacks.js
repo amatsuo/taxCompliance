@@ -18,6 +18,7 @@ module.exports = {
     init: init,
     gameover: gameover,
     doMatch: doMatch,
+    sendBonus: sendBonus,
     endgame: endgame,
     initRetGame: initRetGame,
     retGame: retGame,
@@ -64,6 +65,8 @@ function init() {
     node.game.roundIncome = {};
     node.game.pooledDeduction = 0;
 
+    node.game.win ={};
+    node.game.ExitCode ={};
 
     node.game.practiceStage = 0;
 //     DUMP_DIR_JSON = DUMP_DIR + 'json/';
@@ -92,6 +95,12 @@ function init() {
         if (node.game.moduleOutcomes.hasOwnProperty(id)) {
             console.log("%o", node.game.moduleOutcomes);
             node.say('AllResults', id, node.game.moduleOutcomes[id]);
+        }
+        if (node.game.win.hasOwnProperty(id)) {
+            node.say('WIN', id, {
+                win: node.game.win[id],
+                exitcode: node.game.ExitCode[id]
+            });
         }
     });
     node.on('STEPPING', function() {
@@ -388,11 +397,11 @@ function result() {
                 node.game.pooledDeduction = node.game.pooledDeduction +
                     node.game.deduction[key];
             }
-            else {
+/*            else {
                 node.game.pooledDeduction = node.game.pooledDeduction +
                     // Pass other params as needed.
                     bot2(node, node.game.deduction);
-            }
+            }*/
         }
     }
     currentStage = node.game.getCurrentGameStage();
@@ -433,7 +442,7 @@ function result() {
         prelimGain: node.game.prelimGain,
         roundIncome: node.game.roundIncome,*/
         player: node.player.id,
-        stage: node.player.stage});
+        stage: {stage: 99, step: 99, round: 99}});
 
    /* node.on.data('DECLARE',function(msg){
             //console.log('declare: '+ msg.data);
@@ -576,12 +585,18 @@ function calcResult() {
     for (id in node.game.moduleOutcomes) {
         if (node.game.moduleOutcomes.hasOwnProperty(id)) {
             var totalIncomes, code;
+            var insertdata = node.game.moduleOutcomes[id];
+            insertdata.player = id;
+            insertdata.stage = {stage: 99, step: 99, round: 99};
+            
+            node.game.memory.insert(insertdata);
             
             console.log(node.game.moduleIncomes[id]);
             console.log("%o", node.game.moduleOutcomes);
             node.say('AllResults', id, node.game.moduleOutcomes[id]);
         }
     }
+
     
 }
 
@@ -589,13 +604,15 @@ function dataPlayer() {
     console.log('--------------------------');
     console.log('dataPlayer');
     calcResult();
-    endgame();
+    sendBonus();
 }
+
 
 function resultModule1() {
     console.log('--------------------------');
     console.log('resultModule1');
     node.game.memory.save(DUMP_DIR + 'memory_all.json');
+    setTimeout(function() { node.done()}, 10000);
     
     /*
     node.on.data('RequestResult1', function(msg){
@@ -658,7 +675,8 @@ function resultModule2() {
     }
     */
     console.log('--------------------------');
-    console.log('resultModule4');
+    console.log('resultModule2');
+    setTimeout(function() { node.done()}, 10000);
 
 }
 
@@ -682,7 +700,7 @@ function resultModule3() {
     }    */
     console.log('--------------------------');
     console.log('resultModule3');
-    node.done();
+    setTimeout(function() { node.done()}, 10000);
 }
 
 function resultModule4() {
@@ -738,7 +756,7 @@ function resultModule4() {
 */
     console.log('--------------------------');
     console.log('resultModule4');
-
+    setTimeout(function() { node.done()}, 10000);
 }
 
 function doMatch() {
@@ -817,6 +835,13 @@ function notEnoughPlayers() {
 }
 
 function endgame() {
+    sendBonus();
+    setTimeout(function() { node.done()}, 10000);
+}
+
+
+
+function sendBonus() {
     var code, exitcode, accesscode;
     var filename, bonusFile, bonus;
     var EXCHANGE_RATE;
@@ -848,6 +873,10 @@ function endgame() {
         });
         winamount = winamount / settings.CANTIDAD_ESU_x_PCH;
         code.win = winamount;
+        
+        node.game.win[p.id] = winamount;
+        node.game.ExitCode[p.id] = exitcode;
+        
 /*        if (node.env('treatment') === 'pp' && node.game.gameTerminated) {
             code.win = 0;
         }

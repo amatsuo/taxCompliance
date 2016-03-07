@@ -1,7 +1,7 @@
 module.exports = function(settings, headers) {
 
     return {
-        title: "Cuestionario",
+        title: "Modulo 5: Cuestionario",
         Module: "Result Module",
         text1:"Responda las siguientes preguntas, y presione continuar:",
         text2:"Edad:",
