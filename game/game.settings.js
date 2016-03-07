@@ -14,6 +14,8 @@
  * http://www.nodegame.org
  * ---
  */
+var salG = 100, salK = 100;
+var baseline = true;
 module.exports = {
 
     // Variables shared by all treatments.
@@ -46,8 +48,9 @@ module.exports = {
 //    CANTIDAD_DE_ESUx_POUNDS:300,
 //    CANTIDAD_DE_POUNS:500,
     //
-    SALARY_G:200,
-    SALARY_K:100,
+    SALARY_G: salG,
+    SALARY_K: salK,
+    BASELINE: baseline,
     TIMER_TOTAL:30,
     TAX_MODULE_2:0.1,
     PROBABILITY_MODULE_2:0.0,

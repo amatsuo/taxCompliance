@@ -526,7 +526,9 @@ function game() {
             title.innerHTML = title.innerHTML+msg.data.module;
             node.game.group = msg.data.group;
             node.set({role: msg.data.group });
-            title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+            if(!node.game.settings.BASELINE){
+                title.innerHTML=title.innerHTML+": You are Group " + node.game.group;
+            }
         });
 /*        node.on.data('Group K!', function(msg) {
             node.game.group="K";
