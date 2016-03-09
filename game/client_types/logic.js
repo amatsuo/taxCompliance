@@ -122,13 +122,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log("%o", node.game.taxGroup);
         }
     });
-    stager.extendStep('instructionsModule3', {
+/*    stager.extendStep('instructionsModule3', {
         cb: function() {
             console.log('instructionsModule3');
             node.game.module = 3;
             node.game.payRound["Module" + node.game.module ] = Math.abs(Math.floor(Math.random()*(settings.REPEAT))) + 1;
         }
-    });
+    });*/
     stager.extendStep('instructionsModule4', {
         cb: function() {
             console.log('instructionsModule4');
@@ -181,9 +181,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('resultModule2', {
         cb: cbs.resultModule2
     });
-    stager.extendStep('resultModule3', {
+/*    stager.extendStep('resultModule3', {
         cb: cbs.resultModule3
-    });
+    });*/
 
     stager.extendStep('resultModule4', {
         cb: cbs.resultModule4

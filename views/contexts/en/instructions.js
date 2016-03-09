@@ -1,11 +1,12 @@
 module.exports = function(settings, headers) {
 
     var timeTotal=settings.standard.TIMER_TOTAL;
+    var nmodule = settings.standard.NMODULE;
     return {
         title: "Instructions",
         instructions: "Instructions",
         thisGame: "This game is played in rounds by human players randomly paired.",
-        InstroModules: 'This experiment consists of 5 modules. We hope you participate until the end of this session, which will take about '+ timeTotal +' minutes.',
+        InstroModules: 'This experiment consists of ' +nmodule + ' modules. We hope you participate until the end of this session, which will take about '+ timeTotal +' minutes.',
         finalLine: "You will receive instructions for each module at the beginning of the module.",
         important: "Important. Even if one of the players disconnects the game will proceed without delay.",
         inSuchACase: "In such a case, disconnected players will not be paid for the round which they did not participate.", 

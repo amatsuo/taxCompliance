@@ -2,7 +2,7 @@ module.exports = function(settings, headers) {
 
     return {
         title: "Resultado",
-        Module: "Result Module 4",
+        Module: "Result Module 3",
         text1:"Decision number selected for payment: ",
         text2:"Your decision: ",
         text3:"Profit of the module: $",

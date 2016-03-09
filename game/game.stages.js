@@ -42,13 +42,13 @@ module.exports = function(stager, settings) {
     stager.step('taxReturn2');
     stager.step('result2');
     
-    //Module 3
+/*    //Module 3
     stager.next('instructionsModule3');
 
     stager.repeatStage("Module3", settings.REPEAT);
     stager.step('game2');
     stager.step('taxReturn2');
-    stager.step('result2');
+    stager.step('result2');*/
     // Continue experiment.
     {
     //MODULE 4
@@ -69,7 +69,7 @@ module.exports = function(stager, settings) {
     stager.stage('resultStage');
     stager.step('resultModule1');
     stager.step('resultModule2');
-    stager.step('resultModule3');
+    //stager.step('resultModule3');
     stager.step('resultModule4');
     }
     //stager.step('end');

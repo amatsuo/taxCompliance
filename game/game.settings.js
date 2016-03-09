@@ -14,7 +14,7 @@
  * http://www.nodegame.org
  * ---
  */
-var salG = 100, salK = 100;
+var salG = 150, salK = 150;
 var baseline = true;
 module.exports = {
 
@@ -23,9 +23,10 @@ module.exports = {
     
     // Session counter.
     SESSION_ID: 1,
+    NMODULE: 4,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 1,
+    REPEAT: 2,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 60000,
     //Timer instructions
@@ -33,7 +34,7 @@ module.exports = {
     //Timer Dictator Game
     TIMER_DG: 30000,
     //Timer for RET
-    TIMER_GAME:5000,
+    TIMER_GAME: 30000,
     //Timer for Declaration
     TIMER_DECLARE: 30000,
     //Timer for Declaration
@@ -42,8 +43,8 @@ module.exports = {
     TIMER_RESULT: 30000,
 
     //
-    CANTIDAD:1000, //endowmnet for dictator game
-    CANTIDAD_ESU_x_PCH:1000, //exhange rate
+    CANTIDAD: 1000, //endowmnet for dictator game
+    CANTIDAD_ESU_x_PCH: 1000, //exhange rate
     CANTIDAD_DE_PCH:1,
 //    CANTIDAD_DE_ESUx_POUNDS:300,
 //    CANTIDAD_DE_POUNS:500,

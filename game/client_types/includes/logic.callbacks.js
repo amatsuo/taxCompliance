@@ -500,7 +500,7 @@ function calcResult() {
 
     }
     //results module 2 and 3
-    for(var i = 2; i <= 3; i++) {
+    for(var i = 2; i <= 2; i++) {
         var id;
         resultsArray=node.game.memory.select('module','==','Module' + i)
                 .and('paidRound', '==', 1)

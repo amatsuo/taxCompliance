@@ -172,11 +172,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
     });
-    stager.extendStep('instructionsModule3', {
+/*    stager.extendStep('instructionsModule3', {
         cb: cbs.instructionsModule3,
         // syncOnLoaded: true,
         timer: settings.TIMER_INSTRUCTIONS
-    });
+    });*/
     stager.extendStep('instructionsModule4', {
         cb: cbs.instructionsModule4,
         // syncOnLoaded: true,
@@ -251,12 +251,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         timer: settings.TIMER_RESULT,
         stepRule: stepRules.SOLO
     });
-    stager.extendStep('resultModule3', {
+ /*   stager.extendStep('resultModule3', {
         cb: cbs.resultModule3,
         // syncOnLoaded: true,
         timer: settings.TIMER_RESULT,
         stepRule: stepRules.SOLO
-    });
+    });*/
     stager.extendStep('resultModule4', {
         cb: cbs.resultModule4,
         // syncOnLoaded: true,
