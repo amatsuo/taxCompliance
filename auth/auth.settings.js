@@ -11,10 +11,10 @@ module.exports = {
     // If authorization is enabled clients must use a valid code,
     // as exported by the codes property here, to be allowed to
     // load resources from the server.
-    enabled: false, //  [true, false] Default: TRUE.
+    enabled: true, //  [true, false] Default: TRUE.
 
     // Option specifying how to load the codes.
-    mode: 'auto', // ['auto'] Default: 'auto'
+    mode: 'file', // ['auto'] Default: 'auto'
 
     // Codes file. Must export a function that returns an array of codes
     // synchronously or asynchronously. Default file: 'auth.codes.js'

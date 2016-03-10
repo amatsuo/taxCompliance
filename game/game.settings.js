@@ -26,7 +26,7 @@ module.exports = {
     NMODULE: 4,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 2,
+    REPEAT: 5,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 60000,
     //Timer instructions
@@ -45,20 +45,20 @@ module.exports = {
     //
     CANTIDAD: 1000, //endowmnet for dictator game
     CANTIDAD_ESU_x_PCH: 1000, //exhange rate
-    CANTIDAD_DE_PCH:1,
+    CANTIDAD_DE_PCH: 1,
 //    CANTIDAD_DE_ESUx_POUNDS:300,
 //    CANTIDAD_DE_POUNS:500,
     //
     SALARY_G: salG,
     SALARY_K: salK,
     BASELINE: baseline,
-    TIMER_TOTAL:30,
-    TAX_MODULE_2:0.1,
-    PROBABILITY_MODULE_2:0.0,
-    TAX_MODULE_3:0.1,
-    PROBABILITY_MODULE_3:0.8,
+    TIMER_TOTAL: 30,
+    TAX_MODULE_2: 0.1,
+    PROBABILITY_MODULE_2: 0.0,
+    TAX_MODULE_3: 0.1,
+    PROBABILITY_MODULE_3: 0.8,
 
-    UNIDAD_ESTANDAR:"ECUs",
+    UNIDAD_ESTANDAR: "ECUs",
 
     MIN_PLAYERS: 2,
 
@@ -88,7 +88,7 @@ module.exports = {
             fullName: "Time Pressure Treatment",
             description: "Short times to take decisions",
             timer: 10000
-        },
+        }
 
     }
 };

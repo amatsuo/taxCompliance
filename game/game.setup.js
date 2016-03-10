@@ -21,12 +21,14 @@ module.exports = function(settings, stages) {
         auto: false
     };
 
-    setup.debug = true;
+//    setup.debug = true;
+    setup.debug = false;
 
-    setup.verbosity = 1;
+//    setup.verbosity = 1;
+    setup.verbosity = 0;
 
     setup.window = {
-        promptOnleave: false//!setup.debug
+        promptOnleave: true//!setup.debug
     }
     
 //    setup.window.promptOnLeave = false;
