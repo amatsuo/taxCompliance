@@ -300,6 +300,7 @@ function init() {
             messageData.prelimGain = node.game.prelimGain[p.id] ? node.game.prelimGain[p.id] : 0 ;
             messageData.pooledDeduction = node.game.pooledDeduction;
             messageData.incomeFromPooled = node.game.pooledDeduction / node.game.pl.size();
+            messageData.taxRate = settings.TAX_MODULE_2;
 
             //console.log("round_info: %o", messageData);
             node.say('stage_info', p.id, messageData);

@@ -5,9 +5,9 @@ module.exports = function(settings, headers) {
         unit = settings.standard.UNIDAD_ESTANDAR, 
         cantidadESUxPCH = settings.standard.CANTIDAD_ESU_x_PCH,
         cantidadPCH = settings.standard.CANTIDAD_DE_PCH,
-        taxRate = settings.standard.TAX_MODULE_2,
+        //taxRate = settings.standard.TAX_MODULE_2,
         auditRate = settings.standard.PROBABILITY_MODULE_2;
-    var taxPct = Math.round(taxRate * 100),
+    var //taxPct = Math.round(taxRate * 100),
         auditPct = Math.round(auditRate * 100);
     var baseline = settings.standard.BASELINE;
     var repeat = settings.standard.REPEAT;
@@ -23,13 +23,13 @@ module.exports = function(settings, headers) {
         instructions: "Module 2",
         a: atext,
         b: btext,
-        c:  "At the end of each round, once you have received information concerning your Preliminary Gains, you will be asked to declare these gains. In this module <strong>"+ taxPct + "% of these Declared Gains </strong>will then be deducted from your Preliminary Gains. ",
+        c:  "At the end of each round, once you have received information concerning your Preliminary Gains, you will be asked to declare these gains. In this module <strong><span id='taxPct1'></span>% of these Declared Gains </strong>will then be deducted from your Preliminary Gains. ",
         d:  "In each round there is a certain probability that your Declared Gains will be compared with your actual Preliminary Gains in order to verify these two amounts correspond. <strong>In this module this probability is " + auditPct + "%.</strong>",
-        e:  "If this verification finds a discrepancy between the Preliminary and Declared gains an extra amount will be deducted from your Preliminary Gains. In this module this amount will correspond to 50% of the observed discrepancy. In addition, the regular deduction of "+ taxPct + "% will apply to the Preliminary Gains and not to the declared amount.",
+        e:  "If this verification finds a discrepancy between the Preliminary and Declared gains an extra amount will be deducted from your Preliminary Gains. In this module this amount will correspond to 50% of the observed discrepancy. In addition, the regular deduction of <span id='taxPct2'></span>% will apply to the Preliminary Gains and not to the declared amount.",
         f:  "Deductions applying to the four group members will then be pooled and equally distributed amongst those members.",
         g:  "Your profits are calculated and displayed at the end of each round in the following manner:",
         g1: "   Profit = Preliminary Gains – Deduction from the Declared Gains – Potential deductions due to discrepancy + Group amount",
-        h:  "At the end of the module one round will be chosen at random, and your earnings will be based on your profit of that round at the exchange rate " + cantidadESUxPCH + unit + " = $" + cantidadPCH + ".",
+        h:  "At the end of the module one round will be chosen at random, and your earnings will be based on your profit of that round at the exchange rate " + cantidadESUxPCH + ' ' + unit + " = $" + cantidadPCH + ".",
         i:  "You will be informed of your earnings for this module at the end of the experiment.",
         ifYouUnderstood: "If you understand the instructions, click \"Start Practice Round\". A round of practice will start.",
         proceed: "Start Practice Round"

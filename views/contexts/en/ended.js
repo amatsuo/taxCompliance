@@ -3,8 +3,8 @@ module.exports = function(settings, headers) {
     return {
         "title": "ENDED",
         "thankYou": "THANK YOU FOR PLAYING",
-        "pleaseGo": "Please go back to the Amazon Mechanical Turk web site and submit the hit.",
-        "weUsually": "We usually pay within 24 hours. For any problem, please contact us at matsuoakcrowd@gmail.com with following information:",
+        "pleaseGo": "Please go back to the Amazon Mechanical Turk website and submit the hit with the exit code below.",
+        "weUsually": "We usually approve the HIT within 24 hours. The bonus payment will be processed later. For any problem, please contact us at matsuoakcrowd@gmail.com with following information:",
         "yourTurker": "your Mechanical Turk Worker ID",
         "theHIT": "the HIT name: " + gameName,
         "yourExitCode": "your exit code, as written below",

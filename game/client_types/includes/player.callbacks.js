@@ -381,12 +381,12 @@ function module1(){
         node.on.data('Role A', function(msg) {
             role=msg.data.role;
             other=msg.data.other;
-            console.log('Role '+ role);
+            //console.log('Role '+ role);
         });
         node.on.data('Role B', function(msg) {
             role=msg.data.role;
             other=msg.data.other;
-            console.log('Role '+role );
+            //console.log('Role '+role );
         });
 
         b.onclick = function() {
@@ -429,6 +429,9 @@ function instructionsModule2(){
 
         var b = W.getElementById('read');
         node.game.round=-1; // in order to include the practice round;
+        W.getElementById('taxPct1').innerHTML = Math.round(Number(node.game.settings.TAX_MODULE_2)*100);
+        W.getElementById('taxPct2').innerHTML = Math.round(Number(node.game.settings.TAX_MODULE_2)*100);
+        //Math.round(Number(node.game.settings.TAX_MODULE_2)*100)
         b.onclick = function() {
             node.done();
         };
@@ -437,8 +440,7 @@ function instructionsModule2(){
         // nodeGame hint:
         //
         // node.env executes a function conditionally to
-        // the environments defined in the configuration
-        // options.
+        // the environments defined in the configuration        // options.
         //
         // If the 'auto' environment was set to TRUE,
         // then the function will be executed
@@ -575,17 +577,17 @@ function game() {
             var result = JSUS.isInt(resultint,0,200);
             var success = (resultint == num1+num2);
             
-            W.getElementById('result').value = "";
-            num1 = Math.floor(Math.random()*(99-10)+10);
-            num2 = Math.floor(Math.random()*(99-10)+10);
-
-            W.getElementById('num1').innerHTML = num1;
-            W.getElementById('num2').innerHTML = num2;
             
             if(result === false){
                 console.log("validación Modal error");
             }
             else{
+                W.getElementById('result').value = "";
+                num1 = Math.floor(Math.random()*(99-10)+10);
+                num2 = Math.floor(Math.random()*(99-10)+10);
+
+                W.getElementById('num1').innerHTML = num1;
+                W.getElementById('num2').innerHTML = num2;
                 if(success){
                     W.getElementById('alertSucces').style.display = 'block';
                     W.getElementById('alertDanger').style.display = 'none';
@@ -705,7 +707,8 @@ function result(){
                     declareEarnings:roundData.declaredEarnings,
                     statusDeclare:roundData.audited,
                     taxPaid:roundData.deduction,
-                    finalEarnings:finalEarnings
+                    finalEarnings:finalEarnings,
+                    taxRate:roundData.taxRate
 
                 });
             node.game.round++;
@@ -759,6 +762,7 @@ function questionary1(){
         var i=1;
         var percent=10;
 
+/*
         for (;i<20;i=i+2){
             W.getElementById("percentA"+i).innerHTML=" "+percent;
             W.getElementById("percentA"+(i+1)).innerHTML=" "+(100-percent);
@@ -767,6 +771,7 @@ function questionary1(){
             percent=percent+10;
 
         }
+*/
         var b=W.getElementById('read');
         b.onclick=function(){
             var arrayAnswers=[];

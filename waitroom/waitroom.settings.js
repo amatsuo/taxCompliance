@@ -17,7 +17,8 @@ module.exports = {
     // Treatment assigned to groups.
     // If left undefined, a random treatment will be selected.
     // Use "treatment_rotate" for rotating all the treatments.
-    CHOSEN_TREATMENT: 'treatment_rotate',
+    //CHOSEN_TREATMENT: 'hightax',
+    CHOSEN_TREATMENT: undefined,
 
     // Maximum waiting time.
     MAX_WAIT_TIME: 600000,

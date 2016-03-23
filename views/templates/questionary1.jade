@@ -3,234 +3,41 @@ block mainContent
    div(id='container')
       h1=Module
       style.
-         .risktab { padding: 10px;}
+         td {text-align: center;}
+         table {border-collapse: collapse;}
+
+         table, th, td {
+              border: 1px solid black;
+         }
       div(id='module4')
          br
-         br
-         br
-         table(border='3px solid', width="120%", font-size="40%")
+         =instText
+         table(border='3px solid', width="100%", font-size="40%")
+            tr 
+                td
+                td(colspan="2") Option A
+                td
+                td(colspan="2") Option B
+                td
             tr
-               td.risktab
-                  strong A:
-                  span#percentA1
-                  =valorA1
-                  span#percentA2
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB1
-                  =valorB1
-                  span#percentB2
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion1
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question1' )#answerA1
-                           span A
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question1' )#answerB1
-                           span B
-
-
-
-               td.risktab
-                  strong A:
-                  span#percentA11
-                  =valorA1
-                  span#percentA12
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB11
-                  =valorB1
-                  span#percentB12
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion6
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question6' )#answerA6
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question6' )#answerB6
-                           span B
-
-
-            tr
-               td.risktab
-                  strong A:
-                  span#percentA3
-                  =valorA1
-                  span#percentA4
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB3
-                  =valorB1
-                  span#percentB4
-                  =valorB2
-                  div(style="margin-left: 25%")#fQuestion2
-                     from(role="form")
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question2' )#answerA2
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question2' )#answerB2
-                           span B
-               td.risktab
-                  strong A:
-                  span#percentA13
-                  =valorA1
-                  span#percentA14
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB13
-                  =valorB1
-                  span#percentB14
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion7
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question7' )#answerA7
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question7' )#answerB7
-                           span B
-            tr
-               td.risktab
-                  strong A:
-                  span#percentA5
-                  =valorA1
-                  span#percentA6
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB5
-                  =valorB1
-                  span#percentB6
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion3
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question3' )#answerA3
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question3' )#answerB3
-                           span B
-
-               td.risktab
-                  strong A:
-                  span#percentA15
-                  =valorA1
-                  span#percentA16
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB15
-                  =valorB1
-                  span#percentB16
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion8
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question8' )#answerA8
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question8' )#answerB8
-                           span B
-
-
-            tr
-               td.risktab
-                  strong A:
-                  span#percentA7
-                  =valorA1
-                  span#percentA8
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB7
-                  =valorB1
-                  span#percentB8
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion4
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question4' )#answerA4
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question4' )#answerB4
-                           span B
-               td.risktab
-                  strong A:
-                  span#percentA17
-                  =valorA1
-                  span#percentA18
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB17
-                  =valorB1
-                  span#percentB18
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion9
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question9' )#answerA9
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question9' )#answerB9
-                           span B
-            tr
-               td.risktab
-                  strong A:
-                  span#percentA9
-                  =valorA1
-                  span#percentA10
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB9
-                  =valorB1
-                  span#percentB10
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion5
-                        div(class="radio")
-                           input(type="radio", value='A',name='Question5' )#answerA5
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question5' )#answerB5
-                           span B
-               td.risktab
-                  strong A:
-                  span#percentA19
-                  =valorA1
-                  span#percentA20
-                  =valorA2
-                  br
-                  strong B:
-                  span#percentB19
-                  =valorB1
-                  span#percentB20
-                  =valorB2
-                  div(style="margin-left: 25%")
-                     from(role="form")#fQuestion10
-                        div(class="radio")
-                           input(type="radio", value='A10',name='Question10' )#answerA10
-                           span A
-
-                        div(class="radio")
-                           input(type="radio", value='B',name='Question10' )#answerB10
-                           span B
+                td(width="7%")
+                td(width="20%")=valorA1
+                td(width="20%")=valorA2
+                td(width="6%")
+                td(width="20%")=valorB1
+                td(width="20%")=valorB2
+                td(width="7%")
+            each val in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+              tr
+                  td
+                      input(type="radio", value='A',name='Question' + val , id = "answerA" + val) 
+                  td= val*10 + "%"
+                  td= (10 - val) *10 + "%"
+                  td 
+                  td= val*10 + "%"
+                  td= (10 - val) *10 + "%"
+                  td
+                      input(type="radio", value='B',name='Question' + val , id = "answerB" + val)
 
          br
          br
@@ -245,5 +52,6 @@ block mainContent
                      =error
                   .modal-footer
                   button(type="button", class="btn btn-primary", data-dismiss="modal")=errorClose
-//Created by joseorellana on 27-01-16.
+
+//Created by akitaka.matsuo on 03-11-2016.
 

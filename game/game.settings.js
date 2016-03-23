@@ -26,15 +26,15 @@ module.exports = {
     NMODULE: 4,
 
     // Numnber of game rounds repetitions.
-    REPEAT: 5,
+    REPEAT: 10,
     //Timer selec_Lang
     TIMER_SELEC_LANG: 60000,
     //Timer instructions
     TIMER_INSTRUCTIONS: 180000,
     //Timer Dictator Game
-    TIMER_DG: 30000,
+    TIMER_DG: 120000,
     //Timer for RET
-    TIMER_GAME: 30000,
+    TIMER_GAME: 60000,
     //Timer for Declaration
     TIMER_DECLARE: 30000,
     //Timer for Declaration
@@ -53,9 +53,9 @@ module.exports = {
     SALARY_K: salK,
     BASELINE: baseline,
     TIMER_TOTAL: 30,
-    TAX_MODULE_2: 0.1,
+//    TAX_MODULE_2: 0.1,
     PROBABILITY_MODULE_2: 0.0,
-    TAX_MODULE_3: 0.1,
+//    TAX_MODULE_3: 0.1,
     PROBABILITY_MODULE_3: 0.8,
 
     UNIDAD_ESTANDAR: "ECUs",
@@ -75,20 +75,44 @@ module.exports = {
 
     // If the `treatments` object is missing a treatment named _standard_
     // will be created automatically, and will contain all variables.
+  /*  treatments: {
+        lowtax: {
+            fullName: "Low Tax",
+            description: "Tax Rate is 10%",
+            TAX_MODULE_2: 0.1,
+            TAX_MODULE_3: 0.1,
+            timer: 30000
 
+        },
+        hightax: {
+            fullName: "High Tax",
+            description: "Tax Rate is 30%",
+            TAX_MODULE_2: 0.3,
+            TAX_MODULE_3: 0.3,
+            timer: 30000
+        }
+    }
+*/
     treatments: {
 
         standard: {
-            fullName: "Standard Treatment",
-            description: "Longer time",
+            fullName: "Standard Tax Rate",
+            description: "Tax Rate is 10%",
+            TAX_MODULE_2: 0.1,
+            TAX_MODULE_3: 0.1,
+            
             timer: 30000
         },
 
-        pressure: {
-            fullName: "Time Pressure Treatment",
-            description: "Short times to take decisions",
+        hightax: {
+            fullName: "High Tax Rate",
+            description: "Tax Rate is 30%",
+            TAX_MODULE_2: 0.3,
+            TAX_MODULE_3: 0.3,
+            
             timer: 10000
         }
 
     }
+    
 };

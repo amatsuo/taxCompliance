@@ -7,7 +7,7 @@ var avalible = settings.standard.CANTIDAD,
     return {
         title: "InstructionsModule1",
         instructions: "Module 1",
-        a: 'In this module half of the participants will receive an Endowment of '+avalible+' '+unit+' (group A), and the other half will not (group B). The exchange rate is: '+cantidadESUxPCH+unit+' = $ '+cantidadPCH+'.00',
+        a: 'In this module half of the participants will receive an Endowment of '+avalible+' '+unit+' (group A), and the other half will not (group B). The exchange rate is: '+cantidadESUxPCH + ' ' +  unit + ' = $ '+cantidadPCH+'.00',
         b: "Each participant who receives an Endowment (group A) will be randomly paired with another person in this room who has not (group B). You will not know your partner's identity, nor will they know yours. Nor will these identities be revealed after the session is completed.",
         c:"However, before the endowments are distributed and the pairing takes place, you may allocate the endowment between yourself and the other person as you wish if you were to receive this Endowment. ",
         d:"Profits in this module will be calculated in the following way:",

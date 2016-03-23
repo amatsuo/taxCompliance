@@ -65,6 +65,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('instructions', {
         cb: function() {
+            console.log("%o", settings);
             console.log('Instructions.');
         }
     });
