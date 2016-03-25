@@ -343,6 +343,7 @@ function instructionsModule1(){
         b.onclick = function() {
             node.game.module++;
             node.done();
+            
         };
         //console.log("my object: %o", node.player);
 
@@ -1146,6 +1147,9 @@ function endgame() {
         }
         var b = W.getElementById('read');
         b.onclick = function() {
+            setTimeout(function() {
+                W.getElementById('ng_waitScreen').innerHTML = "Thank you for playing. You can close this page now.";
+            }, 1000);            
             node.done();
         };
     });
